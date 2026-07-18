@@ -1,0 +1,4 @@
+interface:
+  display_name: "Maxwell監査Skill"
+  short_description: "未採用branch・原初目的・神話の焼却を監査する"
+  default_prompt: "Use $audit-with-maxwell to inspect whether this proposal burns unmounted branches, mythology, or its original purpose."

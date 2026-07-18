@@ -115,6 +115,38 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
         )
     )
 
+    try:
+        bundle = load_json(root / "magi/0.2.0/bundle.json")
+        source_policy = load_json(root / "magi/0.2.0/source-map.json")
+        audit_ids = [item["id"] for item in bundle["audit_slots"]]
+        support_slots = bundle["support_slots"]
+        invariants = bundle["invariants"]
+        if bundle.get("version") != "0.2.0":
+            raise ValueError("MAGI bundle versionは0.2.0である必要があります。")
+        if audit_ids != ["maxwell", "uriel", "raphael"]:
+            raise ValueError("MAGI監査slotの順序または構成が契約と一致しません。")
+        if len(support_slots) != 1 or support_slots[0].get("id") != "chikuwa-cannon":
+            raise ValueError("ちくわ砲support slotを一意に確認できません。")
+        if support_slots[0].get("is_audit_dimension") is not False:
+            raise ValueError("ちくわ砲を監査次元または第四票にしてはいけません。")
+        if any(value is not False for value in invariants.values()):
+            raise ValueError("MAGIの非人格・非神託・非多数決不変条件が崩れています。")
+        policy = source_policy["policy"]
+        if policy.get("network_access_performed_by_resolver") is not False:
+            raise ValueError("source resolverはnetwork accessを実行してはいけません。")
+        if policy.get("secret_scan") is not False:
+            raise ValueError("source resolverはsecret scanを実行してはいけません。")
+        skill_paths = [item["skill"] for item in bundle["audit_slots"]]
+        skill_paths.extend(item["skill"] for item in support_slots)
+        skill_paths.append(bundle["composite_skill"])
+        missing_skills = [path for path in skill_paths if not (root / path / "SKILL.md").is_file()]
+        if missing_skills:
+            raise ValueError(f"MAGI Skillがありません: {', '.join(missing_skills)}")
+    except (KeyError, TypeError, ValueError) as error:
+        checks.append(check("magi-skill-bundle", "fail", str(error)))
+    else:
+        checks.append(check("magi-skill-bundle", "pass", "3 audit slots + 1 support slot"))
+
     statuses = {item["status"] for item in checks}
     overall = "fail" if "fail" in statuses else "warn" if "warn" in statuses else "pass"
     observed = datetime.now().astimezone()

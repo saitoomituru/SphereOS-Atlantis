@@ -1,0 +1,4 @@
+interface:
+  display_name: "Raphael監査Skill"
+  short_description: "棚配置・意味経路・system greenを監査する"
+  default_prompt: "Use $audit-with-raphael to inspect shelf placement, meaning routes, reconciliation boundaries, and system green."

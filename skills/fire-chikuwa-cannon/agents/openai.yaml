@@ -1,0 +1,4 @@
+interface:
+  display_name: "ちくわ砲"
+  short_description: "未来projectionを幻想化し現在警報と混ぜず資源を整える"
+  default_prompt: "Use $fire-chikuwa-cannon to show prospective risks, benefits, and required resources in a playful future pane without hiding live facts."

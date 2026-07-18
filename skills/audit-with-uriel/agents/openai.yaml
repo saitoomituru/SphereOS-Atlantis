@@ -1,0 +1,4 @@
+interface:
+  display_name: "Uriel監査Skill"
+  short_description: "事実scope・約束・責任・権限・実行可能性を監査する"
+  default_prompt: "Use $audit-with-uriel to inspect facts, promises, permissions, evidence, and executable responsibility boundaries."

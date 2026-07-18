@@ -1,0 +1,4 @@
+interface:
+  display_name: "MAGI三方向連携監査"
+  short_description: "三つの監査結果を多数決せず差分とunknownのまま束ねる"
+  default_prompt: "Use $run-magi-three-position-audit to run Maxwell, Uriel, and Raphael audit slots without voting away their disagreements."

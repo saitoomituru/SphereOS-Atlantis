@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "product": "Atlantis-MAGI Skill Bundle",
+  "version": "0.2.0",
+  "distribution": "sphereos-atlantis-prompt-engineering-edition",
+  "lineage": {
+    "source_product": "Atlantis-MAGISDK",
+    "source_version": "0.1.0",
+    "source_repository": "https://github.com/saitoomituru/ZeroRoomLab-manifest",
+    "source_revision": "6d1bd317ba630d09aceffd5b149b0e9d1fbbf424",
+    "source_path": "docs/theory/atlantis-magi-sdk.ja.md"
+  },
+  "audit_slots": [
+    {
+      "id": "maxwell",
+      "skill": "skills/audit-with-maxwell",
+      "position_ref": "position://magi/maxwell@0.2.0"
+    },
+    {
+      "id": "uriel",
+      "skill": "skills/audit-with-uriel",
+      "position_ref": "position://magi/uriel@0.2.0"
+    },
+    {
+      "id": "raphael",
+      "skill": "skills/audit-with-raphael",
+      "position_ref": "position://magi/raphael@0.2.0"
+    }
+  ],
+  "support_slots": [
+    {
+      "id": "chikuwa-cannon",
+      "skill": "skills/fire-chikuwa-cannon",
+      "position_ref": "presentation-support://prospective-meta-safety/chikuwa-cannon",
+      "is_audit_dimension": false
+    }
+  ],
+  "composite_skill": "skills/run-magi-three-position-audit",
+  "invariants": {
+    "skill_is_identity": false,
+    "skill_output_is_oracle": false,
+    "three_position_majority_is_truth": false,
+    "chikuwa_cannon_is_fourth_vote": false,
+    "initialization_invokes_model": false,
+    "unknown_is_pass": false,
+    "reconciliation_is_trust": false,
+    "system_green_is_local_green": false
+  },
+  "status": {
+    "skill_workflows": "IMPLEMENTED_ALPHA",
+    "external_api": "NOT_IMPLEMENTED",
+    "famlog_oae_persistence": "NOT_IMPLEMENTED",
+    "persistent_personality": "NOT_IMPLEMENTED"
+  }
+}
