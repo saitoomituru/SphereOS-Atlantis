@@ -189,6 +189,18 @@ class MagiSkillBundleTestCase(unittest.TestCase):
         ):
             self.assertEqual(status[key], "NOT_IMPLEMENTED")
 
+    def test_7D軸名を正規Registryへ過剰確定しない(self) -> None:
+        policy = self.load_json(MAGI_ROOT / "oae-temporal-policy.json")
+        self.assertEqual(
+            policy["branch_dimension_profile_status"],
+            "PROVISIONAL_VALIDATOR_PROFILE",
+        )
+        self.assertEqual(
+            policy["final_branch_dimension_registry"],
+            "unknown-user-gate-required",
+        )
+        self.assertEqual(len(set(policy["provisional_branch_dimensions"])), 7)
+
 
 if __name__ == "__main__":
     unittest.main()

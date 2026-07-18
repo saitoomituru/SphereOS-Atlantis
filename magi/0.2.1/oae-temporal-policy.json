@@ -17,7 +17,7 @@
     "code": "OAE-HISTORY-UNKNOWN",
     "action": "stop-retroactive-backfill"
   },
-  "required_branch_dimensions": [
+  "provisional_branch_dimensions": [
     "world",
     "instance-ghost",
     "temporal-coordinate",
@@ -26,6 +26,8 @@
     "provenance",
     "recovery-restore"
   ],
+  "branch_dimension_profile_status": "PROVISIONAL_VALIDATOR_PROFILE",
+  "final_branch_dimension_registry": "unknown-user-gate-required",
   "branch_requirements": {
     "profile_ref": "fold://atlantis/akasha-driver@7d",
     "source_mutation": false,

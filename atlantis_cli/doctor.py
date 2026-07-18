@@ -141,9 +141,13 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
             or last_order.get("action") != "stop-retroactive-backfill"
         ):
             raise ValueError("OAE historical unknownのLast Order契約が崩れています。")
-        dimensions = temporal_policy.get("required_branch_dimensions", [])
+        dimensions = temporal_policy.get("provisional_branch_dimensions", [])
         if len(dimensions) != 7 or len(set(dimensions)) != 7:
-            raise ValueError("Akasha Driverの7D Foldは一意な七軸である必要があります。")
+            raise ValueError("Akasha Driver仮設profileは一意な七軸候補を持つ必要があります。")
+        if temporal_policy.get("branch_dimension_profile_status") != "PROVISIONAL_VALIDATOR_PROFILE":
+            raise ValueError("7D軸名を正規Registryとして過剰確定してはいけません。")
+        if temporal_policy.get("final_branch_dimension_registry") != "unknown-user-gate-required":
+            raise ValueError("最終7D RegistryはUser gate前に確定してはいけません。")
         branch_requirements = temporal_policy.get("branch_requirements", {})
         if branch_requirements.get("source_mutation") is not False:
             raise ValueError("7D FoldはSource World／Instance Ghostを変更してはいけません。")
