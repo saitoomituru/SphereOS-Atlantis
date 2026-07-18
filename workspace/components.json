@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "workspace_id": "sphereos-atlantis-0.2.1-forge",
+  "workspace_root": ".atlantis/workspace/components",
+  "revision_policy": {
+    "mode": "pinned-revision",
+    "tracking_refs_are_observation_only": true,
+    "existing_checkout_update": "never-automatic"
+  },
+  "components": [
+    {
+      "id": "ZeroRoomLab-manifest",
+      "role": "common-ruler-and-cross-repository-canon",
+      "repository": "https://github.com/saitoomituru/ZeroRoomLab-manifest.git",
+      "tracking_ref": "main",
+      "revision": "af7ee209feaf6a96f87a8b42573e89fd849e109e",
+      "path": "ZeroRoomLab-manifest",
+      "required": true,
+      "write_boundary": "separate-repository-read-before-edit"
+    },
+    {
+      "id": "IBD",
+      "role": "memory-search-and-database-component",
+      "repository": "https://github.com/saitoomituru/IBD.git",
+      "tracking_ref": "main",
+      "revision": "bc003f9566928f222be1ca881f2bf30c53fbbaf6",
+      "path": "IBD",
+      "required": false,
+      "write_boundary": "separate-repository-read-before-edit"
+    },
+    {
+      "id": "Sphere-aae",
+      "role": "model-and-edge-execution-component",
+      "repository": "https://github.com/saitoomituru/Sphere-aae.git",
+      "tracking_ref": "main",
+      "revision": "4e13a91ced5423f0432aaf1659656c0ccf6006c6",
+      "path": "Sphere-aae",
+      "required": false,
+      "write_boundary": "separate-repository-read-before-edit"
+    },
+    {
+      "id": "SphereASTRO",
+      "role": "personality-gui-and-responsibility-boundary-component",
+      "repository": "https://github.com/saitoomituru/SphereASTRO.git",
+      "tracking_ref": "main",
+      "revision": "a5f0213e2389f90d7e6a4f4c3ded54485f6e9112",
+      "path": "SphereASTRO",
+      "required": false,
+      "write_boundary": "separate-repository-read-before-edit"
+    }
+  ]
+}
