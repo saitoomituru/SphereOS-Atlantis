@@ -8,7 +8,7 @@ import unittest
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-MAGI_ROOT = PROJECT_ROOT / "magi" / "0.2.0"
+MAGI_ROOT = PROJECT_ROOT / "magi" / "0.2.1"
 
 
 class MagiSkillBundleTestCase(unittest.TestCase):
@@ -17,7 +17,7 @@ class MagiSkillBundleTestCase(unittest.TestCase):
 
     def test_三監査slotと支援slotを混ぜない(self) -> None:
         bundle = self.load_json(MAGI_ROOT / "bundle.json")
-        self.assertEqual(bundle["version"], "0.2.0")
+        self.assertEqual(bundle["version"], "0.2.1")
         self.assertEqual(
             [item["id"] for item in bundle["audit_slots"]],
             ["maxwell", "uriel", "raphael"],
@@ -87,6 +87,107 @@ class MagiSkillBundleTestCase(unittest.TestCase):
         self.assertEqual(completed.returncode, 2)
         result = json.loads(completed.stdout)
         self.assertGreater(result["summary"]["required_missing_locally"], 0)
+
+    def validate_temporal(self, value: dict[str, object]) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            [sys.executable, "-B", str(MAGI_ROOT / "validate_temporal_receipt.py")],
+            cwd=PROJECT_ROOT,
+            input=json.dumps(value, ensure_ascii=False),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+    def historical_unknown_receipt(self) -> dict[str, object]:
+        return {
+            "version": "0.2.1",
+            "observation_mode": "current-interpretation-of-history",
+            "observed_at": "2026-07-18T20:23:06+09:00",
+            "historical_oae_status": "historical-oae-unavailable",
+            "historical_oae_ref": None,
+            "historical_role_attribution": "none",
+            "retroactive_backfill": False,
+            "same_worldline_mutation": False,
+            "claims_physical_time_travel": False,
+            "last_order": {
+                "code": "OAE-HISTORY-UNKNOWN",
+                "action": "stop-retroactive-backfill",
+            },
+        }
+
+    def test_過去OAE不明はunknownとLast_Orderで停止する(self) -> None:
+        completed = self.validate_temporal(self.historical_unknown_receipt())
+        self.assertEqual(completed.returncode, 0, completed.stdout)
+        self.assertTrue(json.loads(completed.stdout)["valid"])
+
+    def test_過去OAE不明をLast_Orderなしで埋めない(self) -> None:
+        value = self.historical_unknown_receipt()
+        value.pop("last_order")
+        completed = self.validate_temporal(value)
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("Last Order", completed.stdout)
+
+    def test_同一世界線への遡及OAE生成を拒否する(self) -> None:
+        value = self.historical_unknown_receipt()
+        value["retroactive_backfill"] = True
+        value["historical_role_attribution"] = "commit-author-as-observer"
+        completed = self.validate_temporal(value)
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("retroactive_backfill", completed.stdout)
+        self.assertIn("Agency role", completed.stdout)
+
+    def test_7D_FoldはWorldとInstance_Ghostを共にsplitする(self) -> None:
+        value = {
+            "version": "0.2.1",
+            "observation_mode": "counterfactual-branch",
+            "observed_at": "2026-07-18T20:23:06+09:00",
+            "historical_oae_status": "historical-oae-unavailable",
+            "historical_oae_ref": None,
+            "historical_role_attribution": "none",
+            "retroactive_backfill": False,
+            "same_worldline_mutation": False,
+            "claims_physical_time_travel": False,
+            "last_order": {
+                "code": "OAE-HISTORY-UNKNOWN",
+                "action": "stop-retroactive-backfill",
+            },
+            "branch_receipt": {
+                "profile_ref": "fold://atlantis/akasha-driver@7d",
+                "source_world_ref": "world://source",
+                "source_instance_ghost_ref": "ghost://source",
+                "target_world_ref": "world://branch",
+                "target_instance_ghost_ref": "ghost://branch",
+                "fork_point_ref": "event://fork",
+                "provenance_ref": "evidence://source",
+                "source_mutation": False,
+                "status": "hypothetical",
+            },
+        }
+        completed = self.validate_temporal(value)
+        self.assertEqual(completed.returncode, 0, completed.stdout)
+
+        value["branch_receipt"]["target_instance_ghost_ref"] = "ghost://source"
+        completed = self.validate_temporal(value)
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("Instance Ghost", completed.stdout)
+
+    def test_物理空間のタイムマシン主張を拒否する(self) -> None:
+        value = self.historical_unknown_receipt()
+        value["claims_physical_time_travel"] = True
+        completed = self.validate_temporal(value)
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("物理空間", completed.stdout)
+
+    def test_将来依存を実装済みに見せない(self) -> None:
+        bundle = self.load_json(MAGI_ROOT / "bundle.json")
+        status = bundle["status"]
+        for key in (
+            "seven_d_fold_runtime",
+            "akasha_driver",
+            "backup_sdk",
+            "kamui_collective_intelligence_gateway",
+        ):
+            self.assertEqual(status[key], "NOT_IMPLEMENTED")
 
 
 if __name__ == "__main__":

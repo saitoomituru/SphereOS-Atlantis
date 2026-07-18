@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "policy://atlantis/magi/oae-temporal-integrity@0.2.1",
+  "version": "0.2.1",
+  "allowed_observation_modes": [
+    "contemporaneous",
+    "contemporaneous-oae-reference",
+    "current-interpretation-of-history",
+    "counterfactual-branch"
+  ],
+  "historical_oae_statuses": [
+    "not-applicable",
+    "referenced",
+    "historical-oae-unavailable"
+  ],
+  "last_order": {
+    "code": "OAE-HISTORY-UNKNOWN",
+    "action": "stop-retroactive-backfill"
+  },
+  "required_branch_dimensions": [
+    "world",
+    "instance-ghost",
+    "temporal-coordinate",
+    "observation-evidence",
+    "branch-hypothesis",
+    "provenance",
+    "recovery-restore"
+  ],
+  "branch_requirements": {
+    "profile_ref": "fold://atlantis/akasha-driver@7d",
+    "source_mutation": false,
+    "status": "hypothetical",
+    "split_world_and_instance_ghost_together": true
+  },
+  "ux_boundary": {
+    "physical_time_travel": false,
+    "backup_restore_ux": true,
+    "apple_official_compatibility": false,
+    "akasha_driver_runtime": "NOT_IMPLEMENTED"
+  },
+  "deferred_dependencies": [
+    "backup-sdk",
+    "akasha-driver-runtime",
+    "instance-ghost-runtime",
+    "kamui-gateway",
+    "akasha-db",
+    "p2p",
+    "cloud-chakra-external-collective-intelligence"
+  ]
+}

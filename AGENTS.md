@@ -61,7 +61,7 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 
 ## 状態と証拠
 
-- `0.2.0`設計系列と、正式release、実行runtimeを同一視しない
+- `0.2.1`設計系列と、正式release、実行runtimeを同一視しない
 - 未実装は`NOT IMPLEMENTED`、未試験は`NOT TESTED`または`unknown`とする
 - clone成功をruntime動作確認として表示しない
 - 互換claimには、可能な範囲で対象、version、試験条件、結果、未試験範囲を添える
@@ -99,11 +99,14 @@ commit形式は`[layer] scope: 日本語の説明`を基本とします。
 計画提案、状態評価、README／技術文書の主張変更、component間の優先順位決定、
 複数repositoryへ波及する変更の前に、ZeroRoomLab-manifestの
 [AGENTS.md §0.4](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/AGENTS.md)、
-[Atlantis-MAGISDK 0.1.0](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/theory/atlantis-magi-sdk.ja.md)、
+[Atlantis-MAGISDK 0.2.1](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/theory/atlantis-magi-sdk-0.2.1.ja.md)、
 [Context定規・因果・OAE横断監査規約](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/operations/context-ruler-and-causality-audit.ja.md)
 を読むこと。
 
 Declared Position、Position-talk Risk、媒体とclaim scope、外部定規の出所を分離し、
 現在のrepository、cwd、vendor、binary実装、一般的な線形roadmapを暗黙のmainへ置かない。
+過去の同時点OAEを参照できない場合は`historical-oae-unavailable`とLast Orderを返し、commitやlogから
+Observer、Agency role、Intentを遡及生成しない。反実仮想は元Worldと元Instance Ghostを変更せず、
+7D Foldの別World／別Instance Ghostへ隔離する。
 重大なstatus・責務・公開主張・横断変更では、監査結果とUser確認が必要な項目を記録し、
 計画をUserへ返してから実行する。

@@ -117,13 +117,14 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
     )
 
     try:
-        bundle = load_json(root / "magi/0.2.0/bundle.json")
-        source_policy = load_json(root / "magi/0.2.0/source-map.json")
+        bundle = load_json(root / "magi/0.2.1/bundle.json")
+        source_policy = load_json(root / "magi/0.2.1/source-map.json")
+        temporal_policy = load_json(root / "magi/0.2.1/oae-temporal-policy.json")
         audit_ids = [item["id"] for item in bundle["audit_slots"]]
         support_slots = bundle["support_slots"]
         invariants = bundle["invariants"]
-        if bundle.get("version") != "0.2.0":
-            raise ValueError("MAGI bundle versionは0.2.0である必要があります。")
+        if bundle.get("version") != "0.2.1":
+            raise ValueError("MAGI bundle versionは0.2.1である必要があります。")
         if audit_ids != ["maxwell", "uriel", "raphael"]:
             raise ValueError("MAGI監査slotの順序または構成が契約と一致しません。")
         if len(support_slots) != 1 or support_slots[0].get("id") != "chikuwa-cannon":
@@ -132,6 +133,22 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
             raise ValueError("ちくわ砲を監査次元または第四票にしてはいけません。")
         if any(value is not False for value in invariants.values()):
             raise ValueError("MAGIの非人格・非神託・非多数決不変条件が崩れています。")
+        if temporal_policy.get("version") != "0.2.1":
+            raise ValueError("OAE時間整合性policy versionが0.2.1ではありません。")
+        last_order = temporal_policy.get("last_order", {})
+        if (
+            last_order.get("code") != "OAE-HISTORY-UNKNOWN"
+            or last_order.get("action") != "stop-retroactive-backfill"
+        ):
+            raise ValueError("OAE historical unknownのLast Order契約が崩れています。")
+        dimensions = temporal_policy.get("required_branch_dimensions", [])
+        if len(dimensions) != 7 or len(set(dimensions)) != 7:
+            raise ValueError("Akasha Driverの7D Foldは一意な七軸である必要があります。")
+        branch_requirements = temporal_policy.get("branch_requirements", {})
+        if branch_requirements.get("source_mutation") is not False:
+            raise ValueError("7D FoldはSource World／Instance Ghostを変更してはいけません。")
+        if temporal_policy.get("ux_boundary", {}).get("physical_time_travel") is not False:
+            raise ValueError("backup UXを物理空間の時間移動として扱ってはいけません。")
         policy = source_policy["policy"]
         if policy.get("network_access_performed_by_resolver") is not False:
             raise ValueError("source resolverはnetwork accessを実行してはいけません。")
@@ -143,10 +160,13 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
         missing_skills = [path for path in skill_paths if not (root / path / "SKILL.md").is_file()]
         if missing_skills:
             raise ValueError(f"MAGI Skillがありません: {', '.join(missing_skills)}")
+        validator = root / bundle["temporal_validator"]
+        if not validator.is_file():
+            raise ValueError(f"OAE時間整合性validatorがありません: {validator}")
     except (KeyError, TypeError, ValueError) as error:
         checks.append(check("magi-skill-bundle", "fail", str(error)))
     else:
-        checks.append(check("magi-skill-bundle", "pass", "3 audit slots + 1 support slot"))
+        checks.append(check("magi-skill-bundle", "pass", "0.2.1: 3 audit slots + OAE temporal gate"))
 
     development_files = [
         ".vscode/extensions.json",

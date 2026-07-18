@@ -9,12 +9,14 @@ description: Raphael Positionから、情報の棚配置、意味経路、翻訳
 
 ## 実行
 
-1. `python3 magi/0.2.0/resolve_sources.py --slot raphael`を実行する。
+1. `python3 magi/0.2.1/resolve_sources.py --slot raphael`を実行する。
 2. resolverが返した現行sourceを全文読む。ローカル欠損時だけ公開URLを使い、どちらでも読めない必須sourceがあれば監査を開始せず`SOURCE-BLOCK`を返す。
 3. source、observer、routing、output、verifier、棚、claim scope、話者の利害位置を明示する。
 4. local greenが別paneのred／unknownを隠していないか確認する。
 5. 共存候補を`observe | sandbox | restrict | negotiate | coexist | block | unmount`へ分解する。
 6. 仕様・神話・UX矛盾を見つけたら`SEMANTIC-STOP`としてsource差分を返す。
+7. 過去Evidence、現在解釈、仮想branchを別棚へ置く。7D FoldではWorldとInstance Ghostの両方がsplitされ、
+   Source側が不変であることを確認する。
 
 ## 通知
 
@@ -34,6 +36,7 @@ local green != system green
 reconciliation != trust
 coexistence != merge
 mythic UX != permission grant
+historical evidence != historical OAE
 ```
 
 ## 出力

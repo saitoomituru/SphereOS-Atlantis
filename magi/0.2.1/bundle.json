@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "product": "Atlantis-MAGI Skill Bundle",
+  "version": "0.2.1",
+  "distribution": "sphereos-atlantis-prompt-engineering-edition",
+  "lineage": {
+    "source_product": "Atlantis-MAGISDK",
+    "source_version": "0.2.1",
+    "source_repository": "https://github.com/saitoomituru/ZeroRoomLab-manifest",
+    "source_revision": "010cf1c7ef28c14657c69bfaf5732183a1fc0ff5",
+    "source_path": "docs/theory/atlantis-magi-sdk-0.2.1.ja.md",
+    "previous_bundle": "magi/0.2.0/bundle.json"
+  },
+  "audit_slots": [
+    {
+      "id": "maxwell",
+      "skill": "skills/audit-with-maxwell",
+      "position_ref": "position://magi/maxwell@0.2.1"
+    },
+    {
+      "id": "uriel",
+      "skill": "skills/audit-with-uriel",
+      "position_ref": "position://magi/uriel@0.2.1"
+    },
+    {
+      "id": "raphael",
+      "skill": "skills/audit-with-raphael",
+      "position_ref": "position://magi/raphael@0.2.1"
+    }
+  ],
+  "support_slots": [
+    {
+      "id": "chikuwa-cannon",
+      "skill": "skills/fire-chikuwa-cannon",
+      "position_ref": "presentation-support://prospective-meta-safety/chikuwa-cannon",
+      "is_audit_dimension": false
+    }
+  ],
+  "composite_skill": "skills/run-magi-three-position-audit",
+  "temporal_policy": "magi/0.2.1/oae-temporal-policy.json",
+  "temporal_validator": "magi/0.2.1/validate_temporal_receipt.py",
+  "invariants": {
+    "skill_is_identity": false,
+    "skill_output_is_oracle": false,
+    "three_position_majority_is_truth": false,
+    "chikuwa_cannon_is_fourth_vote": false,
+    "initialization_invokes_model": false,
+    "unknown_is_pass": false,
+    "reconciliation_is_trust": false,
+    "system_green_is_local_green": false,
+    "historical_evidence_is_historical_oae": false,
+    "current_interpretation_is_past_observation": false,
+    "same_worldline_retroactive_backfill_allowed": false,
+    "physical_time_travel_claimed": false
+  },
+  "status": {
+    "skill_workflows": "IMPLEMENTED_ALPHA",
+    "oae_temporal_validator": "IMPLEMENTED_ALPHA",
+    "external_api": "NOT_IMPLEMENTED",
+    "famlog_oae_persistence": "NOT_IMPLEMENTED",
+    "persistent_personality": "NOT_IMPLEMENTED",
+    "seven_d_fold_runtime": "NOT_IMPLEMENTED",
+    "akasha_driver": "NOT_IMPLEMENTED",
+    "backup_sdk": "NOT_IMPLEMENTED",
+    "kamui_collective_intelligence_gateway": "NOT_IMPLEMENTED"
+  }
+}

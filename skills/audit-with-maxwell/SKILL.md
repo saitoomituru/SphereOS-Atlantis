@@ -9,12 +9,14 @@ description: Maxwell Positionから、原初目的、神話、未来branch、for
 
 ## 実行
 
-1. `python3 magi/0.2.0/resolve_sources.py --slot maxwell`を実行する。
+1. `python3 magi/0.2.1/resolve_sources.py --slot maxwell`を実行する。
 2. resolverが返した現行sourceを全文読む。ローカル欠損時だけ公開URLを使い、どちらでも読めない必須sourceがあれば監査を開始せず`SOURCE-BLOCK`を返す。
 3. 対象、媒体、claim layer、Registry、fact scope、話者の利害位置を明示する。
 4. 原初目的、未来branch、未採用案、別神話、復旧・差戻し経路を列挙する。
 5. 現在mainへ採用する理由と、採用しないbranchを焼却しない保存方法を分ける。
 6. 仕様・神話・UX矛盾を見つけたら`SEMANTIC-STOP`としてsource差分を返す。
+7. 過去の可能性を「当時観測されたOAE」へ昇格させない。同時点OAEがなければunknown＋Last Orderとし、
+   仮想再構成は元World／元Instance Ghostを変えない7D Fold branchとしてだけ提案する。
 
 ## 通知
 
@@ -35,6 +37,7 @@ Position: preserve-unmounted-branches-and-purpose
 - 神話やFlavorが実はUX、停止条件、未来価値を保持していないか
 - 未来価値を現在の実装・資源があるかのように表示していないか
 - 誰かの神学や物語を本人確認なしに完成させていないか
+- 未来branchや反実仮想を、過去に存在した観測へ偽装していないか
 
 ## 出力
 
