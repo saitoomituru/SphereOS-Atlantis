@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mock-a",
+  "kind": "mock",
+  "vendor": "Atlantis test fixture",
+  "executable_candidates": [],
+  "instruction_entrypoints": ["AGENTS.md"],
+  "authentication": "not-applicable",
+  "initialization_action": "render-contract-only",
+  "invocation": "not-supported"
+}

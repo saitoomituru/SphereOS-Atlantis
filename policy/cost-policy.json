@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "default_class": "zero",
+  "classes": {
+    "zero": {
+      "examples": [
+        "static-validation",
+        "read-only-doctor",
+        "mock-agent",
+        "local-unit-test"
+      ],
+      "confirmation": "not-required"
+    },
+    "bounded": {
+      "examples": [
+        "single-live-agent-smoke",
+        "short-codespaces-validation"
+      ],
+      "confirmation": "required-before-execution",
+      "automatic_execution": false
+    },
+    "explicit": {
+      "examples": [
+        "multiple-live-models",
+        "long-running-codespace",
+        "gpu-runtime",
+        "paid-external-saas"
+      ],
+      "confirmation": "required-before-each-execution",
+      "automatic_execution": false
+    }
+  },
+  "initialization_cost_class": "zero",
+  "initialization_must_not": [
+    "invoke_model",
+    "start_codespace",
+    "start_paid_service",
+    "perform_browser_login"
+  ]
+}

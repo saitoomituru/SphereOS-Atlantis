@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "id": "gemini-cli",
+  "kind": "external-cli",
+  "vendor": "Google",
+  "executable_candidates": ["gemini"],
+  "instruction_entrypoints": ["AGENTS.md", "GEMINI.md"],
+  "authentication": "provider-managed",
+  "initialization_action": "render-contract-only",
+  "invocation": "never-automatic"
+}

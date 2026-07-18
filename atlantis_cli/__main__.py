@@ -1,10 +1,20 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 import sys
 
 from . import __version__
+from .agent import (
+    build_contract,
+    initialize_agent,
+    plan_agent,
+    resolve_root,
+    verify_agent,
+)
+from .config import load_agent_registry
+from .doctor import doctor_json, format_doctor, run_doctor
 from .note import KINDS, SHELVES, create_note
 
 
@@ -15,6 +25,30 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     commands = parser.add_subparsers(dest="command", required=True)
+
+    doctor_parser = commands.add_parser("doctor", help="環境を変更せずに診断する。")
+    doctor_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    doctor_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+    doctor_parser.add_argument(
+        "--require-container",
+        action="store_true",
+        help="container runtime未検出をfailにする。",
+    )
+
+    agent_parser = commands.add_parser("agent", help="コードエージェントの拘束付き初期化を行う。")
+    agent_commands = agent_parser.add_subparsers(dest="agent_command", required=True)
+    for name, help_text in (
+        ("detect", "provider CLIを実行せず、PATH上の存在だけを検出する。"),
+        ("plan", "生成予定のsession contractを表示する。"),
+        ("init", "モデルを呼ばずsession contractだけを生成する。"),
+        ("verify", "生成済みcontractと現行policy hashを検証する。"),
+    ):
+        subparser = agent_commands.add_parser(name, help=help_text)
+        subparser.add_argument("--provider", action="append", default=[], help="provider ID。複数指定可能。")
+        subparser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+        subparser.add_argument("--json", action="store_true", help="JSONで出力する。")
+        if name == "init":
+            subparser.add_argument("--refresh", action="store_true", help="差分のある生成済みcontractを更新する。")
 
     note_parser = commands.add_parser("note", help="未確定のブレストや観測をnoteへ保存する。")
     note_commands = note_parser.add_subparsers(dest="note_command", required=True)
@@ -53,6 +87,46 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+
+    if args.command == "doctor":
+        try:
+            result = run_doctor(args.repo_root, args.require_container)
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(doctor_json(result) if args.json else format_doctor(result))
+        return 1 if result["overall"] == "fail" else 0
+
+    if args.command == "agent":
+        try:
+            root = resolve_root(args.repo_root)
+            registry = load_agent_registry(root)
+            known = [item["id"] for item in registry["providers"]]
+            providers = args.provider or known
+            output: list[dict[str, object]] = []
+            failed = False
+            for provider_id in providers:
+                if args.agent_command == "detect":
+                    contract = build_contract(root, provider_id)
+                    provider = contract["provider"]
+                    output.append({"provider": provider_id, "available": provider["available"], "executable": provider["detected_executable"]})
+                elif args.agent_command == "plan":
+                    plan = plan_agent(root, provider_id)
+                    output.append({"provider": provider_id, "available": plan.available, "destination": str(plan.destination), "action": plan.action})
+                elif args.agent_command == "init":
+                    plan = initialize_agent(root, provider_id, args.refresh)
+                    output.append({"provider": provider_id, "available": plan.available, "destination": str(plan.destination), "action": plan.action, "model_invoked": False, "network_access_performed": False})
+                elif args.agent_command == "verify":
+                    ok, message = verify_agent(root, provider_id)
+                    failed = failed or not ok
+                    output.append({"provider": provider_id, "ok": ok, "message": message})
+            if args.json:
+                print(json.dumps(output, ensure_ascii=False, indent=2))
+            else:
+                for item in output:
+                    print(json.dumps(item, ensure_ascii=False))
+            return 1 if failed else 0
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
 
     if args.command == "note" and args.note_command == "new":
         try:

@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "id": "codex",
+  "kind": "external-cli",
+  "vendor": "OpenAI",
+  "executable_candidates": ["codex"],
+  "instruction_entrypoints": ["AGENTS.md"],
+  "authentication": "provider-managed",
+  "initialization_action": "render-contract-only",
+  "invocation": "never-automatic"
+}

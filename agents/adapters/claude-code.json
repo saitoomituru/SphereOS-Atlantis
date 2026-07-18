@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "id": "claude-code",
+  "kind": "external-cli",
+  "vendor": "Anthropic",
+  "executable_candidates": ["claude"],
+  "instruction_entrypoints": ["AGENTS.md", "CLAUDE.md"],
+  "authentication": "provider-managed",
+  "initialization_action": "render-contract-only",
+  "invocation": "never-automatic"
+}

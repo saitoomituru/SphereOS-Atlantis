@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "default_constraints": "policy/constraints.json",
+  "secret_boundaries": "policy/secret-boundaries.json",
+  "cost_policy": "policy/cost-policy.json",
+  "providers": [
+    {
+      "id": "codex",
+      "adapter": "agents/adapters/codex.json"
+    },
+    {
+      "id": "claude-code",
+      "adapter": "agents/adapters/claude-code.json"
+    },
+    {
+      "id": "gemini-cli",
+      "adapter": "agents/adapters/gemini-cli.json"
+    },
+    {
+      "id": "mock-a",
+      "adapter": "agents/adapters/mock-a.json"
+    },
+    {
+      "id": "mock-b",
+      "adapter": "agents/adapters/mock-b.json"
+    }
+  ]
+}

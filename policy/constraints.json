@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "id": "sphereos-atlantis-default-constraints",
+  "manifest_adoption": {
+    "repository": "https://github.com/saitoomituru/ZeroRoomLab-manifest",
+    "revision": "6d1bd317ba630d09aceffd5b149b0e9d1fbbf424",
+    "documents": [
+      "docs/operations/heterogeneous-agent-deck-governance.ja.md",
+      "docs/operations/workspace-boundary-register.ja.md"
+    ]
+  },
+  "precedence": [
+    "system_and_runtime_constraints",
+    "target_repository_AGENTS.md",
+    "nearest_directory_AGENTS.md",
+    "task_scope",
+    "generated_adapter_contract"
+  ],
+  "language": {
+    "default_human_language": "ja",
+    "default_english_locale": "en-US",
+    "commit_subject_default": "ja"
+  },
+  "initialization": {
+    "read_current_sources_each_session": true,
+    "model_invocation": "explicit-only",
+    "authentication": "provider-managed-and-never-automatic",
+    "network_access": "never-implied-by-init",
+    "generated_contract_is_canonical": false
+  },
+  "mutation": {
+    "respect_existing_user_changes": true,
+    "destructive_action_requires_explicit_scope": true,
+    "external_write_requires_task_authority": true,
+    "automatic_commit": false,
+    "automatic_push": false
+  },
+  "parallel_work": {
+    "read_only_shared_tree": "allowed",
+    "parallel_write_shared_tree": "forbidden",
+    "parallel_write_mode": "isolated-git-worktree",
+    "cross_agent_uncommitted_change_rewrite": "forbidden"
+  },
+  "claims": {
+    "clone_is_runtime_test": false,
+    "unavailable_is_absent": false,
+    "allowed_states": [
+      "IMPLEMENTED",
+      "NOT IMPLEMENTED",
+      "TESTED",
+      "NOT TESTED",
+      "unknown",
+      "bottom"
+    ]
+  },
+  "handoff_required_fields": [
+    "agent_vendor",
+    "resolved_workspace",
+    "target_repositories",
+    "manifest_revision",
+    "files_changed",
+    "tests_and_observations",
+    "assumptions",
+    "unresolved_conflicts",
+    "areas_intentionally_not_accessed",
+    "recommended_next_action"
+  ]
+}
