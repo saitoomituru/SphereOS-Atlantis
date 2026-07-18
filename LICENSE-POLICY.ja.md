@@ -1,7 +1,7 @@
 # SphereOS Atlantis ライセンス境界
 
-状態: `[CANONICAL-CANDIDATE]`  
-制定日: 2026-07-18  
+状態: `[CANONICAL-CANDIDATE]`
+制定日: 2026-07-18
 対象: 本リポジトリのコード、Schema、文書、神話、UX、憲章、貢献物
 
 ## 1. 結論
