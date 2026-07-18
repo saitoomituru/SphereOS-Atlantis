@@ -112,6 +112,9 @@ World authorityが制定したRegistry、fact scope、Causality Profileを記録
 
 Supplyはmerge権、真理判定権、Origin表示を購入するものではありません。
 
+参加手順は[CONTRIBUTING.md](CONTRIBUTING.md)、協働原則は
+[意味と器の二重記述憲章](docs/charter/meaning-and-vessel-dual-register.ja.md)を参照してください。
+
 ## ライセンス概要
 
 - コード、CLI、Schema、validator、doctor: Apache License 2.0
@@ -122,6 +125,9 @@ Supplyはmerge権、真理判定権、Origin表示を購入するものではあ
 [ライセンス境界](LICENSE-POLICY.ja.md)、再利用時の表示は[帰属表示ガイド](ATTRIBUTION.md)で明示します。
 第三者作品の名称、素材、キャラクター等の権利は、
 このリポジトリのライセンスによって自動的に付与されません。
+
+Origin、暖簾分け、Community Lineage、compatible、inspiredの区分は
+[Atlantis暖簾分け・互換・系譜規約](LINEAGE-POLICY.ja.md)を参照してください。
 
 ## 出典と接続
 

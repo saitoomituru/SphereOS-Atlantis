@@ -51,7 +51,7 @@ Apache-2.0部分のLICENSE、NOTICE、必要な表示を消しません。採用
 次の文書はCC BY-SA 4.0を正本ライセンスとします。
 
 - `docs/charter/meaning-and-vessel-dual-register.ja.md`
-- `LINEAGE-POLICY.ja.md`内の憲章本文
+- `LINEAGE-POLICY.ja.md`全文
 - ファイル内でCC BY-SA 4.0を明示した派生憲章
 
 これらを翻案して公開する場合は、CC BY-SA 4.0または同ライセンスが認める互換条件で共有します。
