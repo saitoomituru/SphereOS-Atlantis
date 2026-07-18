@@ -140,6 +140,38 @@ Atlantisは、全員へ同じ専門用語を先に暗記させるのではなく
 
 入口は[棚別の開発参入チュートリアル](docs/tutorial/README.ja.md)を参照してください。
 
+## 普通のエンジニア向け1.x鍛造口
+
+神話UIを履修してからでなくても参加できます。Python、database、graph／vector、SwiftUI、edge inference、
+container、CI、Schema、security、recoveryの普通の工学仕事が大量にあります。ここも雇用枠ではなく、
+Atlantis 1.x実行系へ向けたOSS同人開発の参戦口です。
+
+`1.x`は現在の完成版ではなく、文書とpromptで拘束している責務をASTRO／Atlantis実行物へ移植する将来の
+binary integration milestoneです。現行0.2.0、IBD Season 0、AAE実験runtime、SphereASTRO移植準備を、
+完成済み1.xとして宣伝しません。
+
+| 実装棚 | 現在の入口 | 1.xへ向けて掘るもの |
+|---|---|---|
+| 記憶・探索技・DB | [IBD](https://github.com/saitoomituru/IBD) | IBDSDK、FAM Splitter、Meta Catalog、graph／vector／RDB adapter、SsC |
+| model・edge実行 | [Sphere-aae](https://github.com/saitoomituru/Sphere-aae) | AAE runtime、system-call splitter、Q検証、LAST_ORDER、model／adapter読込境界 |
+| 人格・GUI・責任境界 | [SphereASTRO](https://github.com/saitoomituru/SphereASTRO) | AstroSDK、ASTRO package／Runner、SwiftUI、local personality boundary |
+| World・orchestration・開発環境 | [SphereOS Atlantis](https://github.com/saitoomituru/SphereOS-Atlantis) | Atlantis SDK、World／session／connector／device管理、起動・停止・unmount |
+| 共通定規 | [ZeroRoomLab-manifest](https://github.com/saitoomituru/ZeroRoomLab-manifest) | Context Register、Access Map、Transformer、OAE、SDK bundle契約 |
+
+キーを三本の別軸として扱います。
+
+```text
+L = hardware→POSIX OS→runtime→library／SDK／Appという技術依存の順序
+D = 上下を作らず束ねるContext Dimensionの一意軸数（D Fold）
+S = 同じcapabilityをS0 envelopeからS4 promptまで公開するSDK surface
+```
+
+`4D`は四軸を束ねるというarityであり、embeddingの次元数でも、技術Layer 4でも、互換保証でもありません。
+POSIXは`L`側のportableな実行基盤であり、Sphereはそれを置換せず、その上で`D Fold`と意味境界を管理します。
+
+詳しい責務、現況、実装課題、正本リンクは
+[1.x実行系・SDKエンジニア参入ガイド](docs/architecture/1x-sdk-engineering-entrypoint.ja.md)を参照してください。
+
 参加手順は[CONTRIBUTING.md](CONTRIBUTING.md)、協働原則は
 [意味と器の二重記述憲章](docs/charter/meaning-and-vessel-dual-register.ja.md)を参照してください。
 
