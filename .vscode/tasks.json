@@ -66,6 +66,46 @@
       },
       "args": ["-B", "-m", "atlantis_cli", "agent", "plan", "--json"],
       "problemMatcher": []
+    },
+    {
+      "label": "Atlantis: component workspace計画（offline）",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["-B", "-m", "atlantis_cli", "workspace", "plan"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Atlantis: component workspace展開（network明示）",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["-B", "-m", "atlantis_cli", "workspace", "init"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Atlantis: Sphere-DOS boot（local scaffold）",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["-B", "-m", "atlantis_cli", "sphere-dos", "boot"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Atlantis: Sphere-DOS status",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["-B", "-m", "atlantis_cli", "sphere-dos", "status"],
+      "problemMatcher": []
     }
   ]
 }

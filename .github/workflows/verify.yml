@@ -38,6 +38,12 @@ jobs:
         run: .venv/bin/python -B -m unittest discover -s tests -v
       - name: read-only doctor
         run: .venv/bin/python -B -m atlantis_cli doctor --json
+      - name: component workspace計画をoffline検証
+        run: .venv/bin/python -B -m atlantis_cli workspace plan --json
+      - name: Sphere-DOS local scaffoldをboot
+        run: .venv/bin/python -B -m atlantis_cli sphere-dos boot --json
+      - name: Sphere-DOS local scaffoldのstatusを確認
+        run: .venv/bin/python -B -m atlantis_cli sphere-dos status --json
       - name: Git追跡物だけでclean-room再構築
         if: matrix.python-version == '3.14'
         run: .venv/bin/python -B scripts/clean_room_test.py --json

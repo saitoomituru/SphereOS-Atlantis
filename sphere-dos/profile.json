@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "product": "sphereos-atlantis",
+  "design_line": "0.2.1",
+  "edition": "prompt-engineering",
+  "distribution": "sphere-dos",
+  "distribution_role": "development-environment-supply",
+  "standalone_runtime_implemented": false,
+  "default_world_profile": "atlantis-forge",
+  "world_profiles": [
+    {
+      "id": "atlantis-forge",
+      "authority": "user-selected",
+      "fact_scope": "local-development-environment",
+      "registry_ref": "workspace/components.json@1.0.0",
+      "causality_profile": "unbound-no-core-default",
+      "presentation": "meaning-and-vessel-dual-register"
+    }
+  ],
+  "capabilities": [
+    "pinned-component-workspace",
+    "vscode-multi-root-generation",
+    "read-only-doctor",
+    "coding-agent-session-contract",
+    "local-session-receipt"
+  ],
+  "explicit_non_capabilities": [
+    "standalone-os-runtime",
+    "component-runtime-start",
+    "model-inference",
+    "provider-authentication",
+    "automatic-secret-discovery",
+    "7d-fold-runtime",
+    "akasha-driver-runtime"
+  ],
+  "unknowns": [
+    "component-runtime-integration-order",
+    "final-7d-dimension-registry",
+    "production-deployment-profile",
+    "hardware-specific-distributions"
+  ]
+}
