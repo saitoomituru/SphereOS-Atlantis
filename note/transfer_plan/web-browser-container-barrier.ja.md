@@ -11,6 +11,9 @@ meaning_to_preserve:
   - コンテナ結界は完全防御または安全性保証ではない
   - 検索snapshot、HTTP観測、browser観測、origin freshnessを混同しない
   - SaaS vendor内部の検疫方式を未観測のまま断定しない
+  - 手元browser実行とSaaS contextへ返すdataを別境界にする
+  - OS／browser／任意AV等の防壁デッキをAtlantisの保証へ昇格しない
+  - provider、利用者組織、法域、World Visaが衝突したら対象operationだけを回避する
   - browser profileを標準開発環境へ常駐させない
 required_restructuring:
   - noteの比喩をdocsの権限契約とtest可能なacceptance criteriaへ写像する
@@ -26,20 +29,23 @@ target_commit_document: unknown
 
 - [x] 標準Venvとclean-room testが通る
 - [x] 標準Dev Container定義がコードreview可能な状態にある
+- [x] 手元Safari MCPで公開・非認証URLのread-only観測が通る
+- [x] 観測receiptと手元browser退避契約をALPHA文書化する
 - [ ] DockerまたはPodmanで標準Dev Containerを実buildできる
-- [ ] 観測receipt、network、mount、cleanupの契約をreviewする
+- [ ] 観測receiptのJSON fixtureとnetwork、mount、cleanupの契約をreviewする
 - [ ] browser imageの費用、取得元、version固定、更新方針を決める
 
 未完了ゲートを実装済み扱いしない。Docker／Podmanのない現在のhostでは、browser branchを発火させない。
 
 ## 移管タスク
 
-1. `docs/development/browser-source-observation.ja.md`へ観測クラスとreceipt Schemaを起こす。
-2. `.devcontainer/browser/`を標準profileとは別に作り、認証情報・Docker socket・host browser profileを
+1. `docs/development/browser-source-observation.ja.md`のALPHA契約をreviewし、JSON fixtureへ固定する。
+2. 暫定期間は、session初回に許可された匿名read-onlyの手元browser poolから、利用可能backendへ退避する。
+3. `.devcontainer/browser/`を標準profileとは別に作り、認証情報・Docker socket・host browser profileを
    mountしない静的contract testを追加する。
-3. local static fixtureだけでSelenium／headless Chromiumを試験する。
-4. timeout、process kill、一時profile、artifact、container／volumeの清掃receiptを得る。
-5. 外部実行は、明示承認された非認証URL一件の単発smoke testから開始する。
+4. local static fixtureだけでSelenium／headless Chromiumを試験する。
+5. timeout、process kill、一時profile、artifact、container／volumeの清掃receiptを得る。
+6. container外部実行は、明示承認された非認証URL一件の単発smoke testから開始する。
 
 ## 停止条件
 

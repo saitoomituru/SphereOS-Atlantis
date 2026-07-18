@@ -58,6 +58,9 @@ source一覧の正本は`references/source-map.json`とする。
 - 神話・Flavorをbuildや性能の証拠にしない
 - 実装・試験状態を神話的Presentationで上書きしない
 - `NOT IMPLEMENTED`、`NOT TESTED`、`unknown`、`⊥`を維持する
+- provider、利用者組織、法域、World Visaの定規を別scopeへ無断継承しない。両立不能は対象operationだけを
+  `scoped_avoid`として説明する
+- hostの検疫・防御は利用者選定の環境として扱い、特定OS／製品をAtlantis標準または安全保証へ昇格しない
 - source path、revisionまたはURLを示し、どこまで読めたかを明記する
 - Manifest、CLI、Skill、会話記憶のいずれも、対象リポジトリの局所正本を上書きしない
 

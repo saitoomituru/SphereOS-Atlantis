@@ -84,6 +84,11 @@
         "required": true
       },
       {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/architecture/governance-scope-and-world-visa.ja.md",
+        "required": true
+      },
+      {
         "repository": "ZeroRoomLab-manifest",
         "path": "docs/philosophy/gaming-cosmology.ja.md",
         "required": true
@@ -93,6 +98,16 @@
       {
         "repository": "SphereOS-Atlantis",
         "path": "docs/tutorial/engineering.ja.md",
+        "required": true
+      },
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/development/browser-source-observation.ja.md",
+        "required": true
+      },
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/architecture/governance-scope-and-world-visa.ja.md",
         "required": true
       },
       {
@@ -127,6 +142,11 @@
       {
         "repository": "SphereOS-Atlantis",
         "path": "docs/tutorial/sphere-architecture.ja.md",
+        "required": true
+      },
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/architecture/governance-scope-and-world-visa.ja.md",
         "required": true
       },
       {
