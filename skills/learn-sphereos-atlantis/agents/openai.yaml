@@ -1,0 +1,4 @@
+interface:
+  display_name: "SphereOS Atlantis 入門"
+  short_description: "各棚から現行正本を読み直してAtlantis開発を案内する"
+  default_prompt: "Use $learn-sphereos-atlantis to explain SphereOS Atlantis from my familiar shelf and guide me to a verifiable first contribution."

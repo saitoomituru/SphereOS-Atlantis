@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0.0",
+  "policy": {
+    "dynamic_read_required": true,
+    "bundled_summary_is_canonical": false,
+    "local_source_preferred": true,
+    "public_url_fallback": true,
+    "implicit_repository_scan": false
+  },
+  "repositories": {
+    "SphereOS-Atlantis": {
+      "remote": "https://github.com/saitoomituru/SphereOS-Atlantis",
+      "marker": "docs/tutorial/README.ja.md"
+    },
+    "ZeroRoomLab-manifest": {
+      "remote": "https://github.com/saitoomituru/ZeroRoomLab-manifest",
+      "marker": "docs/operations/workspace-registry.json"
+    }
+  },
+  "common": [
+    {
+      "repository": "SphereOS-Atlantis",
+      "path": "AGENTS.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
+      "path": "README.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/tutorial/README.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "AGENTS.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/workspace-registry.json",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/workspace-boundary-register.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/coding-ai-japanese-paraphrase-register.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/heterogeneous-agent-deck-governance.ja.md",
+      "required": true
+    }
+  ],
+  "shelves": {
+    "spiritual": [
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/tutorial/spiritual.ja.md",
+        "required": true
+      },
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/charter/meaning-and-vessel-dual-register.ja.md",
+        "required": true
+      },
+      {
+        "repository": "ZeroRoomLab-manifest",
+        "path": "docs/philosophy/spiritual-context-dimension-and-fold.ja.md",
+        "required": true
+      }
+    ],
+    "gaming-trpg": [
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/tutorial/gaming-trpg.ja.md",
+        "required": true
+      },
+      {
+        "repository": "ZeroRoomLab-manifest",
+        "path": "docs/philosophy/gaming-cosmology.ja.md",
+        "required": true
+      }
+    ],
+    "engineering": [
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/tutorial/engineering.ja.md",
+        "required": true
+      },
+      {
+        "repository": "ZeroRoomLab-manifest",
+        "path": "docs/operations/development-environment-reconstruction.ja.md",
+        "required": true
+      },
+      {
+        "repository": "ZeroRoomLab-manifest",
+        "path": "docs/operations/technical-communication-register.ja.md",
+        "required": true
+      }
+    ],
+    "infoton-engineering": [
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/tutorial/infoton-engineering.ja.md",
+        "required": true
+      },
+      {
+        "repository": "ZeroRoomLab-manifest",
+        "path": "docs/theory/infoton-engineering.ja.md",
+        "required": true
+      },
+      {
+        "repository": "ZeroRoomLab-manifest",
+        "path": "docs/theory/fam-overview.ja.md",
+        "required": true
+      }
+    ],
+    "sphere-architecture": [
+      {
+        "repository": "SphereOS-Atlantis",
+        "path": "docs/tutorial/sphere-architecture.ja.md",
+        "required": true
+      },
+      {
+        "repository": "ZeroRoomLab-manifest",
+        "path": "docs/theory/sphere-context-dimension-os.ja.md",
+        "required": true
+      },
+      {
+        "repository": "ZeroRoomLab-manifest",
+        "path": "docs/theory/sphere-context-sdk-contract.ja.md",
+        "required": true
+      }
+    ]
+  }
+}
