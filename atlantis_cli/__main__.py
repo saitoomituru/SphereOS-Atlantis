@@ -17,6 +17,24 @@ from .config import load_agent_registry
 from .doctor import doctor_json, format_doctor, run_doctor
 from .links import check_markdown_links, format_link_report
 from .note import KINDS, SHELVES, create_note
+from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
+from .workspace import (
+    format_workspace_report,
+    initialize_workspace,
+    workspace_plan,
+    workspace_status,
+)
+
+
+def _add_workspace_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--component",
+        action="append",
+        default=[],
+        help="対象component ID。複数指定可能。省略時は全component。",
+    )
+    parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -54,6 +72,44 @@ def build_parser() -> argparse.ArgumentParser:
         subparser.add_argument("--json", action="store_true", help="JSONで出力する。")
         if name == "init":
             subparser.add_argument("--refresh", action="store_true", help="差分のある生成済みcontractを更新する。")
+
+    workspace_parser = commands.add_parser(
+        "workspace",
+        help="固定revisionから複数repository workspaceを計画・展開する。",
+    )
+    workspace_commands = workspace_parser.add_subparsers(
+        dest="workspace_command",
+        required=True,
+    )
+    for name, help_text in (
+        ("status", "networkを使わず、component配置とrevisionを検査する。"),
+        ("plan", "既存pathを変更せず、必要な展開actionを表示する。"),
+        ("init", "networkを明示使用し、不足componentだけを固定revisionでcloneする。"),
+    ):
+        subparser = workspace_commands.add_parser(name, help=help_text)
+        _add_workspace_arguments(subparser)
+
+    sphere_dos_parser = commands.add_parser(
+        "sphere-dos",
+        help="standalone runtimeではないSphere-DOS開発shellを扱う。",
+    )
+    sphere_dos_commands = sphere_dos_parser.add_subparsers(
+        dest="sphere_dos_command",
+        required=True,
+    )
+    sphere_boot_parser = sphere_dos_commands.add_parser(
+        "boot",
+        help="local開発sessionとreceiptを生成する。modelやcomponent runtimeは起動しない。",
+    )
+    sphere_boot_parser.add_argument("--world", help="使用するworld profile ID。")
+    sphere_boot_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    sphere_boot_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+    sphere_status_parser = sphere_dos_commands.add_parser(
+        "status",
+        help="現在のlocal開発sessionを読み取り専用で表示する。",
+    )
+    sphere_status_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    sphere_status_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
     note_parser = commands.add_parser("note", help="未確定のブレストや観測をnoteへ保存する。")
     note_commands = note_parser.add_subparsers(dest="note_command", required=True)
@@ -125,13 +181,35 @@ def main(argv: list[str] | None = None) -> int:
                 if args.agent_command == "detect":
                     contract = build_contract(root, provider_id)
                     provider = contract["provider"]
-                    output.append({"provider": provider_id, "available": provider["available"], "executable": provider["detected_executable"]})
+                    output.append(
+                        {
+                            "provider": provider_id,
+                            "available": provider["available"],
+                            "executable": provider["detected_executable"],
+                        }
+                    )
                 elif args.agent_command == "plan":
                     plan = plan_agent(root, provider_id)
-                    output.append({"provider": provider_id, "available": plan.available, "destination": str(plan.destination), "action": plan.action})
+                    output.append(
+                        {
+                            "provider": provider_id,
+                            "available": plan.available,
+                            "destination": str(plan.destination),
+                            "action": plan.action,
+                        }
+                    )
                 elif args.agent_command == "init":
                     plan = initialize_agent(root, provider_id, args.refresh)
-                    output.append({"provider": provider_id, "available": plan.available, "destination": str(plan.destination), "action": plan.action, "model_invoked": False, "network_access_performed": False})
+                    output.append(
+                        {
+                            "provider": provider_id,
+                            "available": plan.available,
+                            "destination": str(plan.destination),
+                            "action": plan.action,
+                            "model_invoked": False,
+                            "network_access_performed": False,
+                        }
+                    )
                 elif args.agent_command == "verify":
                     ok, message = verify_agent(root, provider_id)
                     failed = failed or not ok
@@ -144,6 +222,39 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if failed else 0
         except (OSError, ValueError) as error:
             parser.error(str(error))
+
+    if args.command == "workspace":
+        try:
+            if args.workspace_command == "status":
+                result = workspace_status(args.repo_root, args.component)
+            elif args.workspace_command == "plan":
+                result = workspace_plan(args.repo_root, args.component)
+            else:
+                result = initialize_workspace(args.repo_root, args.component)
+        except (OSError, RuntimeError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_workspace_report(result)
+        )
+        return 1 if result.get("blocked") else 0
+
+    if args.command == "sphere-dos":
+        try:
+            result = (
+                boot_sphere_dos(args.repo_root, args.world)
+                if args.sphere_dos_command == "boot"
+                else sphere_dos_status(args.repo_root)
+            )
+        except (OSError, RuntimeError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_sphere_dos(result)
+        )
+        return 0
 
     if args.command == "note" and args.note_command == "new":
         try:
