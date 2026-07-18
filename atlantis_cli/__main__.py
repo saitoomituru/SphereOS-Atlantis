@@ -15,6 +15,7 @@ from .agent import (
 )
 from .config import load_agent_registry
 from .doctor import doctor_json, format_doctor, run_doctor
+from .links import check_markdown_links, format_link_report
 from .note import KINDS, SHELVES, create_note
 
 
@@ -34,6 +35,10 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="container runtime未検出をfailにする。",
     )
+
+    links_parser = commands.add_parser("links", help="Markdownのrepository内参照をoffline検査する。")
+    links_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    links_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
     agent_parser = commands.add_parser("agent", help="コードエージェントの拘束付き初期化を行う。")
     agent_commands = agent_parser.add_subparsers(dest="agent_command", required=True)
@@ -95,6 +100,18 @@ def main(argv: list[str] | None = None) -> int:
             parser.error(str(error))
         print(doctor_json(result) if args.json else format_doctor(result))
         return 1 if result["overall"] == "fail" else 0
+
+    if args.command == "links":
+        try:
+            result = check_markdown_links(args.repo_root)
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_link_report(result)
+        )
+        return 1 if result["status"] == "fail" else 0
 
     if args.command == "agent":
         try:

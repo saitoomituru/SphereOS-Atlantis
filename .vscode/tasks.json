@@ -48,6 +48,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Atlantis: Markdownリンク検査（offline）",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["-B", "-m", "atlantis_cli", "links"],
+      "problemMatcher": []
+    },
+    {
       "label": "Atlantis: agent契約plan",
       "type": "process",
       "command": "${workspaceFolder}/.venv/bin/python",

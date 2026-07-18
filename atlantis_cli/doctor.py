@@ -13,6 +13,7 @@ import sys
 from typing import Any
 
 from .config import load_adapter, load_agent_registry, load_json, policy_paths
+from .links import check_markdown_links
 from .note import find_repo_root
 
 
@@ -174,6 +175,24 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
             )
         else:
             checks.append(check("development-profile", "pass", f"{len(development_files)} files"))
+
+    link_report = check_markdown_links(root)
+    if link_report["status"] == "pass":
+        checks.append(
+            check(
+                "markdown-links",
+                "pass",
+                f"{link_report['local_references_checked']} local references",
+            )
+        )
+    else:
+        checks.append(
+            check(
+                "markdown-links",
+                "fail",
+                f"{len(link_report['failures'])} failures",
+            )
+        )
 
     statuses = {item["status"] for item in checks}
     overall = "fail" if "fail" in statuses else "warn" if "warn" in statuses else "pass"
