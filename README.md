@@ -120,7 +120,7 @@ Supplyはmerge権、真理判定権、Origin表示を購入するものではあ
 
 ## 棚別の開発参入チュートリアル
 
-状態: `PLANNED` — 現時点では入口の責務を定義した段階であり、チュートリアル一式は未実装です。
+状態: `ALPHA` — 5つの棚から入る最小導線を実装済みです。実環境の再構築試験は継続中です。
 
 Atlantisは、全員へ同じ専門用語を先に暗記させるのではなく、参加者が立っている棚から始めます。
 ここでいう棚は格付けや真偽判定ではなく、同じ構造へ異なるPresentationから入るための入口です。
@@ -133,6 +133,8 @@ Atlantisは、全員へ同じ専門用語を先に暗記させるのではなく
 
 各棚は別Worldや別Registryを無断で混ぜません。必要なBridgeを明示し、最終的には吊るしのVS CodeとGitから
 再構築できるSphere-DOS開発環境で、同じfixtureと受入試験を実行できるところまで案内します。
+
+入口は[棚別の開発参入チュートリアル](docs/tutorial/README.ja.md)を参照してください。
 
 参加手順は[CONTRIBUTING.md](CONTRIBUTING.md)、協働原則は
 [意味と器の二重記述憲章](docs/charter/meaning-and-vessel-dual-register.ja.md)を参照してください。
