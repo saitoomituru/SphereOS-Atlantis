@@ -147,6 +147,34 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
     else:
         checks.append(check("magi-skill-bundle", "pass", "3 audit slots + 1 support slot"))
 
+    development_files = [
+        ".vscode/extensions.json",
+        ".vscode/settings.json",
+        ".vscode/tasks.json",
+        ".vscode/launch.json",
+        ".devcontainer/devcontainer.json",
+        ".github/workflows/verify.yml",
+        "scripts/bootstrap_venv.py",
+        "scripts/clean_room_test.py",
+    ]
+    missing_development_files = [path for path in development_files if not (root / path).is_file()]
+    try:
+        for path in development_files[:5]:
+            load_json(root / path)
+    except ValueError as error:
+        checks.append(check("development-profile", "fail", str(error)))
+    else:
+        if missing_development_files:
+            checks.append(
+                check(
+                    "development-profile",
+                    "fail",
+                    f"開発環境fileがありません: {', '.join(missing_development_files)}",
+                )
+            )
+        else:
+            checks.append(check("development-profile", "pass", f"{len(development_files)} files"))
+
     statuses = {item["status"] for item in checks}
     overall = "fail" if "fail" in statuses else "warn" if "warn" in statuses else "pass"
     observed = datetime.now().astimezone()

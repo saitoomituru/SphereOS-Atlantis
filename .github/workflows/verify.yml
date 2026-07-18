@@ -1,0 +1,43 @@
+name: 最小再構築検証
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.14"]
+    steps:
+      - name: repositoryを取得
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Pythonを準備
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          check-latest: false
+      - name: venvと開発依存を再構築
+        run: python -B scripts/bootstrap_venv.py --install-dev --json
+      - name: unit test
+        run: .venv/bin/python -B -m unittest discover -s tests -v
+      - name: read-only doctor
+        run: .venv/bin/python -B -m atlantis_cli doctor --json
+      - name: Git追跡物だけでclean-room再構築
+        if: matrix.python-version == '3.14'
+        run: .venv/bin/python -B scripts/clean_room_test.py --json

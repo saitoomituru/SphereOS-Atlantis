@@ -22,6 +22,7 @@ class DoctorTestCase(unittest.TestCase):
         self.assertEqual(checks["tutorial-source-map"]["status"], "pass")
         self.assertEqual(checks["note-template"]["status"], "pass")
         self.assertEqual(checks["magi-skill-bundle"]["status"], "pass")
+        self.assertEqual(checks["development-profile"]["status"], "pass")
 
 
 if __name__ == "__main__":

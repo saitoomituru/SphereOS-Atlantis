@@ -1,0 +1,25 @@
+{
+  "name": "SphereOS Atlantis 0.2.0 — Sphere-DOS",
+  "image": "mcr.microsoft.com/devcontainers/python:3-3.12-bookworm",
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+  "postCreateCommand": "python3 scripts/bootstrap_venv.py --install-dev",
+  "waitFor": "postCreateCommand",
+  "containerEnv": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PIP_DISABLE_PIP_VERSION_CHECK": "1"
+  },
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "2gb",
+    "storage": "8gb"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  }
+}

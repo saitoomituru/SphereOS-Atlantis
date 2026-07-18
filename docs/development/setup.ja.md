@@ -1,6 +1,6 @@
 # Sphere-DOS開発環境の最小再構築
 
-状態: `[ALPHA]` `[LOCAL VENV TESTED]` `[CONTAINER NOT YET TESTED]`
+状態: `[ALPHA]` `[LOCAL VENV TESTED]` `[DEVCONTAINER STATIC VALIDATED]` `[CONTAINER BUILD NOT TESTED]`
 
 目的は、吊るしのVS CodeとPythonから、いま人間とcoding agentが会話・実装・検証している最小環境を
 再構築することです。個人のtheme、秘密値、認証、特定vendorのmodel設定は焼き込みません。
@@ -88,6 +88,10 @@ GitHub CodespacesはGitHubが提供するremote development environmentで、rep
 `.devcontainer/devcontainer.json`を読めます。起動時間とmachine sizeに応じて費用が発生し得るため、
 Atlantisのagent初期化やtestから自動起動しません。
 
+現在のprofileはMicrosoft公式`mcr.microsoft.com/devcontainers/python:3-3.12-bookworm`を使い、
+追加repository権限、host directory mount、port forward、secret推奨を定義しません。container作成を
+明示的に選んだ後の`postCreateCommand`でのみdev依存を導入します。
+
 一般に`code-server`と呼ばれるブラウザ版VS Code互換serverは別project・別運用です。GitHub Codespacesを
 「Gitそのものの公式code-server」とは呼びません。最初の再構築対象はlocal VS Code、Dev Containers、
 GitHub Codespaces互換の一つの`.devcontainer`契約です。
@@ -108,3 +112,20 @@ GitHub Codespaces互換の一つの`.devcontainer`契約です。
 
 host時計はAsia/Tokyoを表示していますが、NTP等の校正証跡はこのtestで取得していないため、doctor receiptは
 `calibration: unverified`を保持します。
+
+## 7. CIとclean-room
+
+GitHub ActionsはPython 3.11／3.14でVenv、全unit test、read-only doctorを実行します。3.14 jobではさらに、
+Git追跡済みrevisionだけを一時directoryへ展開するclean-room testを実行します。
+
+localで現在のcommitを同じ条件へ通す場合:
+
+```bash
+.venv/bin/python -B scripts/clean_room_test.py --json
+```
+
+clean-roomは`git archive`対象だけを読み、untracked file、local-only asset、秘密directoryを探索・複製しません。
+外部packageを導入せず、model、認証、Codespaces、containerを起動しません。
+
+CIのGitHub token権限は`contents: read`のみで、checkout後のcredential保持も無効です。CIからcommit、push、
+release、外部service書込みを行いません。
