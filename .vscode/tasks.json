@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Atlantis: venv作成（offline）",
+      "type": "process",
+      "command": "python3",
+      "windows": {
+        "command": "py",
+        "args": ["-3", "scripts/bootstrap_venv.py"]
+      },
+      "args": ["scripts/bootstrap_venv.py"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Atlantis: dev依存導入（network明示）",
+      "type": "process",
+      "command": "python3",
+      "windows": {
+        "command": "py",
+        "args": ["-3", "scripts/bootstrap_venv.py", "--install-dev"]
+      },
+      "args": ["scripts/bootstrap_venv.py", "--install-dev"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Atlantis: doctor",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["-B", "-m", "atlantis_cli", "doctor"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Atlantis: unit test",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["-B", "-m", "unittest", "discover", "-s", "tests", "-v"],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Atlantis: agent契約plan",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["-B", "-m", "atlantis_cli", "agent", "plan", "--json"],
+      "problemMatcher": []
+    }
+  ]
+}

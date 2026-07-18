@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Atlantis: doctorをデバッグ",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "atlantis_cli",
+      "args": ["doctor", "--json"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}
