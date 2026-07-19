@@ -107,6 +107,9 @@ machine contractは[`help/interfaces.json`](help/interfaces.json)を参照して
 python3 -B -m atlantis_cli interfaces
 ```
 
+既定Helpは利用可能入口を先に示す`summary`です。全状態は`atlantis help --detail all`または
+`atlantis capabilities`で確認できます。未実装境界を隠すのではなく、要求前の過剰警告を避けます。
+
 ## 版と配布軸
 
 Pi、Linux、Windows、DarwinとPrompt Engineering Editionを同じ分類軸へ潰しません。

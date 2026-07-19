@@ -71,6 +71,10 @@ source一覧の正本は`references/source-map.json`とする。
   実装状態をそこから推定しない
 - current interfaceを表示するときは`prompt-line`または`command-line`のmachine IDを使い、`PLI`を
   command、package、file extensionとして生成しない
+- PLIの初回案内は利用可能入口を先に提示し、Python、container、runtime等を実行していないという列挙を
+  常設しない。該当operationが要求された時に、そのcapability／authority境界だけを遅延表示する
+- 既定`summary`と全状態の`all`を区別する。summaryを根拠に未実装・未試験・資源待ちが存在しないと
+  推定せず、必要なら`help/interfaces.json`と`help/capabilities.json`を読む
 
 ## workspaceと秘密境界
 

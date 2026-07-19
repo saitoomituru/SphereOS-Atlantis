@@ -35,12 +35,17 @@ standalone runtimeの実装状態を自動的には決めません。
 詳細は[Prompt Line InterfaceとCommand Line Interface](../architecture/prompt-line-and-command-line-interface.ja.md)、
 機械可読正本は[`help/interfaces.json`](../../help/interfaces.json)を参照してください。
 
+初回表示は、現在利用できる入口を先に示します。Python、container、standalone runtime等の境界は、
+そのoperationを要求した時に必要な範囲だけ案内します。既定Helpが`AVAILABLE-NOW`だけを表示することは
+未実装項目の削除ではなく、`summary` Presentationです。
+
 ## 開始する
 
 ```bash
 python3 -B -m atlantis_cli help
 python3 -B -m atlantis_cli help --persona '巫女'
 python3 -B -m atlantis_cli help --persona 'サーバーレスエンジニア' --json
+python3 -B -m atlantis_cli help --detail all
 python3 -B -m atlantis_cli capabilities --state AVAILABLE-NOW
 python3 -B -m atlantis_cli capabilities --state NOT-IMPLEMENTED
 python3 -B -m atlantis_cli interfaces

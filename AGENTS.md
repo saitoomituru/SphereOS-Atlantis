@@ -86,6 +86,10 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 - interfaceからActor role、persona、World、権限、実装状態を推定しない
 - hostでPythonを実行できないconnectorを「偽CLI」と説明せず、connector capabilityの差として記録する
 - `PLI`を実行コマンド、package、file extensionへ使用しない。機械可読正本は`help/interfaces.json`とする
+- PLIの初回表示は利用可能入口と`起動モード: Prompt Engineering Edition`を先に示し、実行していない
+  対象の列挙は該当operationが要求された時まで遅延する
+- Helpの既定`summary`は`AVAILABLE-NOW`を表示する。未実装・未試験・資源待ちは隠蔽せず、
+  `--detail all`、`capabilities`、state指定から明示取得できるようにする
 
 ## ライセンス
 
