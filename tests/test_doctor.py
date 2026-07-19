@@ -23,6 +23,7 @@ class DoctorTestCase(unittest.TestCase):
         self.assertEqual(checks["corn-stack"]["status"], "pass")
         self.assertEqual(checks["note-template"]["status"], "pass")
         self.assertEqual(checks["note-registry"]["status"], "pass")
+        self.assertEqual(checks["persona-registry"]["status"], "pass")
         self.assertEqual(checks["magi-skill-bundle"]["status"], "pass")
         self.assertEqual(checks["development-profile"]["status"], "pass")
         self.assertEqual(checks["markdown-links"]["status"], "pass")

@@ -19,6 +19,26 @@ Presentationから同じ開発対象へ着地する入口です。
 複数の棚に当てはまる場合、一つへ決める必要はありません。最も説明しやすい入口から始め、
 必要な時だけBridgeを渡ります。
 
+## personaから開始する
+
+「このリポジトリの巫女向けチュートリアルを開始して」「サーバーレスエンジニア向けで開始して」
+のように、本人が使いたい肩書きから開始できます。AIは会話memoryから宗派、信仰、職種、
+プレイスタイルを推定しません。複数の自己申告profileを同時に指定でき、未登録profileは拒否せず
+暫定入口として本人確認へ返します。
+
+```bash
+python3 -m atlantis_cli tutorial start --persona '巫女'
+python3 -m atlantis_cli tutorial start --persona 'カソリック' --persona 'SRハンター'
+python3 -m atlantis_cli tutorial start --persona 'サーバーレスエンジニア' --route full-development
+```
+
+profile、別名、推奨入口は[`tutorial/personas.json`](../../tutorial/personas.json)が正本です。
+profileは権限、教義、能力認定ではありません。特定作品名を含むprofileも、公式提携や公式素材の
+利用許可を意味せず、参加者が自己申告したプレイ経験から構造上の観測を持ち込む入口に限ります。
+
+`note-only`はローカルVS Codeを必須にせず、ブラウザやSaaS AIからNote PRを送る入口です。
+`full-development`はVS Code、Codespaces等でcode、test、receiptへ進む入口です。
+
 ## 全棚に共通する到達点
 
 1. 自分の棚の言葉で、扱いたいWorld、対象、行為、制約を記述する

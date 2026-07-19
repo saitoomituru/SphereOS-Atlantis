@@ -16,6 +16,7 @@ from .config import load_adapter, load_agent_registry, load_json, policy_paths
 from .corn import validate_corn
 from .links import check_markdown_links
 from .note import find_repo_root, load_note_registry
+from .tutorial import load_persona_registry
 
 
 def check(name: str, status: str, detail: str) -> dict[str, str]:
@@ -141,6 +142,19 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
                 "note-registry",
                 "pass",
                 f"{len(note_registry['shelves'])} shelves; {len(note_registry['kinds'])} kinds",
+            )
+        )
+
+    try:
+        persona_registry = load_persona_registry(root)
+    except (KeyError, TypeError, ValueError) as error:
+        checks.append(check("persona-registry", "fail", str(error)))
+    else:
+        checks.append(
+            check(
+                "persona-registry",
+                "pass",
+                f"{len(persona_registry['profiles'])} profiles",
             )
         )
 

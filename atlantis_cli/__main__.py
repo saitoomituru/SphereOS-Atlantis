@@ -25,6 +25,7 @@ from .doctor import doctor_json, format_doctor, run_doctor
 from .links import check_markdown_links, format_link_report
 from .note import create_note
 from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
+from .tutorial import format_tutorial, start_tutorial
 from .workspace import (
     format_workspace_report,
     initialize_workspace,
@@ -216,6 +217,32 @@ def build_parser() -> argparse.ArgumentParser:
         default="not-used",
         help="会話memory由来の公開情報を含まない場合not-used、本人確認済みの場合confirmed。",
     )
+
+    tutorial_parser = commands.add_parser(
+        "tutorial",
+        help="自己申告personaから非越権な参加入口を解決する。",
+    )
+    tutorial_commands = tutorial_parser.add_subparsers(
+        dest="tutorial_command",
+        required=True,
+    )
+    tutorial_start_parser = tutorial_commands.add_parser(
+        "start",
+        help="persona registryからtutorial入口と必読sourceを計画する。",
+    )
+    tutorial_start_parser.add_argument(
+        "--persona",
+        action="append",
+        required=True,
+        help="本人が自己申告したpersona。複数指定可能。",
+    )
+    tutorial_start_parser.add_argument(
+        "--route",
+        default="auto",
+        help="auto、note-only、full-development。",
+    )
+    tutorial_start_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    tutorial_start_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
     return parser
 
 
@@ -381,6 +408,22 @@ def main(argv: list[str] | None = None) -> int:
             parser.error(str(error))
         state = "DRY-RUN" if args.dry_run else "CREATED"
         print(f"[{state}] {result.path}")
+        return 0
+
+    if args.command == "tutorial" and args.tutorial_command == "start":
+        try:
+            result = start_tutorial(
+                args.persona,
+                route=args.route,
+                repo_root=args.repo_root,
+            )
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_tutorial(result)
+        )
         return 0
 
     parser.error("未対応のcommandです。")
