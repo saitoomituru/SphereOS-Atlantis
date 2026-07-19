@@ -23,7 +23,7 @@ from .corn import (
 )
 from .doctor import doctor_json, format_doctor, run_doctor
 from .links import check_markdown_links, format_link_report
-from .note import KINDS, SHELVES, create_note
+from .note import create_note
 from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
 from .workspace import (
     format_workspace_report,
@@ -162,8 +162,8 @@ def build_parser() -> argparse.ArgumentParser:
     note_commands = note_parser.add_subparsers(dest="note_command", required=True)
     new_parser = note_commands.add_parser("new", help="雛形から衝突安全なnoteを作成する。")
     new_parser.add_argument("--title", required=True, help="noteの題名。")
-    new_parser.add_argument("--shelf", required=True, choices=SHELVES, help="主に使用する棚。")
-    new_parser.add_argument("--kind", default="brainstorm", choices=KINDS, help="noteの種別。")
+    new_parser.add_argument("--shelf", required=True, help="note/registry.jsonに登録した棚。")
+    new_parser.add_argument("--kind", default="brainstorm", help="note/registry.jsonに登録した種別。")
     new_parser.add_argument("--scope", default="未整理。", help="対象・範囲の初期値。")
     new_parser.add_argument("--exclusions", default="未整理。", help="除外範囲の初期値。")
     new_parser.add_argument(
@@ -188,6 +188,33 @@ def build_parser() -> argparse.ArgumentParser:
     new_parser.add_argument(
         "--timestamp",
         help="作成時刻の上書き。import・fixture用ISO 8601値。通常は指定しない。",
+    )
+    new_parser.add_argument(
+        "--persona",
+        action="append",
+        default=[],
+        help="本人が自己申告したpersona／立場。複数指定可能。",
+    )
+    new_parser.add_argument(
+        "--position-statement",
+        default="not-declared",
+        help="公開を選んだ信仰告白またはposition。推定値を渡さない。",
+    )
+    new_parser.add_argument(
+        "--claim-scope",
+        default="not-declared",
+        help="このNoteの主張射程。",
+    )
+    new_parser.add_argument(
+        "--non-authority-scope",
+        default="not-declared",
+        help="裁定しない宗派、World、対象。",
+    )
+    new_parser.add_argument(
+        "--memory-publication-consent",
+        choices=("not-used", "confirmed"),
+        default="not-used",
+        help="会話memory由来の公開情報を含まない場合not-used、本人確認済みの場合confirmed。",
     )
     return parser
 
@@ -344,6 +371,11 @@ def main(argv: list[str] | None = None) -> int:
                 repo_root=args.repo_root,
                 dry_run=args.dry_run,
                 timestamp=args.timestamp,
+                personas=args.persona,
+                position_statement=args.position_statement,
+                claim_scope=args.claim_scope,
+                non_authority_scope=args.non_authority_scope,
+                memory_publication_consent=args.memory_publication_consent,
             )
         except (OSError, ValueError) as error:
             parser.error(str(error))

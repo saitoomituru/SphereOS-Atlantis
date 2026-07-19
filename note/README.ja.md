@@ -62,16 +62,24 @@ DRAFT note
 
 ## 作成方法
 
-手書きで作成できます。CLI実装後は次を標準入口とします。
+手書きで作成できます。CLIでは次を標準入口とします。棚、種別、作成時の状態初期値は
+[note registry](registry.json)を正本とし、新しい棚はcodeを変更せずregistryへ追加します。
 
 ```bash
 python3 -m atlantis_cli note new \
   --shelf spiritual \
   --kind brainstorm \
-  --title '川の神様OAEブレスト'
+  --title '川の神様OAEブレスト' \
+  --persona '律令神道の実践者' \
+  --position-statement '本人が公開を選んだ個人見解' \
+  --claim-scope 'このNoteで扱う祈りUX' \
+  --non-authority-scope '他宗派の教義裁定'
 ```
 
 CLIはtemplateを生成するだけで、AI、外部API、commit、pushを自動実行しません。
+persona、宗派、プレイスタイルは本人の自己申告だけを記録します。ユーザーmemoryや過去会話から
+AIが推定して公開しません。会話memory由来の公開情報を含める場合は、本人が公開内容を確認した後だけ
+`--memory-publication-consent confirmed`を指定します。
 
 雛形は[ブレストnote template](templates/brainstorm.ja.md)、別repositoryへの待機列は
 [transfer plan](transfer_plan/README.md)を参照してください。

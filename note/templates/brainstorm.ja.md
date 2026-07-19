@@ -12,9 +12,20 @@ timezone: {{TIMEZONE}}
 clock_source: host_system_clock
 clock_calibration: {{CLOCK_CALIBRATION}}
 authoring_agent: {{AUTHORING_AGENT}}
+declared_personas: {{PERSONAS_JSON}}
+declared_position: {{POSITION_JSON}}
+claim_scope: {{CLAIM_SCOPE_JSON}}
+non_authority_scope: {{NON_AUTHORITY_SCOPE_JSON}}
+memory_publication_consent: {{MEMORY_PUBLICATION_CONSENT}}
+status_axes:
+  content_maturity: {{CONTENT_MATURITY}}
+  engineering_state: {{ENGINEERING_STATE}}
+  distribution_state: {{DISTRIBUTION_STATE}}
+  resource_state: {{RESOURCE_STATE}}
 ```
 
 システム作成時刻は、対象World内の時刻、出来事の発生時刻、原資料の作成時刻を意味しません。
+persona、position、信仰、プレイスタイルは自己申告だけを記録し、会話memoryから自動公開しません。
 
 ## 対象・範囲
 
