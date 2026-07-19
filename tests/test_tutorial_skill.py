@@ -71,6 +71,19 @@ class TutorialSkillTestCase(unittest.TestCase):
         )
         self.assertFalse(result["summary"]["network_access_performed"])
 
+    def test_全棚共通sourceにCORNとMAGIと参加契約を含む(self) -> None:
+        source_map = self.load_source_map()
+        common_paths = {item["path"] for item in source_map["common"]}
+
+        self.assertIn("docs/operations/corn-stack.ja.md", common_paths)
+        self.assertIn("docs/operations/corn-work-item-stack.ja.md", common_paths)
+        self.assertIn(
+            "docs/operations/participation-nonjurisdiction-and-experience.ja.md",
+            common_paths,
+        )
+        self.assertIn("docs/theory/atlantis-magi-sdk-0.2.1.ja.md", common_paths)
+        self.assertIn("docs/operations/context-ruler-and-causality-audit.ja.md", common_paths)
+
 
 if __name__ == "__main__":
     unittest.main()

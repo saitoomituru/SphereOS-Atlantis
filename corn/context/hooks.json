@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "hooks": [
+    {
+      "id": "context-source-integrity",
+      "phases": [
+        "pre-context"
+      ],
+      "mode": "built-in-source-hash",
+      "required": true,
+      "source_ids": []
+    },
+    {
+      "id": "magi-position-audit",
+      "phases": [
+        "pre-mutation",
+        "pre-commit",
+        "pre-projection",
+        "pre-release"
+      ],
+      "mode": "document-read-gate",
+      "required": true,
+      "source_ids": [
+        "manifest-agents",
+        "manifest-magi",
+        "manifest-context-audit"
+      ]
+    }
+  ]
+}

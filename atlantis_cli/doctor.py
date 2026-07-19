@@ -13,6 +13,7 @@ import sys
 from typing import Any
 
 from .config import load_adapter, load_agent_registry, load_json, policy_paths
+from .corn import validate_corn
 from .links import check_markdown_links
 from .note import find_repo_root
 
@@ -106,6 +107,20 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
         checks.append(check("tutorial-source-map", "fail", str(error)))
     else:
         checks.append(check("tutorial-source-map", "pass", f"{shelf_count} shelves"))
+
+    corn_result = validate_corn(root)
+    checks.append(
+        check(
+            "corn-stack",
+            "pass" if corn_result["overall"] == "pass" else "fail",
+            (
+                f"{len(corn_result['work_items'])} work items; "
+                f"{corn_result['event_count']} events"
+                if corn_result["overall"] == "pass"
+                else "; ".join(corn_result["errors"])
+            ),
+        )
+    )
 
     template = root / "note/templates/brainstorm.ja.md"
     checks.append(

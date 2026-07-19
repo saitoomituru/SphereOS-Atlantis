@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0.0",
+  "stack_version": "0.25.1-alpha.1",
+  "stack_id": "sphereos-atlantis-corn",
+  "canonical_storage": {
+    "work_items": "corn/work-items",
+    "events": "corn/events",
+    "events_append_only": true,
+    "forge_is_projection": true,
+    "capsule_is_canonical": false
+  },
+  "repositories": {
+    "SphereOS-Atlantis": {
+      "root_strategy": "self",
+      "marker": "corn/registry.json",
+      "remote": "https://github.com/saitoomituru/SphereOS-Atlantis"
+    },
+    "ZeroRoomLab-manifest": {
+      "root_strategy": "ancestor-relative-or-environment",
+      "environment": "ATLANTIS_MANIFEST_ROOT",
+      "relative_candidates": [
+        "ZeroRoomLab-manifest/ZeroRoomLab-manifest"
+      ],
+      "marker": "docs/operations/workspace-registry.json",
+      "remote": "https://github.com/saitoomituru/ZeroRoomLab-manifest"
+    }
+  },
+  "context": {
+    "read_order": [
+      "workspace-profile",
+      "manifest-agents",
+      "manifest-corn-contract",
+      "manifest-magi",
+      "manifest-context-audit",
+      "atlantis-agents",
+      "atlantis-readme",
+      "work-item",
+      "required-hooks",
+      "capsule",
+      "local-schema-and-tests"
+    ],
+    "required_sources": [
+      "workspace-profile",
+      "manifest-agents",
+      "manifest-corn-contract",
+      "manifest-magi",
+      "manifest-context-audit",
+      "atlantis-agents",
+      "atlantis-readme"
+    ],
+    "incomplete_last_order": {
+      "code": "CONTEXT-INCOMPLETE",
+      "action": "stop-before-mutation",
+      "recoverable": true
+    }
+  },
+  "sources": [
+    {
+      "id": "workspace-profile",
+      "repository": "SphereOS-Atlantis",
+      "path": "workspace/components.json",
+      "required": true
+    },
+    {
+      "id": "manifest-agents",
+      "repository": "ZeroRoomLab-manifest",
+      "path": "AGENTS.md",
+      "required": true
+    },
+    {
+      "id": "manifest-corn-contract",
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/corn-work-item-stack.ja.md",
+      "required": true
+    },
+    {
+      "id": "manifest-participation-contract",
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/participation-nonjurisdiction-and-experience.ja.md",
+      "required": true
+    },
+    {
+      "id": "manifest-magi",
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/theory/atlantis-magi-sdk-0.2.1.ja.md",
+      "required": true
+    },
+    {
+      "id": "manifest-context-audit",
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/context-ruler-and-causality-audit.ja.md",
+      "required": true
+    },
+    {
+      "id": "atlantis-agents",
+      "repository": "SphereOS-Atlantis",
+      "path": "AGENTS.md",
+      "required": true
+    },
+    {
+      "id": "atlantis-readme",
+      "repository": "SphereOS-Atlantis",
+      "path": "README.md",
+      "required": true
+    },
+    {
+      "id": "atlantis-corn-doc",
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/operations/corn-stack.ja.md",
+      "required": true
+    }
+  ],
+  "workflow_states": [
+    "open",
+    "waiting-review",
+    "resource-wait",
+    "in-progress",
+    "blocked",
+    "done",
+    "archived"
+  ],
+  "status_axes": {
+    "content_maturity": [
+      "raw-note",
+      "concept",
+      "discussion",
+      "contract-candidate",
+      "adopted"
+    ],
+    "engineering_state": [
+      "not-started",
+      "architecture",
+      "implementing",
+      "implemented",
+      "tested",
+      "integrated",
+      "unknown"
+    ],
+    "distribution_state": [
+      "not-distributed",
+      "draft-pr",
+      "merged",
+      "alpha",
+      "beta",
+      "stable",
+      "archived"
+    ],
+    "resource_state": [
+      "available",
+      "constrained",
+      "resource-wait",
+      "procurement",
+      "unknown"
+    ]
+  },
+  "projection_registry": "corn/projections/forge.json",
+  "hook_registry": "corn/context/hooks.json"
+}

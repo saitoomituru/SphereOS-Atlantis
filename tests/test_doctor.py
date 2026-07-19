@@ -20,6 +20,7 @@ class DoctorTestCase(unittest.TestCase):
         self.assertEqual(checks["git-worktree"]["status"], "pass")
         self.assertEqual(checks["agent-policy"]["status"], "pass")
         self.assertEqual(checks["tutorial-source-map"]["status"], "pass")
+        self.assertEqual(checks["corn-stack"]["status"], "pass")
         self.assertEqual(checks["note-template"]["status"], "pass")
         self.assertEqual(checks["magi-skill-bundle"]["status"], "pass")
         self.assertEqual(checks["development-profile"]["status"], "pass")

@@ -14,6 +14,13 @@ from .agent import (
     verify_agent,
 )
 from .config import load_agent_registry
+from .corn import (
+    build_context_receipt,
+    forge_projection_plan,
+    format_corn_report,
+    tick_corn,
+    validate_corn,
+)
 from .doctor import doctor_json, format_doctor, run_doctor
 from .links import check_markdown_links, format_link_report
 from .note import KINDS, SHELVES, create_note
@@ -110,6 +117,46 @@ def build_parser() -> argparse.ArgumentParser:
     )
     sphere_status_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     sphere_status_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    corn_parser = commands.add_parser(
+        "corn",
+        help="repository-nativeなwork itemとcontext closureを扱う。",
+    )
+    corn_commands = corn_parser.add_subparsers(dest="corn_command", required=True)
+    corn_validate_parser = corn_commands.add_parser(
+        "validate",
+        help="CORN registry、work item、eventをoffline検証する。",
+    )
+    corn_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    corn_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+    corn_context_parser = corn_commands.add_parser(
+        "context",
+        help="required sourceを解決し、context hash receiptを作る。",
+    )
+    corn_context_parser.add_argument("--work-item", required=True, help="CORN work item ID。")
+    corn_context_parser.add_argument(
+        "--write-capsule",
+        action="store_true",
+        help="正本ではないcontext capsule cacheを.atlantisへ書く。",
+    )
+    corn_context_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    corn_context_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+    corn_tick_parser = corn_commands.add_parser(
+        "tick",
+        help="scheduler互換のone-shot activation receiptを生成する。",
+    )
+    corn_tick_parser.add_argument("--work-item", required=True, help="CORN work item ID。")
+    corn_tick_parser.add_argument("--reason", required=True, help="activation reason。")
+    corn_tick_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    corn_tick_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+    corn_forge_parser = corn_commands.add_parser(
+        "forge-plan",
+        help="Forge projectionをnetworkなしで計画する。",
+    )
+    corn_forge_parser.add_argument("--work-item", required=True, help="CORN work item ID。")
+    corn_forge_parser.add_argument("--adapter", required=True, help="Forge adapter ID。")
+    corn_forge_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    corn_forge_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
     note_parser = commands.add_parser("note", help="未確定のブレストや観測をnoteへ保存する。")
     note_commands = note_parser.add_subparsers(dest="note_command", required=True)
@@ -255,6 +302,33 @@ def main(argv: list[str] | None = None) -> int:
             else format_sphere_dos(result)
         )
         return 0
+
+    if args.command == "corn":
+        try:
+            if args.corn_command == "validate":
+                result = validate_corn(args.repo_root)
+            elif args.corn_command == "context":
+                result = build_context_receipt(
+                    args.work_item,
+                    args.repo_root,
+                    write_capsule=args.write_capsule,
+                )
+            elif args.corn_command == "tick":
+                result = tick_corn(args.work_item, args.reason, args.repo_root)
+            else:
+                result = forge_projection_plan(
+                    args.work_item,
+                    args.adapter,
+                    args.repo_root,
+                )
+        except (OSError, RuntimeError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_corn_report(result)
+        )
+        return 1 if result.get("overall") in {"fail", "incomplete"} else 0
 
     if args.command == "note" and args.note_command == "new":
         try:

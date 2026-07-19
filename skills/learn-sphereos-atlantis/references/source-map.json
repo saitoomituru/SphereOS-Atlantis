@@ -34,6 +34,11 @@
       "required": true
     },
     {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/operations/corn-stack.ja.md",
+      "required": true
+    },
+    {
       "repository": "ZeroRoomLab-manifest",
       "path": "AGENTS.md",
       "required": true
@@ -56,6 +61,26 @@
     {
       "repository": "ZeroRoomLab-manifest",
       "path": "docs/operations/heterogeneous-agent-deck-governance.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/corn-work-item-stack.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/participation-nonjurisdiction-and-experience.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/theory/atlantis-magi-sdk-0.2.1.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/context-ruler-and-causality-audit.ja.md",
       "required": true
     }
   ],

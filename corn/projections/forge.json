@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "canonical_direction": "corn-to-forge",
+  "forge_import_policy": "append-event-never-silent-rewrite",
+  "conflict_last_order": {
+    "code": "SYNC-CONFLICT",
+    "action": "preserve-both-and-request-review",
+    "recoverable": true
+  },
+  "adapters": [
+    {
+      "id": "github",
+      "kind": "issue",
+      "marker": "CORN-ID",
+      "network_execution": "not-implemented"
+    },
+    {
+      "id": "gitlab",
+      "kind": "issue",
+      "marker": "CORN-ID",
+      "network_execution": "not-implemented"
+    },
+    {
+      "id": "generic-forge",
+      "kind": "ticket",
+      "marker": "CORN-ID",
+      "network_execution": "not-implemented"
+    }
+  ]
+}
