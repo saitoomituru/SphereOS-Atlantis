@@ -2,6 +2,9 @@
   "schema_version": "1.0.0",
   "product": "Atlantis-MAGI Skill Bundle",
   "version": "0.2.1",
+  "legacy_version_alias": true,
+  "coordinate_system": "sphere-version-coordinate/1",
+  "canonical_coordinate": "0.200.1",
   "distribution": "sphereos-atlantis-prompt-engineering-edition",
   "lineage": {
     "source_product": "Atlantis-MAGISDK",

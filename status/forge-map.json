@@ -2,6 +2,7 @@
   "schema_version": "1.0.0",
   "map_type": "forge",
   "project_version": "0.25.1-alpha.1",
+  "canonical_coordinate": "0.250.1",
   "as_of": "2026-07-19",
   "items": [
     {
@@ -93,6 +94,20 @@
       "evidence": ["corn/registry.json", "atlantis_cli/corn.py", "tests/test_corn.py"],
       "claim_scope": "offline stack、context receipt、scheduler／Forge projection plan",
       "unknowns": ["scheduler実接続", "GitLab実同期", "Forge write自動化"]
+    },
+    {
+      "id": "version-and-causal-boundary-validator",
+      "label_ja": "三層版数座標と因果接続validator",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "validated-local",
+        "distribution_state": "branch-only",
+        "resource_state": "available",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["versioning/contract.json", "atlantis_cli/versioning.py", "tests/test_versioning.py"],
+      "claim_scope": "Presentation.Function.SemanticKernel座標と陸続き／Portal／異因果Gateのoffline判定",
+      "unknowns": ["cross-causal runtime gateway", "異World間の実transport"]
     },
     {
       "id": "codespaces-community-test",

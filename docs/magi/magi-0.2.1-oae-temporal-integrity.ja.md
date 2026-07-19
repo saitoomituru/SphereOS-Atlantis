@@ -3,6 +3,10 @@
 状態: `[ALPHA]` `[CORRECTIVE PATCH]` `[PROMPT-ENGINEERING-EDITION]`  
 upstream: `ZeroRoomLab-manifest@a37f0dd6dc1f8f2f73397fed0eca4fb37dffd8ff`
 
+`0.2.1`は既存path、receipt、position参照を壊さないlegacy表示であり、三層版数座標では
+`0.200.1`（Presentation 0／Function 200／SemanticKernel 1）へ写像します。旧表示をSemVerの
+minor／patchとして読み替えず、Source Eventとして保持します。
+
 ## 修正対象
 
 MAGI 0.2.0は三Position Skill、composite Skill、source resolverを実装していたが、過去資料のEvidenceと
@@ -66,9 +70,13 @@ Registry revisionはunknown／User gateへ残す。7DはContext Dimensionのarit
 
 ## タイムマシンUX境界
 
-「タイムマシン」はAppleのTime Machine／Time Capsuleをオマージュしたbackup・restore UXである。
-物理空間の時間移動、Appleとの提携、公式互換を主張しない。`Akasha Driver`は高権限の分岐・復元driver名
-だが、0.2.1ではruntimeを実装しない。
+意味Kernel `0.200.0`には、特定条件でOAEを同一World線内へ遡及再配置できる脆性がありました。
+`0.200.1`はSource Eventを保存し、遡及backfill、過去Agency roleの生成、同一World線mutationを拒否します。
+これは物理空間の時間移動の主張ではなく、system上の意味・同一性・時間・因果契約の修正です。
+
+これとは別に、AppleのTime Machine／Time Capsuleをオマージュしたbackup・restore UXがあります。
+Appleとの提携や公式互換を主張しません。`Akasha Driver`は高権限の分岐・復元driver名ですが、
+`0.200.1`でもruntimeは未実装です。
 
 ## 保留する依存
 

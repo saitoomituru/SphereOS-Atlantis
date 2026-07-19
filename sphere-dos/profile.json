@@ -2,6 +2,9 @@
   "schema_version": "1.0.0",
   "product": "sphereos-atlantis",
   "design_line": "0.25.1",
+  "coordinate_system": "sphere-version-coordinate/1",
+  "canonical_coordinate": "0.250.1",
+  "legacy_distribution_alias": "0.25.1",
   "edition": "prompt-engineering",
   "distribution": "sphere-dos",
   "distribution_role": "development-environment-supply",
@@ -26,7 +29,9 @@
     "offline-corn-stack",
     "declarative-note-and-persona-registry",
     "experience-receipt",
-    "forge-and-quest-status-map"
+    "forge-and-quest-status-map",
+    "sphere-version-coordinate-validator",
+    "help-capability-discovery"
   ],
   "explicit_non_capabilities": [
     "standalone-os-runtime",
@@ -35,7 +40,8 @@
     "provider-authentication",
     "automatic-secret-discovery",
     "7d-fold-runtime",
-    "akasha-driver-runtime"
+    "akasha-driver-runtime",
+    "cross-causal-runtime-gateway"
   ],
   "unknowns": [
     "component-runtime-integration-order",

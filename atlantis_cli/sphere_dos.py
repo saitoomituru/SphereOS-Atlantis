@@ -84,6 +84,8 @@ def boot_sphere_dos(
         "schema_version": "1.0.0",
         "session_id": session_id,
         "product": profile["product"],
+        "coordinate_system": profile["coordinate_system"],
+        "canonical_coordinate": profile["canonical_coordinate"],
         "design_line": profile["design_line"],
         "edition": profile["edition"],
         "distribution": profile["distribution"],
@@ -125,6 +127,7 @@ def sphere_dos_status(repo_root: Path | None = None) -> dict[str, Any]:
         return {
             "schema_version": "1.0.0",
             "distribution": profile["distribution"],
+            "canonical_coordinate": profile["canonical_coordinate"],
             "runtime_state": "not-booted",
             "standalone_runtime_implemented": False,
             "mutations_performed": False,
@@ -142,6 +145,7 @@ def sphere_dos_status(repo_root: Path | None = None) -> dict[str, Any]:
     return {
         "schema_version": "1.0.0",
         "distribution": profile["distribution"],
+        "canonical_coordinate": profile["canonical_coordinate"],
         "runtime_state": current.get("runtime_state", "unknown"),
         "session_id": current.get("session_id"),
         "receipt": str(receipt_path),

@@ -1,6 +1,8 @@
 {
   "schema_version": "1.0.0",
   "project_version": "0.25.1-alpha.1",
+  "coordinate_system": "sphere-version-coordinate/1",
+  "canonical_coordinate": "0.250.1",
   "axes": {
     "content_maturity": [
       "raw-note",

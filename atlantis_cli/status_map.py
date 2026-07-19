@@ -7,6 +7,7 @@ from typing import Any
 
 from .config import load_json
 from .note import find_repo_root
+from .versioning import validate_version_contract
 
 
 STATUS_REGISTRY_PATH = Path("status/registry.json")
@@ -22,12 +23,19 @@ def validate_status_maps(repo_root: Path | None = None) -> dict[str, Any]:
     if registry.get("schema_version") != "1.0.0" or not isinstance(axes, dict):
         raise ValueError("status registry契約が不正です。")
     expected_axes = set(axes)
+    version_result = validate_version_contract(root)
+    if version_result["overall"] != "pass":
+        errors.extend(f"version contract: {error}" for error in version_result["errors"])
+    elif registry.get("canonical_coordinate") != version_result["canonical_display"]:
+        errors.append("status registryのcanonical coordinateがversion contractと一致しません。")
     seen_ids: set[str] = set()
     for relative in MAP_PATHS:
         value = load_json(root / relative)
         items = value.get("items")
         if value.get("project_version") != registry.get("project_version"):
             errors.append(f"{relative}: project_versionがregistryと一致しません。")
+        if value.get("canonical_coordinate") != registry.get("canonical_coordinate"):
+            errors.append(f"{relative}: canonical_coordinateがregistryと一致しません。")
         if not isinstance(items, list):
             errors.append(f"{relative}: itemsがarrayではありません。")
             continue
@@ -55,6 +63,7 @@ def validate_status_maps(repo_root: Path | None = None) -> dict[str, Any]:
         "schema_version": "1.0.0",
         "overall": "fail" if errors else "pass",
         "project_version": registry.get("project_version"),
+        "canonical_coordinate": registry.get("canonical_coordinate"),
         "maps": maps,
         "errors": errors,
         "network_access_performed": False,

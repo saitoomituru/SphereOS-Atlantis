@@ -34,6 +34,7 @@ class SphereDosTestCase(unittest.TestCase):
             receipt = boot_sphere_dos(root)
 
             self.assertFalse(receipt["standalone_runtime_implemented"])
+            self.assertEqual(receipt["canonical_coordinate"], "0.250.1")
             self.assertEqual(
                 receipt["deployment_scope"],
                 "local-development-scaffold-only",
@@ -44,6 +45,7 @@ class SphereDosTestCase(unittest.TestCase):
 
             status = sphere_dos_status(root)
             self.assertEqual(status["session_id"], receipt["session_id"])
+            self.assertEqual(status["canonical_coordinate"], "0.250.1")
             self.assertFalse(status["mutations_performed"])
             self.assertFalse(status["standalone_runtime_implemented"])
 

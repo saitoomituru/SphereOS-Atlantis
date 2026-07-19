@@ -15,7 +15,8 @@ class StatusMapTestCase(unittest.TestCase):
 
         self.assertEqual(result["overall"], "pass")
         self.assertEqual(result["project_version"], "0.25.1-alpha.1")
-        self.assertEqual([item["items"] for item in result["maps"]], [7, 4])
+        self.assertEqual(result["canonical_coordinate"], "0.250.1")
+        self.assertEqual([item["items"] for item in result["maps"]], [8, 5])
 
 
 if __name__ == "__main__":

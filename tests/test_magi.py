@@ -18,6 +18,7 @@ class MagiSkillBundleTestCase(unittest.TestCase):
     def test_三監査slotと支援slotを混ぜない(self) -> None:
         bundle = self.load_json(MAGI_ROOT / "bundle.json")
         self.assertEqual(bundle["version"], "0.2.1")
+        self.assertEqual(bundle["canonical_coordinate"], "0.200.1")
         self.assertEqual(
             [item["id"] for item in bundle["audit_slots"]],
             ["maxwell", "uriel", "raphael"],
@@ -119,6 +120,15 @@ class MagiSkillBundleTestCase(unittest.TestCase):
         completed = self.validate_temporal(self.historical_unknown_receipt())
         self.assertEqual(completed.returncode, 0, completed.stdout)
         self.assertTrue(json.loads(completed.stdout)["valid"])
+
+    def test_意味Kernel_200_1は同一世界線OAE再配置を許可しない(self) -> None:
+        policy = self.load_json(MAGI_ROOT / "oae-temporal-policy.json")
+        change = policy["semantic_kernel_change"]
+
+        self.assertEqual(change["source_coordinate"], "0.200.0")
+        self.assertEqual(change["target_coordinate"], "0.200.1")
+        self.assertFalse(change["same_worldline_oae_relocation_allowed"])
+        self.assertTrue(change["source_event_preserved"])
 
     def test_過去OAE不明をLast_Orderなしで埋めない(self) -> None:
         value = self.historical_unknown_receipt()

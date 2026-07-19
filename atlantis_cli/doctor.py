@@ -237,6 +237,8 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
         invariants = bundle["invariants"]
         if bundle.get("version") != "0.2.1":
             raise ValueError("MAGI bundle versionは0.2.1である必要があります。")
+        if bundle.get("canonical_coordinate") != "0.200.1":
+            raise ValueError("MAGI legacy 0.2.1を三層座標0.200.1へ解決できません。")
         if audit_ids != ["maxwell", "uriel", "raphael"]:
             raise ValueError("MAGI監査slotの順序または構成が契約と一致しません。")
         if len(support_slots) != 1 or support_slots[0].get("id") != "chikuwa-cannon":
@@ -247,6 +249,15 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
             raise ValueError("MAGIの非人格・非神託・非多数決不変条件が崩れています。")
         if temporal_policy.get("version") != "0.2.1":
             raise ValueError("OAE時間整合性policy versionが0.2.1ではありません。")
+        kernel_change = temporal_policy.get("semantic_kernel_change", {})
+        if (
+            temporal_policy.get("canonical_coordinate") != "0.200.1"
+            or kernel_change.get("source_coordinate") != "0.200.0"
+            or kernel_change.get("target_coordinate") != "0.200.1"
+            or kernel_change.get("same_worldline_oae_relocation_allowed") is not False
+            or kernel_change.get("source_event_preserved") is not True
+        ):
+            raise ValueError("MAGI意味Kernel 0.200.1の同一世界線OAE再配置拒否が崩れています。")
         last_order = temporal_policy.get("last_order", {})
         if (
             last_order.get("code") != "OAE-HISTORY-UNKNOWN"
@@ -282,7 +293,7 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
     except (KeyError, TypeError, ValueError) as error:
         checks.append(check("magi-skill-bundle", "fail", str(error)))
     else:
-        checks.append(check("magi-skill-bundle", "pass", "0.2.1: 3 audit slots + OAE temporal gate"))
+        checks.append(check("magi-skill-bundle", "pass", "0.200.1 (legacy 0.2.1): 3 audit slots + OAE temporal gate"))
 
     development_files = [
         ".vscode/extensions.json",

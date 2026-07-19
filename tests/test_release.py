@@ -15,6 +15,7 @@ class ReleaseTestCase(unittest.TestCase):
 
         self.assertEqual(result["overall"], "pass")
         self.assertEqual(result["candidate"], "0.25.1-alpha.1")
+        self.assertEqual(result["canonical_coordinate"], "0.250.1")
         self.assertEqual(result["tag_state"], "not-created")
 
 

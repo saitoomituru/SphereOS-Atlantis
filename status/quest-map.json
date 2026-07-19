@@ -2,8 +2,23 @@
   "schema_version": "1.0.0",
   "map_type": "quest",
   "project_version": "0.25.1-alpha.1",
+  "canonical_coordinate": "0.250.1",
   "as_of": "2026-07-19",
   "items": [
+    {
+      "id": "help-capability-discovery",
+      "label_ja": "初心者安全なHelp／能力案内",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "validated-local",
+        "distribution_state": "branch-only",
+        "resource_state": "available",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["help/capabilities.json", "atlantis_cli/help_mode.py", "tests/test_help_mode.py"],
+      "claim_scope": "習熟度と実装意図を推定しない読み取り専用の能力・入口案内",
+      "unknowns": ["第三者初心者review", "各persona当事者による案内表現review"]
+    },
     {
       "id": "persona-tutorial-entry",
       "label_ja": "persona別tutorial入口",
@@ -15,7 +30,7 @@
         "review_state": "review-wanted"
       },
       "evidence": ["tutorial/personas.json", "atlantis_cli/tutorial.py", "tests/test_tutorial.py"],
-      "claim_scope": "自己申告profileからNote-only／full-development入口を計画",
+      "claim_scope": "自己申告profileと明示intentからHelp／Note-only／full-development入口を計画",
       "unknowns": ["各profile当事者review"]
     },
     {
