@@ -76,6 +76,7 @@ class TutorialSkillTestCase(unittest.TestCase):
         common_paths = {item["path"] for item in source_map["common"]}
 
         self.assertIn("docs/operations/corn-stack.ja.md", common_paths)
+        self.assertIn("docs/tutorial/help-and-capabilities.ja.md", common_paths)
         self.assertIn("docs/operations/corn-work-item-stack.ja.md", common_paths)
         self.assertIn(
             "docs/operations/participation-nonjurisdiction-and-experience.ja.md",
@@ -83,6 +84,8 @@ class TutorialSkillTestCase(unittest.TestCase):
         )
         self.assertIn("docs/theory/atlantis-magi-sdk-0.2.1.ja.md", common_paths)
         self.assertIn("docs/operations/context-ruler-and-causality-audit.ja.md", common_paths)
+        self.assertIn("docs/operations/help-and-capability-discovery.ja.md", common_paths)
+        self.assertIn("docs/theory/sphereos-atlantis-versioning-and-bootstrap.ja.md", common_paths)
 
 
 if __name__ == "__main__":

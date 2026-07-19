@@ -61,12 +61,20 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 
 ## 状態と証拠
 
-- `0.25.1`設計系列、`0.25.1-alpha.1`候補、正式release、MAGI `0.2.1`、実行runtimeを同一視しない
+- Sphere三層座標`0.250.1`、legacy配布alias `0.25.1`／`0.25.1-alpha.1`、正式release、MAGI legacy alias `0.2.1`、実行runtimeを同一視しない
 - 未実装は`NOT IMPLEMENTED`、未試験は`NOT TESTED`または`unknown`とする
 - clone成功をruntime動作確認として表示しない
 - 互換claimには、可能な範囲で対象、version、試験条件、結果、未試験範囲を添える
 - `compatible`は自由な自己申告であり、Originの認可markへ変えない
 - Origin、Community Lineage、compatible、inspiredを格付けへ変えない
+
+## Helpと習熟度
+
+- 初回案内の既定値は`proficiency=unknown`、`intent=look-around`、`route=help`とする
+- persona、職種、宗派、プレイスタイルから習熟度、実装意図、権限を推定しない
+- 工学者または開発者personaでも、`intent=implement`の明示前にcodingを開始しない
+- Helpは現在能力、足場、未実装、未試験、資源待ち、unknownを分離し、物語を実装証拠にしない
+- 実装意図が明示されても、context sourceを読む前に変更、network接続、権限取得を実行しない
 
 ## ライセンス
 

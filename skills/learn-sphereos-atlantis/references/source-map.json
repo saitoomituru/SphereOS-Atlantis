@@ -35,6 +35,11 @@
     },
     {
       "repository": "SphereOS-Atlantis",
+      "path": "docs/tutorial/help-and-capabilities.ja.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
       "path": "docs/operations/corn-stack.ja.md",
       "required": true
     },
@@ -91,6 +96,16 @@
     {
       "repository": "ZeroRoomLab-manifest",
       "path": "docs/operations/participation-nonjurisdiction-and-experience.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/help-and-capability-discovery.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/theory/sphereos-atlantis-versioning-and-bootstrap.ja.md",
       "required": true
     },
     {
