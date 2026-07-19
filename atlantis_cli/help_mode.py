@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 from typing import Any
 
 from .config import load_json
@@ -11,6 +12,8 @@ from .tutorial import start_tutorial
 
 
 CAPABILITY_REGISTRY_PATH = Path("help/capabilities.json")
+INTERFACE_REGISTRY_PATH = Path("help/interfaces.json")
+MACHINE_ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
 def load_capability_registry(root: Path) -> dict[str, Any]:
@@ -42,16 +45,165 @@ def load_capability_registry(root: Path) -> dict[str, Any]:
     return registry
 
 
+def load_interface_registry(root: Path) -> dict[str, Any]:
+    registry = load_json(root / INTERFACE_REGISTRY_PATH)
+    if registry.get("schema_version") != "1.0.0":
+        raise ValueError("interface registry schema_versionは1.0.0である必要があります。")
+    if registry.get("contract_state") not in {"ALPHA", "STABLE"}:
+        raise ValueError("interface registry contract_stateが未登録です。")
+
+    interfaces = registry.get("interfaces")
+    envelopes = registry.get("execution_envelopes")
+    defaults = registry.get("default_interface_by_entry")
+    authenticity = registry.get("authenticity_contract")
+    if not isinstance(interfaces, list) or not interfaces:
+        raise ValueError("interface registryにinterfacesがありません。")
+    if not isinstance(envelopes, list) or not envelopes:
+        raise ValueError("interface registryにexecution_envelopesがありません。")
+    if not isinstance(defaults, dict) or not defaults:
+        raise ValueError("interface registryにdefault_interface_by_entryがありません。")
+    if not isinstance(authenticity, dict):
+        raise ValueError("interface registryにauthenticity_contractがありません。")
+
+    seen_interfaces: set[str] = set()
+    for item in interfaces:
+        if not isinstance(item, dict) or not isinstance(item.get("id"), str):
+            raise ValueError("interfaceには文字列idが必要です。")
+        interface_id = item["id"]
+        if not MACHINE_ID_PATTERN.fullmatch(interface_id):
+            raise ValueError(f"interface idはkebab-caseである必要があります: {interface_id}")
+        if interface_id in seen_interfaces:
+            raise ValueError(f"interface idが重複しています: {interface_id}")
+        seen_interfaces.add(interface_id)
+        if item.get("kind") != "interaction-surface":
+            raise ValueError(f"interface kindが不正です: {interface_id}")
+        for key in ("display_name", "scoped_alias", "input_contract", "tradeoff_ja"):
+            if not isinstance(item.get(key), str) or not item[key].strip():
+                raise ValueError(f"interface {interface_id}に{key}がありません。")
+        primary_fit = item.get("primary_fit")
+        if not isinstance(primary_fit, dict) or primary_fit.get("axis") not in {"D", "L"}:
+            raise ValueError(f"interface primary_fitが不正です: {interface_id}")
+        if not isinstance(primary_fit.get("summary_ja"), str):
+            raise ValueError(f"interface primary_fit summaryがありません: {interface_id}")
+        for nullable_key in ("command_name", "file_extension"):
+            if item.get(nullable_key) is not None and not isinstance(item[nullable_key], str):
+                raise ValueError(f"interface {nullable_key}が不正です: {interface_id}")
+        non_inference = item.get("does_not_infer")
+        bindings = item.get("bindings")
+        required_non_inference = {
+            "execution_envelope",
+            "actor_role",
+            "persona",
+            "world",
+            "authority",
+            "implementation_state",
+        }
+        if not isinstance(non_inference, dict) or any(
+            non_inference.get(key) is not True for key in required_non_inference
+        ):
+            raise ValueError(f"interfaceの非推定契約が不足しています: {interface_id}")
+        if not isinstance(bindings, dict):
+            raise ValueError(f"interface bindingsがありません: {interface_id}")
+
+    for entry, interface_id in defaults.items():
+        if not isinstance(entry, str) or interface_id not in seen_interfaces:
+            raise ValueError(f"既定interfaceが未登録です: {entry}={interface_id}")
+
+    if {"prompt-line", "command-line"} - seen_interfaces:
+        raise ValueError("prompt-lineとcommand-lineの両interfaceが必要です。")
+    prompt_line = next(item for item in interfaces if item["id"] == "prompt-line")
+    if prompt_line["command_name"] is not None or prompt_line["file_extension"] is not None:
+        raise ValueError("prompt-lineをcommand名またはfile extensionとして公開してはいけません。")
+
+    seen_envelopes: set[str] = set()
+    for item in envelopes:
+        if not isinstance(item, dict) or not isinstance(item.get("id"), str):
+            raise ValueError("execution envelopeには文字列idが必要です。")
+        envelope_id = item["id"]
+        if envelope_id in seen_envelopes:
+            raise ValueError(f"execution envelope idが重複しています: {envelope_id}")
+        seen_envelopes.add(envelope_id)
+        if item.get("layer") != "execution-envelope":
+            raise ValueError(f"execution envelope layerが不正です: {envelope_id}")
+        if item.get("selects_interface") is not False:
+            raise ValueError(f"execution envelopeがinterfaceを決定しています: {envelope_id}")
+
+    required_authenticity = {
+        "prompt_line_is_cli_emulation": False,
+        "command_line_is_prompt_line_emulation": False,
+        "natural_language_is_fake_programming_language": False,
+        "interface_does_not_grant_authority": True,
+        "interface_does_not_prove_runtime": True,
+    }
+    for key, expected in required_authenticity.items():
+        if authenticity.get(key) is not expected:
+            raise ValueError(f"interface authenticity contractが不正です: {key}")
+    if authenticity.get("ranking_axis", "missing") is not None:
+        raise ValueError("interface間に真贋・優劣ranking axisを置いてはいけません。")
+    return registry
+
+
+def resolve_interface(root: Path, interface_id: str) -> dict[str, Any]:
+    registry = load_interface_registry(root)
+    for item in registry["interfaces"]:
+        if item["id"] == interface_id:
+            return item
+    raise ValueError(f"未登録のinterfaceです: {interface_id}")
+
+
+def list_interfaces(
+    *, interface_id: str | None = None, repo_root: Path | None = None
+) -> dict[str, Any]:
+    root = find_repo_root(repo_root)
+    registry = load_interface_registry(root)
+    selected = (
+        [resolve_interface(root, interface_id)]
+        if interface_id is not None
+        else registry["interfaces"]
+    )
+    return {
+        "schema_version": registry["schema_version"],
+        "status": "INTERFACE-CONTRACT-READY",
+        "contract_state": registry["contract_state"],
+        "interfaces": selected,
+        "execution_envelopes": registry["execution_envelopes"],
+        "authenticity_contract": registry["authenticity_contract"],
+        "mutation_performed": False,
+        "network_access_performed": False,
+    }
+
+
+def format_interfaces(result: dict[str, Any]) -> str:
+    lines = [
+        f"status: {result['status']}",
+        f"contract-state: {result['contract_state']}",
+        "interfaces:",
+    ]
+    lines.extend(
+        f"  - {item['id']}: {item['display_name']} / primary-fit={item['primary_fit']['axis']}"
+        for item in result["interfaces"]
+    )
+    lines.append("execution-envelopes:")
+    lines.extend(
+        f"  - {item['id']}: {item['display_name']} (selects-interface=false)"
+        for item in result["execution_envelopes"]
+    )
+    lines.append("interfaceは真贋・権限・実装状態を決定しません。")
+    return "\n".join(lines)
+
+
 def build_help(
     *,
     personas: list[str] | None = None,
     proficiency: str | None = None,
     intent: str | None = None,
     state: str | None = None,
+    interface_id: str = "command-line",
     repo_root: Path | None = None,
 ) -> dict[str, Any]:
     root = find_repo_root(repo_root)
     registry = load_capability_registry(root)
+    interface = resolve_interface(root, interface_id)
     selected_proficiency = proficiency or registry["defaults"]["proficiency"]
     selected_intent = intent or registry["defaults"]["intent"]
     if selected_proficiency not in registry["proficiency_values"]:
@@ -78,6 +230,7 @@ def build_help(
     return {
         "schema_version": "1.0.0",
         "status": "HELP-READY",
+        "interface": interface,
         "proficiency": selected_proficiency,
         "intent": selected_intent,
         "declared_personas": declared,
@@ -97,6 +250,7 @@ def build_help(
 def format_help(result: dict[str, Any]) -> str:
     lines = [
         f"status: {result['status']}",
+        f"interface: {result['interface']['id']} ({result['interface']['display_name']})",
         f"proficiency: {result['proficiency']}",
         f"intent: {result['intent']}",
         "capabilities:",

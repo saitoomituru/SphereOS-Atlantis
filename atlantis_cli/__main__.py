@@ -23,7 +23,7 @@ from .corn import (
 )
 from .doctor import doctor_json, format_doctor, run_doctor
 from .experience import create_experience_receipt, format_experience, validate_experience
-from .help_mode import build_help, format_help
+from .help_mode import build_help, format_help, format_interfaces, list_interfaces
 from .links import check_markdown_links, format_link_report
 from .note import create_note
 from .release import format_release, validate_release
@@ -308,6 +308,17 @@ def build_parser() -> argparse.ArgumentParser:
     capabilities_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     capabilities_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
+    interfaces_parser = commands.add_parser(
+        "interfaces",
+        help="Prompt Line／Command Lineとexecution envelopeの境界を読み取り専用表示する。",
+    )
+    interfaces_parser.add_argument(
+        "--id",
+        help="machine ID（prompt-lineまたはcommand-line）で表示を絞り込む。",
+    )
+    interfaces_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    interfaces_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
     experience_parser = commands.add_parser(
         "experience",
         help="UX上の違和感や楽しさをExperience Receiptとして扱う。",
@@ -572,6 +583,18 @@ def main(argv: list[str] | None = None) -> int:
             json.dumps(result, ensure_ascii=False, indent=2)
             if args.json
             else format_help(result)
+        )
+        return 0
+
+    if args.command == "interfaces":
+        try:
+            result = list_interfaces(interface_id=args.id, repo_root=args.repo_root)
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_interfaces(result)
         )
         return 0
 
