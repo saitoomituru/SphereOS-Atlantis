@@ -15,7 +15,7 @@ from typing import Any
 from .config import load_adapter, load_agent_registry, load_json, policy_paths
 from .corn import validate_corn
 from .experience import validate_experience
-from .help_mode import load_capability_registry
+from .help_mode import load_capability_registry, load_interface_registry
 from .links import check_markdown_links
 from .note import find_repo_root, load_note_registry
 from .release import validate_release
@@ -212,6 +212,22 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
                 "help-capabilities",
                 "pass",
                 f"{len(capability_registry['capabilities'])} capabilities; default unknown/look-around",
+            )
+        )
+
+    try:
+        interface_registry = load_interface_registry(root)
+    except (KeyError, TypeError, ValueError) as error:
+        checks.append(check("help-interfaces", "fail", str(error)))
+    else:
+        checks.append(
+            check(
+                "help-interfaces",
+                "pass",
+                (
+                    f"{len(interface_registry['interfaces'])} interfaces; "
+                    f"{len(interface_registry['execution_envelopes'])} execution envelopes"
+                ),
             )
         )
 
