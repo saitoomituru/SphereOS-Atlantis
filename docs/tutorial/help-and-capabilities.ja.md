@@ -21,6 +21,20 @@ network access = false
 Presentationを選ぶ自己申告です。習熟度、実装意図、権限、教義、プレイスタイルを意味しません。
 AIはpersona、会話memory、Gitアカウントから、それらを補完しません。
 
+## 二つの正規操作面
+
+自然言語で意図・文脈・拘束を渡す入口は`Prompt Line Interface`（machine ID: `prompt-line`）、
+commandとargumentで操作する入口は`Command Line Interface`（machine ID: `command-line`）です。
+どちらも正規の操作面であり、Pythonを直接実行するかどうかを真贋判定に使いません。
+
+PLIはD軸上の高抽象な設計・意味・World・unknownの探索、CLIはL軸上の再現可能な高強度拘束へ主に
+向きます。これは絶対境界ではなく、PLIへSchema／tool／testを束ねたり、CLIへDSL／scriptを与えたりして
+相互に補完できます。LLMやconnectorはLLMI／Execution Envelopeであり、操作面、persona、権限、
+standalone runtimeの実装状態を自動的には決めません。
+
+詳細は[Prompt Line InterfaceとCommand Line Interface](../architecture/prompt-line-and-command-line-interface.ja.md)、
+機械可読正本は[`help/interfaces.json`](../../help/interfaces.json)を参照してください。
+
 ## 開始する
 
 ```bash
@@ -29,6 +43,8 @@ python3 -B -m atlantis_cli help --persona '巫女'
 python3 -B -m atlantis_cli help --persona 'サーバーレスエンジニア' --json
 python3 -B -m atlantis_cli capabilities --state AVAILABLE-NOW
 python3 -B -m atlantis_cli capabilities --state NOT-IMPLEMENTED
+python3 -B -m atlantis_cli interfaces
+python3 -B -m atlantis_cli interfaces --id prompt-line --json
 ```
 
 実装経路は本人が`intent=implement`を選んだ場合だけ計画されます。この指定もcode変更、branch作成、

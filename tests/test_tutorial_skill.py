@@ -77,6 +77,7 @@ class TutorialSkillTestCase(unittest.TestCase):
 
         self.assertIn("docs/operations/corn-stack.ja.md", common_paths)
         self.assertIn("docs/tutorial/help-and-capabilities.ja.md", common_paths)
+        self.assertIn("help/interfaces.json", common_paths)
         self.assertIn("docs/operations/corn-work-item-stack.ja.md", common_paths)
         self.assertIn(
             "docs/operations/participation-nonjurisdiction-and-experience.ja.md",
