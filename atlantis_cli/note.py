@@ -26,11 +26,7 @@ class NoteResult:
 def find_repo_root(start: Path | None = None) -> Path:
     current = (start or Path.cwd()).expanduser().resolve()
     for candidate in (current, *current.parents):
-        if (
-            (candidate / "AGENTS.md").is_file()
-            and (candidate / TEMPLATE_PATH).is_file()
-            and (candidate / NOTE_REGISTRY_PATH).is_file()
-        ):
+        if (candidate / "AGENTS.md").is_file() and (candidate / TEMPLATE_PATH).is_file():
             return candidate
     raise ValueError("SphereOS Atlantis repository rootを解決できません。--repo-rootを指定してください。")
 

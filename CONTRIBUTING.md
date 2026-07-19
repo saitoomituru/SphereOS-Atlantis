@@ -23,6 +23,14 @@ Supplyはmerge権、真理判定権、Origin表示、他者への指揮権を購
 
 ## pull request
 
+merge権限のない参加者も、公開repositoryをforkしてpull requestを送れます。merge権限、開発チーム加入、
+ローカルVS CodeはNote提出の条件ではありません。手持ちのSaaS AIやWeb editorから提出する場合は、
+[ブラウザ／SaaS AIからNote PRを送る](docs/tutorial/note-pr-by-saas-ai.ja.md)を使ってください。
+接続方法は手元のAIへ直接尋ね、表示された権限と送信先を本人が確認します。
+
+権限がなければ、draft PRを送った`PR_SUBMITTED`で参加者側の工程は完了です。maintainerはreview後に
+merge、保留、分岐、追加review、却下を選びます。Note提出からmerge権限や真理裁定権を推論しません。
+
 pull requestには、該当する範囲で次を書いてください。
 
 ```text

@@ -39,6 +39,11 @@
       "required": true
     },
     {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/tutorial/note-pr-by-saas-ai.ja.md",
+      "required": true
+    },
+    {
       "repository": "ZeroRoomLab-manifest",
       "path": "AGENTS.md",
       "required": true
