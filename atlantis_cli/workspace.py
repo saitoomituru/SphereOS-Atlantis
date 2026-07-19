@@ -5,9 +5,11 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 from typing import Any, Iterable
+from urllib.parse import urlparse
 
 from .config import load_json
 from .note import find_repo_root
@@ -15,6 +17,10 @@ from .note import find_repo_root
 
 WORKSPACE_MANIFEST = Path("workspace/components.json")
 DEFAULT_WORKSPACE_FILE = Path(".atlantis/SphereOS-Atlantis.code-workspace")
+NETWORK_GIT_SCHEMES = frozenset({"https", "ssh", "git"})
+SCP_LIKE_GIT_REMOTE = re.compile(
+    r"^(?:[A-Za-z0-9._-]+@)?[A-Za-z0-9.-]+:[^\s:][^\s]*$"
+)
 
 
 def _safe_relative(value: object, field: str) -> Path:
@@ -24,6 +30,23 @@ def _safe_relative(value: object, field: str) -> Path:
     if path.is_absolute() or ".." in path.parts:
         raise ValueError(f"{field}がrepository外を指しています: {path}")
     return path
+
+
+def _validate_git_repository(value: object, component_id: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{component_id}のrepositoryにはGit remoteが必要です。")
+    repository = value.strip()
+    parsed = urlparse(repository)
+    network_url = (
+        parsed.scheme.lower() in NETWORK_GIT_SCHEMES
+        and bool(parsed.netloc)
+        and bool(parsed.path.strip("/"))
+    )
+    if not network_url and not SCP_LIKE_GIT_REMOTE.fullmatch(repository):
+        raise ValueError(
+            f"{component_id}のrepositoryはforge非依存のnetwork Git remoteである必要があります。"
+        )
+    return repository
 
 
 def load_workspace_manifest(root: Path) -> dict[str, Any]:
@@ -52,9 +75,7 @@ def load_workspace_manifest(root: Path) -> dict[str, Any]:
             raise ValueError(f"workspace component pathが重複しています: {component_path}")
         seen_paths.add(component_path)
 
-        repository = item.get("repository")
-        if not isinstance(repository, str) or not repository.startswith("https://github.com/"):
-            raise ValueError(f"{component_id}のrepositoryはGitHub HTTPS URLである必要があります。")
+        item["repository"] = _validate_git_repository(item.get("repository"), component_id)
         revision = item.get("revision")
         if (
             not isinstance(revision, str)
@@ -142,7 +163,17 @@ def inspect_component(root: Path, workspace_root: Path, component: dict[str, Any
     else:
         actual_revision = _git_value(destination, "rev-parse", "HEAD")
         remote = _git_value(destination, "remote", "get-url", "origin")
-        if actual_revision == expected_revision and remote == component["repository"]:
+        worktree_status = _git_value(
+            destination,
+            "status",
+            "--porcelain",
+            "--untracked-files=normal",
+        )
+        if worktree_status is None:
+            state = "git-status-unavailable"
+        elif worktree_status:
+            state = "dirty-worktree"
+        elif actual_revision == expected_revision and remote == component["repository"]:
             state = "ready"
         elif actual_revision != expected_revision:
             state = "revision-mismatch"
@@ -280,6 +311,7 @@ def initialize_workspace(
     manifest = load_workspace_manifest(root)
     workspace_root = Path(manifest["_workspace_root_path"])
     selected = select_components(manifest, requested)
+    selected_ids = [item["id"] for item in selected]
     attempted: list[str] = []
     cloned: list[str] = []
     blocked: list[dict[str, str]] = []
@@ -300,13 +332,14 @@ def initialize_workspace(
         else:
             cloned.append(component["id"])
 
-    status = workspace_status(root, [item["id"] for item in selected])
+    status = workspace_status(root)
     workspace_file = write_code_workspace(root, status)
     observed = datetime.now(timezone.utc)
     receipt = {
         **status,
         "observed_at": observed.isoformat(timespec="seconds"),
         "mode": "materialize-pinned-components",
+        "requested_components": selected_ids,
         "attempted": attempted,
         "cloned": cloned,
         "blocked": blocked,
