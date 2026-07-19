@@ -64,6 +64,8 @@ def start_tutorial(
     personas: list[str],
     *,
     route: str = "auto",
+    proficiency: str = "unknown",
+    intent: str = "look-around",
     repo_root: Path | None = None,
 ) -> dict[str, Any]:
     root = find_repo_root(repo_root)
@@ -73,6 +75,12 @@ def start_tutorial(
         raise ValueError("tutorial startには1件以上の自己申告personaが必要です。")
     if route != "auto" and route not in registry["routes"]:
         raise ValueError(f"未登録のtutorial routeです: {route}")
+    proficiency_values = {"unknown", "newcomer", "explorer", "contributor", "maintainer"}
+    intent_values = {"look-around", "learn", "write-note", "report-experience", "inspect", "implement"}
+    if proficiency not in proficiency_values:
+        raise ValueError(f"未登録のproficiencyです: {proficiency}")
+    if intent not in intent_values:
+        raise ValueError(f"未登録のintentです: {intent}")
 
     alias_map: dict[str, dict[str, Any]] = {}
     for profile in registry["profiles"]:
@@ -107,22 +115,25 @@ def start_tutorial(
             if reference not in sources:
                 sources.append(reference)
 
-    recommended_routes = [profile["recommended_route"] for profile in matched]
+    requested_route = route
     selected_route = route
-    if route == "auto":
-        selected_route = (
-            "full-development"
-            if "full-development" in recommended_routes
-            else "note-only"
-        )
+    if intent == "implement":
+        selected_route = "full-development" if route == "auto" else route
+    elif intent in {"write-note", "report-experience"}:
+        selected_route = "note-only" if route == "auto" else route
+    else:
+        selected_route = "help"
 
     return {
         "schema_version": "1.0.0",
-        "status": "PROVISIONAL-USER-CONFIRMATION" if unresolved else "READY",
+        "status": "PROVISIONAL-USER-CONFIRMATION" if unresolved else "HELP-READY",
         "declared_personas": declared,
         "matched_profiles": [profile["id"] for profile in matched],
         "unresolved_personas": unresolved,
         "entry_shelves": shelves,
+        "proficiency": proficiency,
+        "intent": intent,
+        "requested_route": requested_route,
         "route": selected_route,
         "route_contract": registry["routes"][selected_route],
         "required_sources": sources,
@@ -133,12 +144,17 @@ def start_tutorial(
             (
                 "Note雛形を作り、forkまたはbranchからdraft PRを送る。"
                 if selected_route == "note-only"
-                else "doctorとtestを実行し、branchからdraft PRを送る。"
+                else (
+                    "doctorとtestを実行し、branchからdraft PRを送る。"
+                    if selected_route == "full-development"
+                    else "現在能力と未実装境界を確認し、次の入口を本人が選ぶ。"
+                )
             ),
         ],
         "identity_inferred": False,
         "permissions_granted": False,
         "network_access_performed": False,
+        "mutation_performed": False,
         "mutations_performed": False,
     }
 
@@ -147,6 +163,8 @@ def format_tutorial(result: dict[str, Any]) -> str:
     lines = [
         f"status: {result['status']}",
         f"route: {result['route']}",
+        f"proficiency: {result['proficiency']}",
+        f"intent: {result['intent']}",
         f"profiles: {', '.join(result['matched_profiles']) or 'unresolved'}",
         f"shelves: {', '.join(result['entry_shelves'])}",
         f"context: {result['context_status']}",

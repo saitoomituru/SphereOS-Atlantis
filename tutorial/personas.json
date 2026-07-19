@@ -6,9 +6,18 @@
     "multi_profile": true,
     "unknown_profile_action": "provisional-user-confirmation",
     "profile_is_permission": false,
-    "profile_is_doctrine": false
+    "profile_is_doctrine": false,
+    "proficiency_inference": false,
+    "intent_inference": false,
+    "default_proficiency": "unknown",
+    "default_intent": "look-around"
   },
   "routes": {
+    "help": {
+      "label_ja": "現在能力と参加入口を変更なしで確認する",
+      "requires_local_vscode": false,
+      "allows_code_change": false
+    },
     "note-only": {
       "label_ja": "ブラウザ／SaaS AIからNote PRへ進む",
       "requires_local_vscode": false,

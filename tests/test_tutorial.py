@@ -18,8 +18,8 @@ class TutorialTestCase(unittest.TestCase):
             repo_root=PROJECT_ROOT,
         )
 
-        self.assertEqual(result["status"], "READY")
-        self.assertEqual(result["route"], "note-only")
+        self.assertEqual(result["status"], "HELP-READY")
+        self.assertEqual(result["route"], "help")
         self.assertIn("catholic-practitioner", result["matched_profiles"])
         self.assertIn("sr-hunter", result["matched_profiles"])
         self.assertFalse(result["identity_inferred"])
@@ -67,7 +67,27 @@ class TutorialTestCase(unittest.TestCase):
             result = start_tutorial(["新しい遊び手"], repo_root=root)
 
             self.assertEqual(result["matched_profiles"], ["new-player"])
-            self.assertEqual(result["status"], "READY")
+            self.assertEqual(result["status"], "HELP-READY")
+
+    def test_工学personaでも既定でcodingを開始しない(self) -> None:
+        result = start_tutorial(["サーバーレスエンジニア"], repo_root=PROJECT_ROOT)
+
+        self.assertEqual(result["route"], "help")
+        self.assertEqual(result["proficiency"], "unknown")
+        self.assertEqual(result["intent"], "look-around")
+        self.assertFalse(result["route_contract"]["allows_code_change"])
+        self.assertFalse(result["mutation_performed"])
+
+    def test_明示implementでも実装routeの計画だけを返す(self) -> None:
+        result = start_tutorial(
+            ["サーバーレスエンジニア"],
+            intent="implement",
+            repo_root=PROJECT_ROOT,
+        )
+
+        self.assertEqual(result["route"], "full-development")
+        self.assertEqual(result["context_status"], "CONTEXT-READ-REQUIRED")
+        self.assertFalse(result["mutations_performed"])
 
 
 if __name__ == "__main__":

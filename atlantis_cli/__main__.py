@@ -23,6 +23,7 @@ from .corn import (
 )
 from .doctor import doctor_json, format_doctor, run_doctor
 from .experience import create_experience_receipt, format_experience, validate_experience
+from .help_mode import build_help, format_help
 from .links import check_markdown_links, format_link_report
 from .note import create_note
 from .release import format_release, validate_release
@@ -248,10 +249,64 @@ def build_parser() -> argparse.ArgumentParser:
     tutorial_start_parser.add_argument(
         "--route",
         default="auto",
-        help="auto、note-only、full-development。",
+        help="auto、help、note-only、full-development。",
+    )
+    tutorial_start_parser.add_argument(
+        "--proficiency",
+        default="unknown",
+        choices=("unknown", "newcomer", "explorer", "contributor", "maintainer"),
+        help="本人が明示した習熟度。既定はunknown。personaから推定しない。",
+    )
+    tutorial_start_parser.add_argument(
+        "--intent",
+        default="look-around",
+        choices=("look-around", "learn", "write-note", "report-experience", "inspect", "implement"),
+        help="今回の意図。既定はlook-around。実装開始にはimplementの明示が必要。",
     )
     tutorial_start_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     tutorial_start_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    help_parser = commands.add_parser(
+        "help",
+        help="習熟度を推定せず、現在能力と参加入口を読み取り専用で案内する。",
+    )
+    help_parser.add_argument(
+        "--persona",
+        action="append",
+        default=[],
+        help="本人が自己申告したpersona。省略可能、複数指定可能。",
+    )
+    help_parser.add_argument(
+        "--proficiency",
+        default="unknown",
+        choices=("unknown", "newcomer", "explorer", "contributor", "maintainer"),
+        help="本人が明示した習熟度。既定はunknown。",
+    )
+    help_parser.add_argument(
+        "--intent",
+        default="look-around",
+        choices=("look-around", "learn", "write-note", "report-experience", "inspect", "implement"),
+        help="案内してほしい意図。実装開始にはimplementの明示が必要。",
+    )
+    help_parser.add_argument(
+        "--state",
+        choices=("AVAILABLE-NOW", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"),
+        help="表示する能力状態を絞り込む。",
+    )
+    help_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    help_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    capabilities_parser = commands.add_parser(
+        "capabilities",
+        help="現在能力を状態付きで読み取り専用表示する。",
+    )
+    capabilities_parser.add_argument(
+        "--state",
+        choices=("AVAILABLE-NOW", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"),
+        help="表示する能力状態を絞り込む。",
+    )
+    capabilities_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    capabilities_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
     experience_parser = commands.add_parser(
         "experience",
@@ -489,6 +544,8 @@ def main(argv: list[str] | None = None) -> int:
             result = start_tutorial(
                 args.persona,
                 route=args.route,
+                proficiency=args.proficiency,
+                intent=args.intent,
                 repo_root=args.repo_root,
             )
         except (OSError, ValueError) as error:
@@ -497,6 +554,24 @@ def main(argv: list[str] | None = None) -> int:
             json.dumps(result, ensure_ascii=False, indent=2)
             if args.json
             else format_tutorial(result)
+        )
+        return 0
+
+    if args.command in {"help", "capabilities"}:
+        try:
+            result = build_help(
+                personas=args.persona if args.command == "help" else None,
+                proficiency=args.proficiency if args.command == "help" else None,
+                intent=args.intent if args.command == "help" else None,
+                state=args.state,
+                repo_root=args.repo_root,
+            )
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_help(result)
         )
         return 0
 

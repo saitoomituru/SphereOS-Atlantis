@@ -147,6 +147,7 @@ def validate_version_contract(repo_root: Path | None = None) -> dict[str, Any]:
     root = find_repo_root(repo_root)
     contract = load_json(root / CONTRACT_PATH)
     errors: list[str] = []
+    fixture_count = 0
     try:
         display = coordinate_display(contract.get("current_coordinate"))
         if display != contract.get("canonical_display"):
@@ -164,6 +165,7 @@ def validate_version_contract(repo_root: Path | None = None) -> dict[str, Any]:
         if not isinstance(fixture_paths, list) or not fixture_paths:
             errors.append("connection fixturesがありません。")
         else:
+            fixture_count = len(fixture_paths)
             for relative in fixture_paths:
                 fixture = load_json(root / relative)
                 actual = classify_connection(fixture)
@@ -179,6 +181,7 @@ def validate_version_contract(repo_root: Path | None = None) -> dict[str, Any]:
         "overall": "fail" if errors else "pass",
         "coordinate_system": COORDINATE_SYSTEM,
         "canonical_display": display,
+        "fixture_count": fixture_count,
         "errors": errors,
         "network_access_performed": False,
         "mutations_performed": False,

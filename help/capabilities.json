@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "defaults": {
+    "proficiency": "unknown",
+    "intent": "look-around"
+  },
+  "proficiency_values": ["unknown", "newcomer", "explorer", "contributor", "maintainer"],
+  "intent_values": ["look-around", "learn", "write-note", "report-experience", "inspect", "implement"],
+  "states": ["AVAILABLE-NOW", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"],
+  "entry_options": [
+    {
+      "id": "project-map",
+      "label_ja": "プロジェクトの地図を見る",
+      "intent": "look-around",
+      "mutation": false
+    },
+    {
+      "id": "available-now",
+      "label_ja": "実装済み機能だけを見る",
+      "intent": "inspect",
+      "mutation": false
+    },
+    {
+      "id": "unimplemented-quests",
+      "label_ja": "未実装Questを見る",
+      "intent": "look-around",
+      "mutation": false
+    },
+    {
+      "id": "note-route",
+      "label_ja": "Noteを書く方法を見る",
+      "intent": "write-note",
+      "mutation": false
+    },
+    {
+      "id": "experience-route",
+      "label_ja": "Experience Receiptを送る方法を見る",
+      "intent": "report-experience",
+      "mutation": false
+    },
+    {
+      "id": "environment-check",
+      "label_ja": "開発環境を確認する",
+      "intent": "inspect",
+      "mutation": false
+    },
+    {
+      "id": "implementation-route",
+      "label_ja": "branchを切って実装する手順へ進む",
+      "intent": "implement",
+      "mutation": false,
+      "requires_explicit_selection": true
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "help-capability-discovery",
+      "label_ja": "Help／能力案内",
+      "state": "AVAILABLE-NOW",
+      "summary_ja": "習熟度を推定せず、現在能力と次の入口を読み取り専用で表示する。",
+      "evidence": ["atlantis_cli/help_mode.py", "tests/test_help_mode.py"]
+    },
+    {
+      "id": "read-only-doctor",
+      "label_ja": "read-only doctor",
+      "state": "AVAILABLE-NOW",
+      "summary_ja": "環境、Registry、status、文書参照を変更せずに診断する。",
+      "evidence": ["atlantis_cli/doctor.py", "tests/test_doctor.py"]
+    },
+    {
+      "id": "note-and-experience-entry",
+      "label_ja": "Note／Experience入口",
+      "state": "AVAILABLE-NOW",
+      "summary_ja": "codeを書かずに原案や体験報告を提出する入口を計画できる。",
+      "evidence": ["atlantis_cli/note.py", "atlantis_cli/experience.py"]
+    },
+    {
+      "id": "version-and-causal-boundary-validator",
+      "label_ja": "版数・因果接続validator",
+      "state": "AVAILABLE-NOW",
+      "summary_ja": "三層座標と陸続き／Portal／異因果次元境界をoffline判定する。",
+      "evidence": ["atlantis_cli/versioning.py", "tests/test_versioning.py"]
+    },
+    {
+      "id": "sphere-dos-development-shell",
+      "label_ja": "Sphere-DOS開発shell",
+      "state": "SCAFFOLDED",
+      "summary_ja": "再構築可能な開発足場であり、standalone Atlantis runtimeではない。",
+      "evidence": ["atlantis_cli/sphere_dos.py", "sphere-dos/profile.json"]
+    },
+    {
+      "id": "standalone-atlantis-runtime",
+      "label_ja": "standalone Atlantis runtime",
+      "state": "NOT-IMPLEMENTED",
+      "summary_ja": "runner、model inference、component runtimeは未実装。",
+      "evidence": ["status/forge-map.json"]
+    },
+    {
+      "id": "cross-causal-runtime-gateway",
+      "label_ja": "異因果次元runtime Gate",
+      "state": "NOT-IMPLEMENTED",
+      "summary_ja": "現在は契約とvalidator fixtureのみで、ASTRO／Agent投影runtimeはない。",
+      "evidence": ["versioning/fixtures/cross-causal.json"]
+    },
+    {
+      "id": "codespaces-full-route",
+      "label_ja": "Codespaces完全導線",
+      "state": "NOT-TESTED",
+      "summary_ja": "UIとvenv promptは観測済みだがtutorial、test、clean-roomは完走未確認。",
+      "evidence": ["https://github.com/saitoomituru/SphereOS-Atlantis/issues/2"]
+    },
+    {
+      "id": "high-compute-edge-runtime",
+      "label_ja": "高火力edge runtime",
+      "state": "RESOURCE-WAIT",
+      "summary_ja": "module architecture、必要火力、調達見積りを整理中。",
+      "evidence": ["status/forge-map.json"]
+    }
+  ]
+}

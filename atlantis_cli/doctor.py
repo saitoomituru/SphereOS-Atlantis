@@ -15,11 +15,13 @@ from typing import Any
 from .config import load_adapter, load_agent_registry, load_json, policy_paths
 from .corn import validate_corn
 from .experience import validate_experience
+from .help_mode import load_capability_registry
 from .links import check_markdown_links
 from .note import find_repo_root, load_note_registry
 from .release import validate_release
 from .status_map import validate_status_maps
 from .tutorial import load_persona_registry
+from .versioning import validate_version_contract
 
 
 def check(name: str, status: str, detail: str) -> dict[str, str]:
@@ -199,6 +201,32 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
                 f"{len(persona_registry['profiles'])} profiles",
             )
         )
+
+    try:
+        capability_registry = load_capability_registry(root)
+    except (KeyError, TypeError, ValueError) as error:
+        checks.append(check("help-capabilities", "fail", str(error)))
+    else:
+        checks.append(
+            check(
+                "help-capabilities",
+                "pass",
+                f"{len(capability_registry['capabilities'])} capabilities; default unknown/look-around",
+            )
+        )
+
+    version_result = validate_version_contract(root)
+    checks.append(
+        check(
+            "version-coordinate",
+            "pass" if version_result["overall"] == "pass" else "fail",
+            (
+                f"{version_result['canonical_display']}; {version_result['fixture_count']} fixtures"
+                if version_result["overall"] == "pass"
+                else "; ".join(version_result["errors"])
+            ),
+        )
+    )
 
     try:
         bundle = load_json(root / "magi/0.2.1/bundle.json")
