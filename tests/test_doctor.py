@@ -22,6 +22,7 @@ class DoctorTestCase(unittest.TestCase):
         self.assertEqual(checks["tutorial-source-map"]["status"], "pass")
         self.assertEqual(checks["corn-stack"]["status"], "pass")
         self.assertEqual(checks["experience-receipts"]["status"], "pass")
+        self.assertEqual(checks["forge-quest-status"]["status"], "pass")
         self.assertEqual(checks["note-template"]["status"], "pass")
         self.assertEqual(checks["note-registry"]["status"], "pass")
         self.assertEqual(checks["persona-registry"]["status"], "pass")

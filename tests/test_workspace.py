@@ -76,7 +76,7 @@ class WorkspaceTestCase(unittest.TestCase):
             root = Path(temporary)
             make_repository_fixture(root)
             manifest = load_workspace_manifest(root)
-            self.assertEqual(manifest["workspace_id"], "sphereos-atlantis-0.2.1-forge")
+            self.assertEqual(manifest["workspace_id"], "sphereos-atlantis-0.25.1-forge")
 
             result = workspace_plan(root)
             self.assertEqual(result["overall"], "partial")

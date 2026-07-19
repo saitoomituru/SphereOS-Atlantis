@@ -1,6 +1,6 @@
 # Atlantis 1.x実行系・SDKエンジニア参入ガイド
 
-状態: `[DRAFT]` `[0.2.1 DESIGN LINE]` `[1.x TARGET]`
+状態: `[DRAFT]` `[0.25.1 DESIGN LINE]` `[1.x TARGET]`
 
 この文書は、SphereOS Atlantis 1.xの実行系を鍛造するエンジニア向けに、component repository、
 技術Layer `L`、Context Dimension `D Fold`、SDK surface `S`を混線させず案内する。
@@ -34,7 +34,7 @@ SphereOS Atlantis x.x.n   security／corrective patch
 
 | component | 現在の公開状態 | 実装入口 | まだ主張しないもの |
 |---|---|---|---|
-| [SphereOS Atlantis](https://github.com/saitoomituru/SphereOS-Atlantis) | 0.2.1 bootstrapping／Prompt Engineering Edition | 開発環境、World orchestration契約、agent deck、doctor、MAGI OAE時間gate、SDK bundle | standalone Atlantis runtime |
+| [SphereOS Atlantis](https://github.com/saitoomituru/SphereOS-Atlantis) | 0.25.1-alpha.1候補／Prompt Engineering Edition | 開発環境、World orchestration契約、CORN、Note／persona／Experience入口、doctor、MAGI OAE時間gate | standalone Atlantis runtime |
 | [IBD](https://github.com/saitoomituru/IBD) | Season 0／Draft Specification | IBDSDK、FAM Splitter SPI、Meta Catalog、Composite FAM、SsC、adapter | production DB、実Neo4j性能、対応DB保証 |
 | [Sphere-aae](https://github.com/saitoomituru/Sphere-aae) | experimental edge AI runtime／preflightを含む | system-call splitter、FAM routing、Q、LAST_ORDER、model境界 | 完成済み人格container、完成済みFAM全系 |
 | [SphereASTRO](https://github.com/saitoomituru/SphereASTRO) | Swift／SwiftUI GUI・責任境界、AI未接続 | ASTRO package、Runner、人格・継続性Registry、GUI | 統合済みAI runtime、永続人格実行 |

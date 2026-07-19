@@ -1,6 +1,6 @@
 # Sphere-DOS quick start
 
-SphereOS Atlantis 0.2.1の再現可能な作業机を、固定revisionのcomponent群から組み立てます。
+SphereOS Atlantis 0.25.1-alpha.1の再現可能な作業机を、固定revisionのcomponent群から組み立てます。
 
 ```bash
 python3 scripts/bootstrap_venv.py
@@ -8,6 +8,7 @@ python3 scripts/bootstrap_venv.py
 .venv/bin/python -B -m atlantis_cli workspace init
 .venv/bin/python -B -m atlantis_cli sphere-dos boot
 .venv/bin/python -B -m atlantis_cli sphere-dos status
+.venv/bin/python -B -m atlantis_cli status validate
 ```
 
 `workspace init`だけがnetworkを明示使用します。既存checkoutはpull、reset、clean、rebaseしません。

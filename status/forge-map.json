@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "map_type": "forge",
+  "project_version": "0.25.1-alpha.1",
+  "as_of": "2026-07-19",
+  "items": [
+    {
+      "id": "salvage-and-development-scaffold",
+      "label_ja": "サルベージ工程と開発足場",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "validated-local",
+        "distribution_state": "alpha-candidate",
+        "resource_state": "available",
+        "review_state": "review-wanted"
+      },
+      "evidence": [
+        "workspace/components.json",
+        "atlantis_cli/workspace.py",
+        "atlantis_cli/sphere_dos.py",
+        "tests/test_workspace.py",
+        "tests/test_sphere_dos.py"
+      ],
+      "claim_scope": "固定revisionの開発workspaceとlocal development shell",
+      "unknowns": ["Windows実機", "全component runtime統合"]
+    },
+    {
+      "id": "os-3x-4x-remnants",
+      "label_ja": "旧OS 3.x／4.x残骸",
+      "status_axes": {
+        "content_maturity": "raw-note",
+        "engineering_state": "parked-preserved",
+        "distribution_state": "not-distributed",
+        "resource_state": "resource-wait",
+        "review_state": "not-requested"
+      },
+      "evidence": ["user-declared-status:2026-07-19"],
+      "claim_scope": "削除も再稼働もせず、歴史資料として放置",
+      "unknowns": ["再評価条件", "再利用可能範囲"]
+    },
+    {
+      "id": "architect-and-bootstrap-footing",
+      "label_ja": "Architect／Bootstrap開発足場",
+      "status_axes": {
+        "content_maturity": "under-discussion",
+        "engineering_state": "design-under-review",
+        "distribution_state": "alpha-candidate",
+        "resource_state": "resource-wait",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["docs/architecture/1x-sdk-engineering-entrypoint.ja.md", "scripts/bootstrap_venv.py"],
+      "claim_scope": "開発足場は存在するが、本体鍛造architectureは検討中",
+      "unknowns": ["最終module boundary", "runtime統合順"]
+    },
+    {
+      "id": "standalone-runner",
+      "label_ja": "Atlantis本体runner",
+      "status_axes": {
+        "content_maturity": "proposal",
+        "engineering_state": "not-started",
+        "distribution_state": "not-distributed",
+        "resource_state": "resource-wait",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["sphere-dos/profile.json"],
+      "claim_scope": "standalone OS/runtime、model inference、component runtime起動",
+      "unknowns": ["実装開始時期", "実行資源", "production profile"]
+    },
+    {
+      "id": "cloud-to-edge-modules",
+      "label_ja": "cloud architectureからedgeへ移すmodule群",
+      "status_axes": {
+        "content_maturity": "under-discussion",
+        "engineering_state": "design-under-review",
+        "distribution_state": "not-distributed",
+        "resource_state": "resource-wait",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["docs/architecture/1x-sdk-engineering-entrypoint.ja.md", "user-declared-status:2026-07-19"],
+      "claim_scope": "module architecture整理、火力調達、見積り",
+      "unknowns": ["hardware profile", "cost envelope", "実装担当"]
+    },
+    {
+      "id": "corn-stack",
+      "label_ja": "CORN work item／context closure",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "validated-local",
+        "distribution_state": "branch-only",
+        "resource_state": "available",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["corn/registry.json", "atlantis_cli/corn.py", "tests/test_corn.py"],
+      "claim_scope": "offline stack、context receipt、scheduler／Forge projection plan",
+      "unknowns": ["scheduler実接続", "GitLab実同期", "Forge write自動化"]
+    },
+    {
+      "id": "codespaces-community-test",
+      "label_ja": "GitHub Codespaces再構築",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "implementation-in-progress",
+        "distribution_state": "branch-only",
+        "resource_state": "community-test-wanted",
+        "review_state": "review-wanted"
+      },
+      "evidence": [".devcontainer/devcontainer.json", "https://github.com/saitoomituru/SphereOS-Atlantis/issues/2"],
+      "claim_scope": "Codespaces UIとvenv存在は画面観測、command完走は未検証",
+      "unknowns": ["Copilot quota内でのtutorial完走", "Codespaces clean-room結果"]
+    }
+  ]
+}

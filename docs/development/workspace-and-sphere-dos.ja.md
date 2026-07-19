@@ -5,7 +5,7 @@
 この導線は、SphereOS Atlantis本体、共通定規、IBD、AAE、ASTROを一つの作業机へ並べます。
 隣接repositoryを一つの巨大repositoryへ吸収せず、各repositoryのGit履歴、AGENTS.md、実装正本を保持します。
 
-ここで起動するSphere-DOSは、Atlantis 0.2.1 Prompt Engineering Editionの開発shellです。
+ここで起動するSphere-DOSは、Atlantis 0.25.1-alpha.1 Prompt Engineering Editionの開発shellです。
 standalone OS runtime、model inference、component runtime、7D Fold runtime、Akasha Driver runtimeを
 実装済みとは扱いません。
 

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "product": "sphereos-atlantis",
-  "design_line": "0.2.1",
+  "design_line": "0.25.1",
   "edition": "prompt-engineering",
   "distribution": "sphere-dos",
   "distribution_role": "development-environment-supply",
@@ -22,7 +22,11 @@
     "vscode-multi-root-generation",
     "read-only-doctor",
     "coding-agent-session-contract",
-    "local-session-receipt"
+    "local-session-receipt",
+    "offline-corn-stack",
+    "declarative-note-and-persona-registry",
+    "experience-receipt",
+    "forge-and-quest-status-map"
   ],
   "explicit_non_capabilities": [
     "standalone-os-runtime",

@@ -26,6 +26,7 @@ from .experience import create_experience_receipt, format_experience, validate_e
 from .links import check_markdown_links, format_link_report
 from .note import create_note
 from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
+from .status_map import format_status_maps, validate_status_maps
 from .tutorial import format_tutorial, start_tutorial
 from .workspace import (
     format_workspace_report,
@@ -275,6 +276,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     experience_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     experience_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    status_parser = commands.add_parser("status", help="Forge／Quest Mapの状態軸を扱う。")
+    status_commands = status_parser.add_subparsers(dest="status_command", required=True)
+    status_validate_parser = status_commands.add_parser(
+        "validate", help="二つのMapをoffline検証する。"
+    )
+    status_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    status_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
     return parser
 
 
@@ -483,6 +492,18 @@ def main(argv: list[str] | None = None) -> int:
             else format_experience(result)
         )
         return 1 if result.get("overall") == "fail" else 0
+
+    if args.command == "status" and args.status_command == "validate":
+        try:
+            result = validate_status_maps(args.repo_root)
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_status_maps(result)
+        )
+        return 1 if result["overall"] == "fail" else 0
 
     parser.error("未対応のcommandです。")
     return 2

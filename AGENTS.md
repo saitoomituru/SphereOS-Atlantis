@@ -61,7 +61,7 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 
 ## 状態と証拠
 
-- `0.2.1`設計系列と、正式release、実行runtimeを同一視しない
+- `0.25.1`設計系列、`0.25.1-alpha.1`候補、正式release、MAGI `0.2.1`、実行runtimeを同一視しない
 - 未実装は`NOT IMPLEMENTED`、未試験は`NOT TESTED`または`unknown`とする
 - clone成功をruntime動作確認として表示しない
 - 互換claimには、可能な範囲で対象、version、試験条件、結果、未試験範囲を添える

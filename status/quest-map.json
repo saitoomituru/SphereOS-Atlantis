@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "map_type": "quest",
+  "project_version": "0.25.1-alpha.1",
+  "as_of": "2026-07-19",
+  "items": [
+    {
+      "id": "persona-tutorial-entry",
+      "label_ja": "persona別tutorial入口",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "validated-local",
+        "distribution_state": "branch-only",
+        "resource_state": "available",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["tutorial/personas.json", "atlantis_cli/tutorial.py", "tests/test_tutorial.py"],
+      "claim_scope": "自己申告profileからNote-only／full-development入口を計画",
+      "unknowns": ["各profile当事者review"]
+    },
+    {
+      "id": "saas-ai-note-pr",
+      "label_ja": "SaaS AIからのNote PR",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "validated-local",
+        "distribution_state": "branch-only",
+        "resource_state": "available",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["docs/tutorial/note-pr-by-saas-ai.ja.md", ".github/workflows/note-pr.yml"],
+      "claim_scope": "fork／branchからdraft PRを送る手順とfork-safe検査",
+      "unknowns": ["第三者SaaS AIごとの接続実証", "fork PR上のActions実行"]
+    },
+    {
+      "id": "experience-receipts",
+      "label_ja": "Experience Receiptとcluster review",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "validated-local",
+        "distribution_state": "branch-only",
+        "resource_state": "available",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["experience/registry.json", "atlantis_cli/experience.py", "tests/test_experience.py"],
+      "claim_scope": "生の体験報告を保存し、仕様変更前のtriageへ渡す",
+      "unknowns": ["実report cluster集計", "World split評価手法"]
+    },
+    {
+      "id": "flavor-and-ethics-bundles",
+      "label_ja": "フレーバーテキスト／哲学・倫理探究束",
+      "status_axes": {
+        "content_maturity": "under-discussion",
+        "engineering_state": "not-started",
+        "distribution_state": "not-distributed",
+        "resource_state": "resource-wait",
+        "review_state": "review-wanted"
+      },
+      "evidence": ["note/", "docs/charter/meaning-and-vessel-dual-register.ja.md"],
+      "claim_scope": "stacked proposalであり、組込み済みquestではない",
+      "unknowns": ["採用World", "実装対象", "配信条件"]
+    }
+  ]
+}

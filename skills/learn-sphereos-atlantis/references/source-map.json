@@ -49,6 +49,11 @@
       "required": true
     },
     {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/status/forge-and-quest-map.ja.md",
+      "required": true
+    },
+    {
       "repository": "ZeroRoomLab-manifest",
       "path": "AGENTS.md",
       "required": true

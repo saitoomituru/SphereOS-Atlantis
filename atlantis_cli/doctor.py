@@ -17,6 +17,7 @@ from .corn import validate_corn
 from .experience import validate_experience
 from .links import check_markdown_links
 from .note import find_repo_root, load_note_registry
+from .status_map import validate_status_maps
 from .tutorial import load_persona_registry
 
 
@@ -133,6 +134,19 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
                 f"{experience_result['receipt_count']} receipts"
                 if experience_result["overall"] == "pass"
                 else "; ".join(experience_result["errors"])
+            ),
+        )
+    )
+
+    status_result = validate_status_maps(root)
+    checks.append(
+        check(
+            "forge-quest-status",
+            "pass" if status_result["overall"] == "pass" else "fail",
+            (
+                f"{sum(item['items'] for item in status_result['maps'])} items"
+                if status_result["overall"] == "pass"
+                else "; ".join(status_result["errors"])
             ),
         )
     )

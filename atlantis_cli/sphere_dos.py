@@ -25,7 +25,7 @@ def load_sphere_dos_profile(root: Path) -> dict[str, Any]:
     if profile.get("distribution") != "sphere-dos":
         raise ValueError("Sphere-DOS profile distributionが一致しません。")
     if profile.get("standalone_runtime_implemented") is not False:
-        raise ValueError("0.2.1ではstandalone runtimeを実装済みとして表示できません。")
+        raise ValueError("0.25.1ではstandalone runtimeを実装済みとして表示できません。")
     worlds = profile.get("world_profiles")
     if not isinstance(worlds, list) or not worlds:
         raise ValueError("Sphere-DOS profileには1件以上のworld_profilesが必要です。")

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "workspace_id": "sphereos-atlantis-0.2.1-forge",
+  "workspace_id": "sphereos-atlantis-0.25.1-forge",
   "workspace_root": ".atlantis/workspace/components",
   "revision_policy": {
     "mode": "pinned-revision",
