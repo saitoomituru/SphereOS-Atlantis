@@ -1,0 +1,25 @@
+{
+  "source": {
+    "coordinate": {
+      "coordinate_system": "sphere-version-coordinate/1",
+      "presentation": 2,
+      "function": 900,
+      "semantic_kernel": 7
+    },
+    "world_config_ref": "world-config://vanilla-a@1",
+    "capabilities": ["oae-read"],
+    "authority_allowed": true
+  },
+  "target": {
+    "coordinate": {
+      "coordinate_system": "sphere-version-coordinate/1",
+      "presentation": 2,
+      "function": 901,
+      "semantic_kernel": 8
+    },
+    "world_config_ref": "world-config://vanilla-a@1",
+    "capabilities": ["oae-read"],
+    "authority_allowed": true
+  },
+  "expected_status": "BOTTOM"
+}

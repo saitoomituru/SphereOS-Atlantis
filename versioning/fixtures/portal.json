@@ -1,0 +1,25 @@
+{
+  "source": {
+    "coordinate": {
+      "coordinate_system": "sphere-version-coordinate/1",
+      "presentation": 0,
+      "function": 250,
+      "semantic_kernel": 7
+    },
+    "world_config_ref": "world-config://vanilla-a@1",
+    "capabilities": ["oae-read", "agent-projection"],
+    "authority_allowed": true
+  },
+  "target": {
+    "coordinate": {
+      "coordinate_system": "sphere-version-coordinate/1",
+      "presentation": 0,
+      "function": 251,
+      "semantic_kernel": 7
+    },
+    "world_config_ref": "world-config://modpack-b@1",
+    "capabilities": ["oae-read", "astro-view"],
+    "authority_allowed": true
+  },
+  "expected_status": "PORTAL-REQUIRED"
+}

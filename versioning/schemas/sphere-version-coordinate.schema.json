@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/saitoomituru/SphereOS-Atlantis/tree/main/versioning/schemas/sphere-version-coordinate.schema.json",
+  "title": "Sphere Version Coordinate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["coordinate_system", "presentation", "function", "semantic_kernel"],
+  "properties": {
+    "coordinate_system": {
+      "const": "sphere-version-coordinate/1"
+    },
+    "presentation": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "function": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "semantic_kernel": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

@@ -29,6 +29,12 @@ from .release import format_release, validate_release
 from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
 from .status_map import format_status_maps, validate_status_maps
 from .tutorial import format_tutorial, start_tutorial
+from .versioning import (
+    classify_connection,
+    format_connection,
+    format_version_report,
+    validate_version_contract,
+)
 from .workspace import (
     format_workspace_report,
     initialize_workspace,
@@ -293,6 +299,24 @@ def build_parser() -> argparse.ArgumentParser:
     )
     release_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     release_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    version_parser = commands.add_parser(
+        "version",
+        help="Sphere三層版数座標とWorld接続境界を扱う。",
+    )
+    version_commands = version_parser.add_subparsers(dest="version_command", required=True)
+    version_validate_parser = version_commands.add_parser(
+        "validate",
+        help="座標、legacy mapping、接続fixtureをoffline検証する。",
+    )
+    version_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    version_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+    version_connect_parser = version_commands.add_parser(
+        "connect",
+        help="fixtureから陸続き／Portal／異因果次元境界を判定する。",
+    )
+    version_connect_parser.add_argument("--fixture", type=Path, required=True, help="接続fixture JSON。")
+    version_connect_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
     return parser
 
 
@@ -525,6 +549,22 @@ def main(argv: list[str] | None = None) -> int:
             else format_release(result)
         )
         return 1 if result["overall"] == "fail" else 0
+
+    if args.command == "version":
+        try:
+            if args.version_command == "validate":
+                result = validate_version_contract(args.repo_root)
+                failed = result["overall"] == "fail"
+                output = format_version_report(result)
+            else:
+                fixture = json.loads(args.fixture.read_text(encoding="utf-8"))
+                result = classify_connection(fixture)
+                failed = result["status"] in {"BOTTOM", "UNKNOWN-BLOCKED"}
+                output = format_connection(result)
+        except (OSError, ValueError, json.JSONDecodeError) as error:
+            parser.error(str(error))
+        print(json.dumps(result, ensure_ascii=False, indent=2) if args.json else output)
+        return 1 if failed else 0
 
     parser.error("未対応のcommandです。")
     return 2

@@ -1,0 +1,33 @@
+{
+  "source": {
+    "coordinate": {
+      "coordinate_system": "sphere-version-coordinate/1",
+      "presentation": 2,
+      "function": 900,
+      "semantic_kernel": 7
+    },
+    "world_config_ref": "world-config://vanilla-a@1",
+    "capabilities": ["oae-read", "agent-projection"],
+    "authority_allowed": true
+  },
+  "target": {
+    "coordinate": {
+      "coordinate_system": "sphere-version-coordinate/1",
+      "presentation": 2,
+      "function": 901,
+      "semantic_kernel": 8
+    },
+    "world_config_ref": "world-config://vanilla-a@1",
+    "capabilities": ["oae-read", "astro-view"],
+    "authority_allowed": true
+  },
+  "causal_gateway": {
+    "gateway_id": "causal-gate://fixture-7-to-8",
+    "source_semantic_kernel": 7,
+    "target_semantic_kernel": 8,
+    "projection_only": true,
+    "source_mutation": false,
+    "identity_continuity_inferred": false
+  },
+  "expected_status": "CROSS-CAUSAL-GATE-REQUIRED"
+}
