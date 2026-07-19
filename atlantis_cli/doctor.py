@@ -14,6 +14,7 @@ from typing import Any
 
 from .config import load_adapter, load_agent_registry, load_json, policy_paths
 from .corn import validate_corn
+from .experience import validate_experience
 from .links import check_markdown_links
 from .note import find_repo_root, load_note_registry
 from .tutorial import load_persona_registry
@@ -119,6 +120,19 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
                 f"{corn_result['event_count']} events"
                 if corn_result["overall"] == "pass"
                 else "; ".join(corn_result["errors"])
+            ),
+        )
+    )
+
+    experience_result = validate_experience(root)
+    checks.append(
+        check(
+            "experience-receipts",
+            "pass" if experience_result["overall"] == "pass" else "fail",
+            (
+                f"{experience_result['receipt_count']} receipts"
+                if experience_result["overall"] == "pass"
+                else "; ".join(experience_result["errors"])
             ),
         )
     )

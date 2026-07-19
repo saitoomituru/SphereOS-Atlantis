@@ -44,6 +44,11 @@
       "required": true
     },
     {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/operations/experience-receipts.ja.md",
+      "required": true
+    },
+    {
       "repository": "ZeroRoomLab-manifest",
       "path": "AGENTS.md",
       "required": true

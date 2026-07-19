@@ -22,6 +22,7 @@ from .corn import (
     validate_corn,
 )
 from .doctor import doctor_json, format_doctor, run_doctor
+from .experience import create_experience_receipt, format_experience, validate_experience
 from .links import check_markdown_links, format_link_report
 from .note import create_note
 from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
@@ -243,6 +244,37 @@ def build_parser() -> argparse.ArgumentParser:
     )
     tutorial_start_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     tutorial_start_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    experience_parser = commands.add_parser(
+        "experience",
+        help="UX上の違和感や楽しさをExperience Receiptとして扱う。",
+    )
+    experience_commands = experience_parser.add_subparsers(
+        dest="experience_command",
+        required=True,
+    )
+    experience_new_parser = experience_commands.add_parser(
+        "new",
+        help="生の体験表現を潰さず、新しいreceiptを作る。",
+    )
+    experience_new_parser.add_argument("--summary", required=True, help="短い要約。")
+    experience_new_parser.add_argument(
+        "--signal", action="append", required=True, help="本人の体験表現。複数指定可能。"
+    )
+    experience_new_parser.add_argument(
+        "--self-cluster", action="append", default=[], help="本人が自己申告したcluster。"
+    )
+    experience_new_parser.add_argument("--world", default="not-declared", help="対象World。")
+    experience_new_parser.add_argument("--context", default="not-declared", help="発生context。")
+    experience_new_parser.add_argument("--request-cluster-review", action="store_true")
+    experience_new_parser.add_argument("--timestamp", help="fixture用ISO 8601時刻。")
+    experience_new_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    experience_new_parser.add_argument("--dry-run", action="store_true")
+    experience_validate_parser = experience_commands.add_parser(
+        "validate", help="registryと保存済みreceiptをoffline検証する。"
+    )
+    experience_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    experience_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
     return parser
 
 
@@ -425,6 +457,32 @@ def main(argv: list[str] | None = None) -> int:
             else format_tutorial(result)
         )
         return 0
+
+    if args.command == "experience":
+        try:
+            result = (
+                create_experience_receipt(
+                    summary=args.summary,
+                    raw_signals=args.signal,
+                    self_clusters=args.self_cluster,
+                    world=args.world,
+                    context=args.context,
+                    request_cluster_review=args.request_cluster_review,
+                    timestamp=args.timestamp,
+                    repo_root=args.repo_root,
+                    dry_run=args.dry_run,
+                )
+                if args.experience_command == "new"
+                else validate_experience(args.repo_root)
+            )
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if getattr(args, "json", False)
+            else format_experience(result)
+        )
+        return 1 if result.get("overall") == "fail" else 0
 
     parser.error("未対応のcommandです。")
     return 2
