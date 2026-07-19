@@ -55,6 +55,7 @@ def load_interface_registry(root: Path) -> dict[str, Any]:
     interfaces = registry.get("interfaces")
     envelopes = registry.get("execution_envelopes")
     defaults = registry.get("default_interface_by_entry")
+    presentation = registry.get("presentation_contract")
     authenticity = registry.get("authenticity_contract")
     if not isinstance(interfaces, list) or not interfaces:
         raise ValueError("interface registryにinterfacesがありません。")
@@ -62,6 +63,8 @@ def load_interface_registry(root: Path) -> dict[str, Any]:
         raise ValueError("interface registryにexecution_envelopesがありません。")
     if not isinstance(defaults, dict) or not defaults:
         raise ValueError("interface registryにdefault_interface_by_entryがありません。")
+    if not isinstance(presentation, dict):
+        raise ValueError("interface registryにpresentation_contractがありません。")
     if not isinstance(authenticity, dict):
         raise ValueError("interface registryにauthenticity_contractがありません。")
 
@@ -108,6 +111,22 @@ def load_interface_registry(root: Path) -> dict[str, Any]:
     for entry, interface_id in defaults.items():
         if not isinstance(entry, str) or interface_id not in seen_interfaces:
             raise ValueError(f"既定interfaceが未登録です: {entry}={interface_id}")
+
+    required_presentation = {
+        "route_subject": "current-request-and-explicit-context",
+        "persistent_person_classification": False,
+        "default_boundary_disclosure": "on-operation-request",
+        "permission_disclosure": "on-write-request",
+        "unknown_route": "help",
+        "default_help_detail": "summary",
+    }
+    for key, expected in required_presentation.items():
+        if presentation.get(key) != expected:
+            raise ValueError(f"presentation contractが不正です: {key}")
+    if presentation.get("explicit_detail_values") != ["summary", "all"]:
+        raise ValueError("presentation detail値はsummaryとallである必要があります。")
+    if not isinstance(presentation.get("prompt_line_startup_label_ja"), str):
+        raise ValueError("Prompt Line起動labelがありません。")
 
     if {"prompt-line", "command-line"} - seen_interfaces:
         raise ValueError("prompt-lineとcommand-lineの両interfaceが必要です。")
@@ -167,6 +186,7 @@ def list_interfaces(
         "contract_state": registry["contract_state"],
         "interfaces": selected,
         "execution_envelopes": registry["execution_envelopes"],
+        "presentation_contract": registry["presentation_contract"],
         "authenticity_contract": registry["authenticity_contract"],
         "mutation_performed": False,
         "network_access_performed": False,
@@ -188,6 +208,8 @@ def format_interfaces(result: dict[str, Any]) -> str:
         f"  - {item['id']}: {item['display_name']} (selects-interface=false)"
         for item in result["execution_envelopes"]
     )
+    lines.append(result["presentation_contract"]["prompt_line_startup_label_ja"])
+    lines.append("boundary-disclosure: on-operation-request")
     lines.append("interfaceは真贋・権限・実装状態を決定しません。")
     return "\n".join(lines)
 
@@ -198,6 +220,7 @@ def build_help(
     proficiency: str | None = None,
     intent: str | None = None,
     state: str | None = None,
+    detail: str = "summary",
     interface_id: str = "command-line",
     repo_root: Path | None = None,
 ) -> dict[str, Any]:
@@ -212,6 +235,8 @@ def build_help(
         raise ValueError(f"未登録のintentです: {selected_intent}")
     if state is not None and state not in registry["states"]:
         raise ValueError(f"未登録のcapability stateです: {state}")
+    if detail not in {"summary", "all"}:
+        raise ValueError(f"未登録のhelp detailです: {detail}")
 
     declared = personas or []
     tutorial = (
@@ -225,17 +250,32 @@ def build_help(
         else None
     )
     capabilities = [
-        item for item in registry["capabilities"] if state is None or item["state"] == state
+        item
+        for item in registry["capabilities"]
+        if (
+            item["state"] == state
+            if state is not None
+            else detail == "all" or item["state"] == "AVAILABLE-NOW"
+        )
     ]
+    state_counts = {
+        known_state: sum(
+            item["state"] == known_state for item in registry["capabilities"]
+        )
+        for known_state in registry["states"]
+    }
     return {
         "schema_version": "1.0.0",
         "status": "HELP-READY",
         "interface": interface,
+        "detail": detail,
+        "boundary_disclosure": "on-operation-request",
         "proficiency": selected_proficiency,
         "intent": selected_intent,
         "declared_personas": declared,
         "tutorial": tutorial,
         "capabilities": capabilities,
+        "capability_state_counts": state_counts,
         "entry_options": registry["entry_options"],
         "implementation_requires_explicit_selection": True,
         "context_status": "CONTEXT-READ-REQUIRED",
@@ -251,6 +291,7 @@ def format_help(result: dict[str, Any]) -> str:
     lines = [
         f"status: {result['status']}",
         f"interface: {result['interface']['id']} ({result['interface']['display_name']})",
+        f"detail: {result['detail']}",
         f"proficiency: {result['proficiency']}",
         f"intent: {result['intent']}",
         "capabilities:",

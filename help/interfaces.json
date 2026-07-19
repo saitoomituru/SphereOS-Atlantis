@@ -5,6 +5,16 @@
     "atlantis-cli": "command-line",
     "natural-language-agent": "prompt-line"
   },
+  "presentation_contract": {
+    "prompt_line_startup_label_ja": "起動モード: Prompt Engineering Edition",
+    "route_subject": "current-request-and-explicit-context",
+    "persistent_person_classification": false,
+    "default_boundary_disclosure": "on-operation-request",
+    "permission_disclosure": "on-write-request",
+    "unknown_route": "help",
+    "default_help_detail": "summary",
+    "explicit_detail_values": ["summary", "all"]
+  },
   "interfaces": [
     {
       "id": "prompt-line",

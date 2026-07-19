@@ -7,6 +7,7 @@ import unittest
 
 from atlantis_cli.help_mode import (
     build_help,
+    format_help,
     list_interfaces,
     load_capability_registry,
     load_interface_registry,
@@ -24,6 +25,12 @@ class HelpModeTestCase(unittest.TestCase):
         self.assertEqual(result["proficiency"], "unknown")
         self.assertEqual(result["intent"], "look-around")
         self.assertEqual(result["interface"]["id"], "command-line")
+        self.assertEqual(result["detail"], "summary")
+        self.assertTrue(result["capabilities"])
+        self.assertTrue(
+            all(item["state"] == "AVAILABLE-NOW" for item in result["capabilities"])
+        )
+        self.assertNotIn("standalone Atlantis runtime", format_help(result))
         self.assertFalse(result["identity_inferred"])
         self.assertFalse(result["permissions_granted"])
         self.assertFalse(result["mutation_performed"])
@@ -47,6 +54,15 @@ class HelpModeTestCase(unittest.TestCase):
         result = build_help(state="NOT-IMPLEMENTED", repo_root=PROJECT_ROOT)
         self.assertTrue(result["capabilities"])
         self.assertTrue(all(item["state"] == "NOT-IMPLEMENTED" for item in result["capabilities"]))
+
+        all_result = build_help(detail="all", repo_root=PROJECT_ROOT)
+        self.assertEqual(
+            len(all_result["capabilities"]), len(registry["capabilities"])
+        )
+        self.assertIn(
+            "standalone Atlantis runtime",
+            {item["label_ja"] for item in all_result["capabilities"]},
+        )
 
     def test_PLIとCLIを真贋ではなく操作面として分離する(self) -> None:
         registry = load_interface_registry(PROJECT_ROOT)
@@ -74,6 +90,17 @@ class HelpModeTestCase(unittest.TestCase):
         )
         self.assertFalse(result["mutation_performed"])
         self.assertFalse(result["network_access_performed"])
+        self.assertEqual(
+            result["presentation_contract"]["route_subject"],
+            "current-request-and-explicit-context",
+        )
+        self.assertFalse(
+            result["presentation_contract"]["persistent_person_classification"]
+        )
+        self.assertEqual(
+            result["presentation_contract"]["default_boundary_disclosure"],
+            "on-operation-request",
+        )
 
     def test_prompt_lineを実行コマンド化するregistryを拒否する(self) -> None:
         registry = load_interface_registry(PROJECT_ROOT)

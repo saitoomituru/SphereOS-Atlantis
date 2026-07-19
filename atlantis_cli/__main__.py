@@ -293,6 +293,12 @@ def build_parser() -> argparse.ArgumentParser:
         choices=("AVAILABLE-NOW", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"),
         help="表示する能力状態を絞り込む。",
     )
+    help_parser.add_argument(
+        "--detail",
+        default="summary",
+        choices=("summary", "all"),
+        help="既定summaryは利用可能入口だけを表示し、allで全状態を明示表示する。",
+    )
     help_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     help_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
@@ -575,6 +581,7 @@ def main(argv: list[str] | None = None) -> int:
                 proficiency=args.proficiency if args.command == "help" else None,
                 intent=args.intent if args.command == "help" else None,
                 state=args.state,
+                detail=args.detail if args.command == "help" else "all",
                 repo_root=args.repo_root,
             )
         except (OSError, ValueError) as error:
