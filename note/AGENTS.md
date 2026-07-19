@@ -31,11 +31,12 @@
 
 ## 棚と状態
 
-- 棚は`spiritual`、`gaming-trpg`、`engineering`、`infoton-engineering`、
-  `sphere-architecture`、`cross-shelf`から選ぶ
+- 棚と種別は[note registry](registry.json)に登録した値から選ぶ。新しい参加領域をcodeの固定列挙で塞がない
 - 状態は作成時`[DRAFT]`とする
 - noteに置かれたことを`[CANONICAL]`、実装済み、検証済みの証拠にしない
 - 複数棚を扱う場合、同じ尺度で平均化せず、Bridgeと越境条件を書く
+- persona、宗派、信仰告白、プレイスタイルは自己申告だけを記録し、AIによる推定やmemoryからの自動公開をしない
+- 自分の立場、主張射程、裁定しない対象を分離し、ある宗派やWorldから別の宗派やWorldへの越権を推論しない
 
 ## 禁止事項
 

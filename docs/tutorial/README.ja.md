@@ -6,6 +6,14 @@
 SphereOS Atlantisの開発へ入るためのBridgeです。棚は専門分野の格付けではなく、異なる
 Presentationから同じ開発対象へ着地する入口です。
 
+初回は[Helpモードと能力案内](help-and-capabilities.ja.md)を開いてください。personaを指定しても、
+習熟度と今回の意図は既定で`unknown`／`look-around`となり、code変更は開始しません。
+
+```bash
+python3 -B -m atlantis_cli help --persona '巫女'
+python3 -B -m atlantis_cli help --persona 'サーバーレスエンジニア' --json
+```
+
 ## 入口を選ぶ
 
 | いま使いやすい言葉 | 入口 | 最初に触る構造 |
@@ -19,14 +27,42 @@ Presentationから同じ開発対象へ着地する入口です。
 複数の棚に当てはまる場合、一つへ決める必要はありません。最も説明しやすい入口から始め、
 必要な時だけBridgeを渡ります。
 
+## personaから開始する
+
+「このリポジトリの巫女向けチュートリアルを開始して」「サーバーレスエンジニア向けで開始して」
+のように、本人が使いたい肩書きから開始できます。AIは会話memoryから宗派、信仰、職種、
+プレイスタイルを推定しません。複数の自己申告profileを同時に指定でき、未登録profileは拒否せず
+暫定入口として本人確認へ返します。
+
+```bash
+python3 -B -m atlantis_cli tutorial start --persona '巫女'
+python3 -B -m atlantis_cli tutorial start --persona 'カソリック' --persona 'SRハンター'
+python3 -B -m atlantis_cli tutorial start \
+  --persona 'サーバーレスエンジニア' \
+  --proficiency contributor \
+  --intent implement
+```
+
+profile、別名、推奨入口は[`tutorial/personas.json`](../../tutorial/personas.json)が正本です。
+profileは権限、教義、能力認定ではありません。特定作品名を含むprofileも、公式提携や公式素材の
+利用許可を意味せず、参加者が自己申告したプレイ経験から構造上の観測を持ち込む入口に限ります。
+
+`note-only`はローカルVS Codeを必須にせず、ブラウザやSaaS AIからNote PRを送る入口です。
+`full-development`はVS Code、Codespaces等でcode、test、receiptへ進む入口です。
+ただし、推奨routeや専門職personaだけでは`full-development`へ入りません。本人が`intent=implement`を
+明示した場合も、tutorialが返すのは実装計画であり、変更、network接続、権限取得は実行しません。
+具体的なfork、prompt、公開確認、draft PRの流れは
+[ブラウザ／SaaS AIからNote PRを送る](note-pr-by-saas-ai.ja.md)を参照してください。
+
 ## 全棚に共通する到達点
 
-1. 自分の棚の言葉で、扱いたいWorld、対象、行為、制約を記述する
-2. 現在のManifest、Registry、対象リポジトリの`AGENTS.md`を読む
-3. Meaning、Vessel、Bridge、Supplyのどこへ貢献するかを選ぶ
-4. 吊るしのVS CodeとGitからSphere-DOS開発環境を再構築する
-5. 同じSchema、fixture、test、Git差分で変更を説明する
-6. 未実装、未試験、不明を成功扱いせず、次の参加者へ兵站票を残す
+1. Helpで現在能力、未実装、未試験、資源待ちを分けて確認する
+2. 自分の棚の言葉で、扱いたいWorld、対象、行為、制約を記述する
+3. 現在のManifest、Registry、対象リポジトリの`AGENTS.md`を読む
+4. Meaning、Vessel、Bridge、Supplyのどこへ貢献するかを選ぶ
+5. 実装を選んだ場合だけ、VS Code等からSphere-DOS開発環境を再構築する
+6. 同じSchema、fixture、test、Git差分で変更を説明する
+7. 未実装、未試験、不明を成功扱いせず、次の参加者へ兵站票を残す
 
 チュートリアルを読んだAIエージェントも同じ順序を使います。会話記憶だけで説明せず、実行のたびに
 現在のManifestと対象リポジトリを解決してから、参加者の棚に合わせて説明します。
@@ -43,5 +79,8 @@ Presentationから同じ開発対象へ着地する入口です。
 
 コードを書かなくても開始できます。棚の例を一つ追加する、用語の対応が誤っている箇所を直す、
 fixtureを作る、未試験環境を試す、UXや物語を改善することも有効な貢献です。
+
+「波動が合わない」「面白くない」等の体験は、語彙を工学用語へ直さなくても
+[Experience Receipt](../operations/experience-receipts.ja.md)として受け付けます。
 
 変更前にルートの[AGENTS.md](../../AGENTS.md)と[参加手順](../../CONTRIBUTING.md)を読んでください。

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "shelves": [
+    {
+      "id": "spiritual",
+      "label_ja": "スピリチュアル",
+      "note_admission": "open"
+    },
+    {
+      "id": "gaming-trpg",
+      "label_ja": "ゲーム・TRPG",
+      "note_admission": "open"
+    },
+    {
+      "id": "engineering",
+      "label_ja": "工学",
+      "note_admission": "open"
+    },
+    {
+      "id": "infoton-engineering",
+      "label_ja": "情報子工学",
+      "note_admission": "open"
+    },
+    {
+      "id": "sphere-architecture",
+      "label_ja": "Sphere Architecture",
+      "note_admission": "open"
+    },
+    {
+      "id": "cross-shelf",
+      "label_ja": "越境・未分類",
+      "note_admission": "open"
+    }
+  ],
+  "kinds": [
+    "brainstorm",
+    "observation",
+    "research",
+    "review",
+    "experience-receipt",
+    "transfer-candidate"
+  ],
+  "position_policy": {
+    "identity_inference": false,
+    "self_declaration": true,
+    "multi_profile": true,
+    "memory_auto_publication": false,
+    "unknown_preserved": true
+  },
+  "status_defaults": {
+    "content_maturity": "raw-note",
+    "engineering_state": "not-started",
+    "distribution_state": "not-distributed",
+    "resource_state": "unknown"
+  }
+}

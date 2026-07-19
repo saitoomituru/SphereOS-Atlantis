@@ -2,6 +2,15 @@
   "schema_version": "1.0.0",
   "policy_id": "policy://atlantis/magi/oae-temporal-integrity@0.2.1",
   "version": "0.2.1",
+  "legacy_version_alias": true,
+  "coordinate_system": "sphere-version-coordinate/1",
+  "canonical_coordinate": "0.200.1",
+  "semantic_kernel_change": {
+    "source_coordinate": "0.200.0",
+    "target_coordinate": "0.200.1",
+    "same_worldline_oae_relocation_allowed": false,
+    "source_event_preserved": true
+  },
   "allowed_observation_modes": [
     "contemporaneous",
     "contemporaneous-oae-reference",

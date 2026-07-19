@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "policy": {
+    "raw_expression_preserved": true,
+    "identity_inference": false,
+    "single_report_auto_rejection": false,
+    "single_report_auto_spec_change": false,
+    "cluster_labels_are_open": true,
+    "world_split_is_available": true
+  },
+  "cluster_families": [
+    {
+      "id": "gamer-playstyle",
+      "examples": ["RTA", "TAS", "縛り", "効率", "エンジョイ", "ネタプレイ"],
+      "closed_enum": false
+    },
+    {
+      "id": "faith-tradition",
+      "examples": ["本人が自己申告した宗派または実践"],
+      "closed_enum": false
+    },
+    {
+      "id": "spiritual-idiom",
+      "examples": ["本人が選んだ波動、気配、祈り等の表現"],
+      "closed_enum": false
+    },
+    {
+      "id": "accessibility-and-ux",
+      "examples": ["操作感", "認知負荷", "身体感覚", "楽しさ"],
+      "closed_enum": false
+    }
+  ],
+  "default_status": {
+    "receipt_state": "received",
+    "evidence_state": "single-report-unaggregated",
+    "triage_state": "pending",
+    "engineering_state": "not-evaluated",
+    "world_split_state": "not-decided"
+  },
+  "dispositions": [
+    "request-cluster-review",
+    "design-experiment",
+    "split-world-or-profile",
+    "by-design-with-scope",
+    "resolve",
+    "decline-with-reason"
+  ],
+  "by_design_requirements": [
+    "claim_scope",
+    "evidence",
+    "reconsider_trigger"
+  ]
+}

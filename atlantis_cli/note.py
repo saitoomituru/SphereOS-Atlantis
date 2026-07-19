@@ -4,27 +4,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
+import json
 from pathlib import Path
 import re
 
+from .config import load_json
 
-SHELVES = (
-    "spiritual",
-    "gaming-trpg",
-    "engineering",
-    "infoton-engineering",
-    "sphere-architecture",
-    "cross-shelf",
-)
-
-KINDS = (
-    "brainstorm",
-    "observation",
-    "research",
-    "review",
-    "transfer-candidate",
-)
-
+NOTE_REGISTRY_PATH = Path("note/registry.json")
 TEMPLATE_PATH = Path("note/templates/brainstorm.ja.md")
 INVALID_FILENAME = re.compile(r"[\\/:*?\"<>|\x00-\x1f\x7f]+")
 WHITESPACE = re.compile(r"\s+")
@@ -43,6 +29,28 @@ def find_repo_root(start: Path | None = None) -> Path:
         if (candidate / "AGENTS.md").is_file() and (candidate / TEMPLATE_PATH).is_file():
             return candidate
     raise ValueError("SphereOS Atlantis repository rootを解決できません。--repo-rootを指定してください。")
+
+
+def load_note_registry(root: Path) -> dict[str, object]:
+    registry = load_json(root / NOTE_REGISTRY_PATH)
+    if registry.get("schema_version") != "1.0.0":
+        raise ValueError("note registry schema_versionは1.0.0である必要があります。")
+    shelves = registry.get("shelves")
+    kinds = registry.get("kinds")
+    if not isinstance(shelves, list) or not shelves:
+        raise ValueError("note registryには1件以上のshelvesが必要です。")
+    if not isinstance(kinds, list) or not kinds:
+        raise ValueError("note registryには1件以上のkindsが必要です。")
+    shelf_ids = [item.get("id") if isinstance(item, dict) else None for item in shelves]
+    if any(not isinstance(item, str) or not item for item in shelf_ids):
+        raise ValueError("note shelfにはidが必要です。")
+    if len(set(shelf_ids)) != len(shelf_ids):
+        raise ValueError("note shelf idが重複しています。")
+    if any(not isinstance(item, str) or not item for item in kinds):
+        raise ValueError("note kindは空でない文字列である必要があります。")
+    if len(set(kinds)) != len(kinds):
+        raise ValueError("note kindが重複しています。")
+    return registry
 
 
 def sanitize_title(title: str) -> str:
@@ -92,6 +100,12 @@ def render_template(
     scope: str,
     exclusions: str,
     sources: list[str],
+    personas: list[str],
+    position_statement: str,
+    claim_scope: str,
+    non_authority_scope: str,
+    memory_publication_consent: str,
+    status_defaults: dict[str, str],
 ) -> str:
     replacements = {
         "{{TITLE}}": title.strip(),
@@ -104,6 +118,24 @@ def render_template(
         "{{SCOPE}}": scope.strip() or "未整理。",
         "{{EXCLUSIONS}}": exclusions.strip() or "未整理。",
         "{{SOURCES}}": format_sources(sources),
+        "{{PERSONAS_JSON}}": json.dumps(personas, ensure_ascii=False),
+        "{{POSITION_JSON}}": json.dumps(
+            position_statement.strip() or "not-declared",
+            ensure_ascii=False,
+        ),
+        "{{CLAIM_SCOPE_JSON}}": json.dumps(
+            claim_scope.strip() or "not-declared",
+            ensure_ascii=False,
+        ),
+        "{{NON_AUTHORITY_SCOPE_JSON}}": json.dumps(
+            non_authority_scope.strip() or "not-declared",
+            ensure_ascii=False,
+        ),
+        "{{MEMORY_PUBLICATION_CONSENT}}": memory_publication_consent,
+        "{{CONTENT_MATURITY}}": status_defaults["content_maturity"],
+        "{{ENGINEERING_STATE}}": status_defaults["engineering_state"],
+        "{{DISTRIBUTION_STATE}}": status_defaults["distribution_state"],
+        "{{RESOURCE_STATE}}": status_defaults["resource_state"],
     }
     rendered = template
     for marker, value in replacements.items():
@@ -138,15 +170,37 @@ def create_note(
     repo_root: Path | None = None,
     dry_run: bool = False,
     timestamp: str | None = None,
+    personas: list[str] | None = None,
+    position_statement: str = "not-declared",
+    claim_scope: str = "not-declared",
+    non_authority_scope: str = "not-declared",
+    memory_publication_consent: str = "not-used",
 ) -> NoteResult:
-    if shelf not in SHELVES:
-        raise ValueError(f"未対応のshelfです: {shelf}")
-    if kind not in KINDS:
-        raise ValueError(f"未対応のkindです: {kind}")
     if clock_calibration not in {"calibrated", "unverified", "unknown"}:
         raise ValueError(f"未対応のclock calibrationです: {clock_calibration}")
+    if memory_publication_consent not in {"not-used", "confirmed"}:
+        raise ValueError("memory publication consentはnot-usedまたはconfirmedです。")
 
     root = find_repo_root(repo_root)
+    registry = load_note_registry(root)
+    shelf_ids = {item["id"] for item in registry["shelves"]}
+    if shelf not in shelf_ids:
+        raise ValueError(f"未登録のshelfです: {shelf}")
+    if kind not in registry["kinds"]:
+        raise ValueError(f"未登録のkindです: {kind}")
+    status_defaults = registry.get("status_defaults")
+    if not isinstance(status_defaults, dict):
+        raise ValueError("note registryにstatus_defaultsがありません。")
+    required_statuses = {
+        "content_maturity",
+        "engineering_state",
+        "distribution_state",
+        "resource_state",
+    }
+    if set(status_defaults) != required_statuses or any(
+        not isinstance(value, str) or not value for value in status_defaults.values()
+    ):
+        raise ValueError("note registryのstatus_defaultsが契約と一致しません。")
     template_path = root / TEMPLATE_PATH
     note_dir = root / "note"
     if not note_dir.is_dir():
@@ -168,6 +222,12 @@ def create_note(
         scope=scope,
         exclusions=exclusions,
         sources=sources or [],
+        personas=[value.strip() for value in (personas or []) if value.strip()],
+        position_statement=position_statement,
+        claim_scope=claim_scope,
+        non_authority_scope=non_authority_scope,
+        memory_publication_consent=memory_publication_consent,
+        status_defaults=status_defaults,
     )
 
     if not dry_run:

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "project_version": "0.25.1-alpha.1",
+  "coordinate_system": "sphere-version-coordinate/1",
+  "canonical_coordinate": "0.250.1",
+  "axes": {
+    "content_maturity": [
+      "raw-note",
+      "proposal",
+      "under-discussion",
+      "accepted-contract",
+      "not-applicable"
+    ],
+    "engineering_state": [
+      "not-started",
+      "design-under-review",
+      "implementation-in-progress",
+      "implemented",
+      "validated-local",
+      "parked-preserved",
+      "not-applicable"
+    ],
+    "distribution_state": [
+      "not-distributed",
+      "branch-only",
+      "alpha-candidate",
+      "released",
+      "not-applicable"
+    ],
+    "resource_state": [
+      "available",
+      "resource-wait",
+      "community-test-wanted",
+      "unknown",
+      "not-applicable"
+    ],
+    "review_state": [
+      "not-requested",
+      "review-wanted",
+      "in-review",
+      "accepted",
+      "not-applicable"
+    ]
+  }
+}

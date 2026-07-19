@@ -1,0 +1,35 @@
+name: Note-only PR検証
+
+on:
+  pull_request:
+    paths:
+      - "note/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: note-pr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-note:
+    name: secret不要のNote検査
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: repositoryを取得
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Note-only境界を検査
+        if: github.event_name == 'pull_request'
+        run: >-
+          python3 -B scripts/validate_note_pr.py
+          --base "${{ github.event.pull_request.base.sha }}"
+          --head "${{ github.event.pull_request.head.sha }}"
+      - name: 手動起動ではscriptの構文だけを検査
+        if: github.event_name == 'workflow_dispatch'
+        run: python3 -B -m py_compile scripts/validate_note_pr.py

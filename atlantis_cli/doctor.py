@@ -13,8 +13,15 @@ import sys
 from typing import Any
 
 from .config import load_adapter, load_agent_registry, load_json, policy_paths
+from .corn import validate_corn
+from .experience import validate_experience
+from .help_mode import load_capability_registry
 from .links import check_markdown_links
-from .note import find_repo_root
+from .note import find_repo_root, load_note_registry
+from .release import validate_release
+from .status_map import validate_status_maps
+from .tutorial import load_persona_registry
+from .versioning import validate_version_contract
 
 
 def check(name: str, status: str, detail: str) -> dict[str, str]:
@@ -107,12 +114,117 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
     else:
         checks.append(check("tutorial-source-map", "pass", f"{shelf_count} shelves"))
 
+    corn_result = validate_corn(root)
+    checks.append(
+        check(
+            "corn-stack",
+            "pass" if corn_result["overall"] == "pass" else "fail",
+            (
+                f"{len(corn_result['work_items'])} work items; "
+                f"{corn_result['event_count']} events"
+                if corn_result["overall"] == "pass"
+                else "; ".join(corn_result["errors"])
+            ),
+        )
+    )
+
+    experience_result = validate_experience(root)
+    checks.append(
+        check(
+            "experience-receipts",
+            "pass" if experience_result["overall"] == "pass" else "fail",
+            (
+                f"{experience_result['receipt_count']} receipts"
+                if experience_result["overall"] == "pass"
+                else "; ".join(experience_result["errors"])
+            ),
+        )
+    )
+
+    status_result = validate_status_maps(root)
+    checks.append(
+        check(
+            "forge-quest-status",
+            "pass" if status_result["overall"] == "pass" else "fail",
+            (
+                f"{sum(item['items'] for item in status_result['maps'])} items"
+                if status_result["overall"] == "pass"
+                else "; ".join(status_result["errors"])
+            ),
+        )
+    )
+
+    release_result = validate_release(root)
+    checks.append(
+        check(
+            "release-candidate",
+            "pass" if release_result["overall"] == "pass" else "fail",
+            (
+                f"{release_result['candidate']}; tag {release_result['tag_state']}"
+                if release_result["overall"] == "pass"
+                else "; ".join(release_result["errors"])
+            ),
+        )
+    )
+
     template = root / "note/templates/brainstorm.ja.md"
     checks.append(
         check(
             "note-template",
             "pass" if template.is_file() else "fail",
             str(template),
+        )
+    )
+
+    try:
+        note_registry = load_note_registry(root)
+    except (KeyError, TypeError, ValueError) as error:
+        checks.append(check("note-registry", "fail", str(error)))
+    else:
+        checks.append(
+            check(
+                "note-registry",
+                "pass",
+                f"{len(note_registry['shelves'])} shelves; {len(note_registry['kinds'])} kinds",
+            )
+        )
+
+    try:
+        persona_registry = load_persona_registry(root)
+    except (KeyError, TypeError, ValueError) as error:
+        checks.append(check("persona-registry", "fail", str(error)))
+    else:
+        checks.append(
+            check(
+                "persona-registry",
+                "pass",
+                f"{len(persona_registry['profiles'])} profiles",
+            )
+        )
+
+    try:
+        capability_registry = load_capability_registry(root)
+    except (KeyError, TypeError, ValueError) as error:
+        checks.append(check("help-capabilities", "fail", str(error)))
+    else:
+        checks.append(
+            check(
+                "help-capabilities",
+                "pass",
+                f"{len(capability_registry['capabilities'])} capabilities; default unknown/look-around",
+            )
+        )
+
+    version_result = validate_version_contract(root)
+    checks.append(
+        check(
+            "version-coordinate",
+            "pass" if version_result["overall"] == "pass" else "fail",
+            (
+                f"{version_result['canonical_display']}; {version_result['fixture_count']} fixtures"
+                if version_result["overall"] == "pass"
+                else "; ".join(version_result["errors"])
+            ),
         )
     )
 
@@ -125,6 +237,8 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
         invariants = bundle["invariants"]
         if bundle.get("version") != "0.2.1":
             raise ValueError("MAGI bundle versionは0.2.1である必要があります。")
+        if bundle.get("canonical_coordinate") != "0.200.1":
+            raise ValueError("MAGI legacy 0.2.1を三層座標0.200.1へ解決できません。")
         if audit_ids != ["maxwell", "uriel", "raphael"]:
             raise ValueError("MAGI監査slotの順序または構成が契約と一致しません。")
         if len(support_slots) != 1 or support_slots[0].get("id") != "chikuwa-cannon":
@@ -135,6 +249,15 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
             raise ValueError("MAGIの非人格・非神託・非多数決不変条件が崩れています。")
         if temporal_policy.get("version") != "0.2.1":
             raise ValueError("OAE時間整合性policy versionが0.2.1ではありません。")
+        kernel_change = temporal_policy.get("semantic_kernel_change", {})
+        if (
+            temporal_policy.get("canonical_coordinate") != "0.200.1"
+            or kernel_change.get("source_coordinate") != "0.200.0"
+            or kernel_change.get("target_coordinate") != "0.200.1"
+            or kernel_change.get("same_worldline_oae_relocation_allowed") is not False
+            or kernel_change.get("source_event_preserved") is not True
+        ):
+            raise ValueError("MAGI意味Kernel 0.200.1の同一世界線OAE再配置拒否が崩れています。")
         last_order = temporal_policy.get("last_order", {})
         if (
             last_order.get("code") != "OAE-HISTORY-UNKNOWN"
@@ -170,7 +293,7 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
     except (KeyError, TypeError, ValueError) as error:
         checks.append(check("magi-skill-bundle", "fail", str(error)))
     else:
-        checks.append(check("magi-skill-bundle", "pass", "0.2.1: 3 audit slots + OAE temporal gate"))
+        checks.append(check("magi-skill-bundle", "pass", "0.200.1 (legacy 0.2.1): 3 audit slots + OAE temporal gate"))
 
     development_files = [
         ".vscode/extensions.json",

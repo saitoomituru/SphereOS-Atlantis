@@ -34,6 +34,36 @@
       "required": true
     },
     {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/tutorial/help-and-capabilities.ja.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/operations/corn-stack.ja.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/tutorial/note-pr-by-saas-ai.ja.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/operations/experience-receipts.ja.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/status/forge-and-quest-map.ja.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/releases/0.25.1-alpha.1.ja.md",
+      "required": true
+    },
+    {
       "repository": "ZeroRoomLab-manifest",
       "path": "AGENTS.md",
       "required": true
@@ -56,6 +86,36 @@
     {
       "repository": "ZeroRoomLab-manifest",
       "path": "docs/operations/heterogeneous-agent-deck-governance.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/corn-work-item-stack.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/participation-nonjurisdiction-and-experience.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/help-and-capability-discovery.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/theory/sphereos-atlantis-versioning-and-bootstrap.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/theory/atlantis-magi-sdk-0.2.1.ja.md",
+      "required": true
+    },
+    {
+      "repository": "ZeroRoomLab-manifest",
+      "path": "docs/operations/context-ruler-and-causality-audit.ja.md",
       "required": true
     }
   ],

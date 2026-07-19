@@ -5,7 +5,7 @@
 この導線は、SphereOS Atlantis本体、共通定規、IBD、AAE、ASTROを一つの作業机へ並べます。
 隣接repositoryを一つの巨大repositoryへ吸収せず、各repositoryのGit履歴、AGENTS.md、実装正本を保持します。
 
-ここで起動するSphere-DOSは、Atlantis 0.2.1 Prompt Engineering Editionの開発shellです。
+ここで起動するSphere-DOSは、Atlantis 0.25.1-alpha.1 Prompt Engineering Editionの開発shellです。
 standalone OS runtime、model inference、component runtime、7D Fold runtime、Akasha Driver runtimeを
 実装済みとは扱いません。
 
@@ -129,3 +129,7 @@ clone成功はcomponent runtimeの動作確認ではありません。
 
 network clone、container build、各component runtime、hardware profile、production deploymentは、
 それぞれ独立した試験票を必要とします。
+
+GitHub Codespacesではrepository、devcontainer、venv promptまでの画面観測がありますが、quota超過により
+tutorial、unit test、clean-roomの完走は未確認です。火力を提供できる参加者は
+[community test Issue #2](https://github.com/saitoomituru/SphereOS-Atlantis/issues/2)へ環境と結果を残してください。

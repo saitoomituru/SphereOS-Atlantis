@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "policy": {
+    "identity_inference": false,
+    "self_declaration_only": true,
+    "multi_profile": true,
+    "unknown_profile_action": "provisional-user-confirmation",
+    "profile_is_permission": false,
+    "profile_is_doctrine": false,
+    "proficiency_inference": false,
+    "intent_inference": false,
+    "default_proficiency": "unknown",
+    "default_intent": "look-around"
+  },
+  "routes": {
+    "help": {
+      "label_ja": "現在能力と参加入口を変更なしで確認する",
+      "requires_local_vscode": false,
+      "allows_code_change": false
+    },
+    "note-only": {
+      "label_ja": "ブラウザ／SaaS AIからNote PRへ進む",
+      "requires_local_vscode": false,
+      "allows_code_change": false
+    },
+    "full-development": {
+      "label_ja": "VS CodeまたはCodespacesで実装・検証へ進む",
+      "requires_local_vscode": false,
+      "allows_code_change": true
+    }
+  },
+  "profiles": [
+    {
+      "id": "shrine-maiden",
+      "aliases": ["巫女", "神職", "MAD巫女", "miko"],
+      "entry_shelves": ["spiritual", "cross-shelf"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "serverless-engineer",
+      "aliases": ["サーバーレスエンジニア", "serverless engineer"],
+      "entry_shelves": ["engineering", "sphere-architecture"],
+      "recommended_route": "full-development"
+    },
+    {
+      "id": "philosopher",
+      "aliases": ["哲学者", "philosopher"],
+      "entry_shelves": ["cross-shelf", "spiritual"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "theologian",
+      "aliases": ["神学者", "theologian"],
+      "entry_shelves": ["spiritual", "cross-shelf"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "spiritual-practitioner",
+      "aliases": ["スピ", "スピリチュアル実践者", "spiritual practitioner"],
+      "entry_shelves": ["spiritual"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "gamer",
+      "aliases": ["ゲーマー", "gamer"],
+      "entry_shelves": ["gaming-trpg"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "sr-hunter",
+      "aliases": ["SRハンター", "SR hunter"],
+      "entry_shelves": ["gaming-trpg"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "fleet-commander-player",
+      "aliases": ["艦これ提督", "艦隊運用ゲームの提督"],
+      "entry_shelves": ["gaming-trpg"],
+      "recommended_route": "note-only",
+      "third_party_reference": true,
+      "affiliation": false
+    },
+    {
+      "id": "catholic-practitioner",
+      "aliases": ["カソリック", "カトリック", "Catholic"],
+      "entry_shelves": ["spiritual", "cross-shelf"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "lutheran-practitioner",
+      "aliases": ["ルーテル", "Lutheran"],
+      "entry_shelves": ["spiritual", "cross-shelf"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "sunni-practitioner",
+      "aliases": ["スンニ派", "Sunni"],
+      "entry_shelves": ["spiritual", "cross-shelf"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "ritsuryo-shinto-practitioner",
+      "aliases": ["律令神道派", "律令神道の実践者"],
+      "entry_shelves": ["spiritual", "cross-shelf"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "onmyoji",
+      "aliases": ["陰陽師", "onmyoji"],
+      "entry_shelves": ["spiritual", "cross-shelf"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "mad-frog-doctor",
+      "aliases": ["MADカエル医者", "カエル医学ドクター"],
+      "entry_shelves": ["cross-shelf", "engineering"],
+      "recommended_route": "note-only"
+    },
+    {
+      "id": "prompt-engineer",
+      "aliases": ["プロンプトエンジニア", "prompt engineer"],
+      "entry_shelves": ["cross-shelf", "engineering"],
+      "recommended_route": "note-only"
+    }
+  ]
+}

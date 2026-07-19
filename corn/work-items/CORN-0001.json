@@ -1,0 +1,61 @@
+{
+  "schema_version": "0.25.1-alpha.1",
+  "work_item_id": "CORN-0001",
+  "title": "GitHub CodespacesでSphere-DOSとtutorial導線を第三者検証する",
+  "kind": "engineering-review",
+  "workflow_state": "waiting-review",
+  "authority": {
+    "declared_by": "project-maintainer",
+    "merge_authority": "forge-side-policy",
+    "promotion_authority": "user-or-declared-maintainer"
+  },
+  "status_axes": {
+    "content_maturity": "adopted",
+    "engineering_state": "not-started",
+    "distribution_state": "not-distributed",
+    "resource_state": "resource-wait"
+  },
+  "context": {
+    "workspace_ref": "workspace-profile://sphereos-atlantis-forge",
+    "target_repositories": [
+      "SphereOS-Atlantis"
+    ],
+    "required_sources": [
+      "manifest-participation-contract",
+      "atlantis-corn-doc"
+    ],
+    "required_hooks": [
+      "context-source-integrity",
+      "magi-position-audit"
+    ],
+    "capsule_ref": null
+  },
+  "acceptance": [
+    "一つ以上の第三者Codespaces環境からcommit SHA付きreceiptが届く",
+    "成功だけでなく失敗、quota、timeout、費用上限を保持する",
+    "test、doctor、workspace plan、Sphere-DOS、tutorial、Note dry-runの実施範囲を分離する"
+  ],
+  "projections": [
+    {
+      "adapter": "github",
+      "remote_ref": "https://github.com/saitoomituru/SphereOS-Atlantis/issues/2",
+      "remote_number": 2,
+      "sync_state": "observed-unsynced",
+      "last_export_hash": null,
+      "last_import_cursor": null
+    }
+  ],
+  "provenance": {
+    "source_refs": [
+      "user-provided-codespaces-screenshots@2026-07-19",
+      "https://github.com/saitoomituru/SphereOS-Atlantis/issues/2"
+    ],
+    "created_at": "2026-07-19T00:35:15Z",
+    "clock_calibration": "github-observed"
+  },
+  "unknowns": [
+    "Codespaces全commandの成功可否",
+    "Copilotおよび他SaaS AIのquota条件",
+    "第三者環境の起動時間、storage、課金範囲"
+  ]
+}
