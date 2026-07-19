@@ -44,6 +44,10 @@ jobs:
         run: .venv/bin/python -B -m atlantis_cli workspace plan --json
       - name: CORN正本をoffline検証
         run: .venv/bin/python -B -m atlantis_cli corn validate --json
+      - name: Forge／Quest状態をoffline検証
+        run: .venv/bin/python -B -m atlantis_cli status validate --json
+      - name: alpha release候補をoffline検証
+        run: .venv/bin/python -B -m atlantis_cli release validate --json
       - name: Sphere-DOS local scaffoldをboot
         run: .venv/bin/python -B -m atlantis_cli sphere-dos boot --json
       - name: Sphere-DOS local scaffoldのstatusを確認

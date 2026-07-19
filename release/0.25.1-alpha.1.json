@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "product": "sphereos-atlantis",
+  "design_line": "0.25.1",
+  "candidate": "0.25.1-alpha.1",
+  "release_state": "alpha-candidate",
+  "tag": "v0.25.1-alpha.1",
+  "tag_state": "not-created",
+  "review_state": "review-wanted",
+  "dependency_order": [
+    "ZeroRoomLab-manifest:0.25.1-alpha-contract",
+    "SphereOS-Atlantis:0.25.1-alpha-foundation"
+  ],
+  "status_maps": [
+    "status/forge-map.json",
+    "status/quest-map.json"
+  ],
+  "release_notes": [
+    "CHANGELOG.md",
+    "docs/releases/0.25.1-alpha.1.ja.md"
+  ],
+  "implemented_scope": [
+    "workspace-safety-corrections",
+    "offline-corn-stack",
+    "declarative-note-registry",
+    "declarative-persona-tutorial",
+    "note-only-pr-route",
+    "experience-receipts",
+    "forge-and-quest-status-maps"
+  ],
+  "explicit_non_capabilities": [
+    "standalone-os-runtime",
+    "component-runtime-start",
+    "model-inference",
+    "scheduler-live-hook",
+    "forge-bidirectional-sync",
+    "automatic-merge",
+    "production-edge-distribution"
+  ],
+  "community_tests": [
+    {
+      "id": "codespaces",
+      "state": "community-test-wanted",
+      "issue": "https://github.com/saitoomituru/SphereOS-Atlantis/issues/2",
+      "observed": ["Codespaces UI", "repository checkout", "venv prompt"],
+      "not_verified": ["tutorial completion", "unit test completion", "clean-room completion"]
+    }
+  ]
+}

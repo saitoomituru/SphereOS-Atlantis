@@ -54,6 +54,11 @@
       "required": true
     },
     {
+      "repository": "SphereOS-Atlantis",
+      "path": "docs/releases/0.25.1-alpha.1.ja.md",
+      "required": true
+    },
+    {
       "repository": "ZeroRoomLab-manifest",
       "path": "AGENTS.md",
       "required": true

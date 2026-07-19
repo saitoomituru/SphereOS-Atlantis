@@ -25,6 +25,7 @@ from .doctor import doctor_json, format_doctor, run_doctor
 from .experience import create_experience_receipt, format_experience, validate_experience
 from .links import check_markdown_links, format_link_report
 from .note import create_note
+from .release import format_release, validate_release
 from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
 from .status_map import format_status_maps, validate_status_maps
 from .tutorial import format_tutorial, start_tutorial
@@ -284,6 +285,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     status_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     status_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    release_parser = commands.add_parser("release", help="alpha release候補を扱う。")
+    release_commands = release_parser.add_subparsers(dest="release_command", required=True)
+    release_validate_parser = release_commands.add_parser(
+        "validate", help="release manifest、版数、artifactをoffline検証する。"
+    )
+    release_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    release_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
     return parser
 
 
@@ -502,6 +511,18 @@ def main(argv: list[str] | None = None) -> int:
             json.dumps(result, ensure_ascii=False, indent=2)
             if args.json
             else format_status_maps(result)
+        )
+        return 1 if result["overall"] == "fail" else 0
+
+    if args.command == "release" and args.release_command == "validate":
+        try:
+            result = validate_release(args.repo_root)
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_release(result)
         )
         return 1 if result["overall"] == "fail" else 0
 

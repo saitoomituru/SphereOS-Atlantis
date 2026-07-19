@@ -17,6 +17,7 @@ from .corn import validate_corn
 from .experience import validate_experience
 from .links import check_markdown_links
 from .note import find_repo_root, load_note_registry
+from .release import validate_release
 from .status_map import validate_status_maps
 from .tutorial import load_persona_registry
 
@@ -147,6 +148,19 @@ def run_doctor(repo_root: Path | None = None, require_container: bool = False) -
                 f"{sum(item['items'] for item in status_result['maps'])} items"
                 if status_result["overall"] == "pass"
                 else "; ".join(status_result["errors"])
+            ),
+        )
+    )
+
+    release_result = validate_release(root)
+    checks.append(
+        check(
+            "release-candidate",
+            "pass" if release_result["overall"] == "pass" else "fail",
+            (
+                f"{release_result['candidate']}; tag {release_result['tag_state']}"
+                if release_result["overall"] == "pass"
+                else "; ".join(release_result["errors"])
             ),
         )
     )
