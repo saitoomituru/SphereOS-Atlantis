@@ -45,7 +45,8 @@
     "experience-receipts",
     "forge-and-quest-status-maps",
     "sphere-version-coordinate-validator",
-    "help-capability-discovery"
+    "help-capability-discovery",
+    "prompt-and-command-interface-contract"
   ],
   "explicit_non_capabilities": [
     "standalone-os-runtime",

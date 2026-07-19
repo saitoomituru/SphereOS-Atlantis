@@ -58,7 +58,7 @@
       "label_ja": "Help／能力案内",
       "state": "AVAILABLE-NOW",
       "summary_ja": "習熟度を推定せず、現在能力と次の入口を読み取り専用で表示する。",
-      "evidence": ["atlantis_cli/help_mode.py", "tests/test_help_mode.py"]
+      "evidence": ["help/interfaces.json", "atlantis_cli/help_mode.py", "tests/test_help_mode.py"]
     },
     {
       "id": "read-only-doctor",

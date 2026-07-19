@@ -28,6 +28,7 @@ class DoctorTestCase(unittest.TestCase):
         self.assertEqual(checks["note-registry"]["status"], "pass")
         self.assertEqual(checks["persona-registry"]["status"], "pass")
         self.assertEqual(checks["help-capabilities"]["status"], "pass")
+        self.assertEqual(checks["help-interfaces"]["status"], "pass")
         self.assertEqual(checks["version-coordinate"]["status"], "pass")
         self.assertEqual(checks["magi-skill-bundle"]["status"], "pass")
         self.assertEqual(checks["development-profile"]["status"], "pass")

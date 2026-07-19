@@ -76,6 +76,21 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 - Helpは現在能力、足場、未実装、未試験、資源待ち、unknownを分離し、物語を実装証拠にしない
 - 実装意図が明示されても、context sourceを読む前に変更、network接続、権限取得を実行しない
 
+## Interface真贋とExecution Envelope
+
+- 自然言語で意図・文脈・拘束を渡す操作面は`Prompt Line Interface`、machine IDは`prompt-line`とする
+- commandとargumentで操作する面は`Command Line Interface`、machine IDは`command-line`とする
+- PLIとCLIを真贋、上下、human／machineの優劣へ変換しない
+- PLIは主にD軸の高抽象探索、CLIは主にL軸の高強度拘束に向くが、絶対能力境界にしない
+- LLM、provider、connector、token budget等はLLMI／Execution Envelopeとして操作面から分離する
+- interfaceからActor role、persona、World、権限、実装状態を推定しない
+- hostでPythonを実行できないconnectorを「偽CLI」と説明せず、connector capabilityの差として記録する
+- `PLI`を実行コマンド、package、file extensionへ使用しない。機械可読正本は`help/interfaces.json`とする
+- PLIの初回表示は利用可能入口と`起動モード: Prompt Engineering Edition`を先に示し、実行していない
+  対象の列挙は該当operationが要求された時まで遅延する
+- Helpの既定`summary`は`AVAILABLE-NOW`を表示する。未実装・未試験・資源待ちは隠蔽せず、
+  `--detail all`、`capabilities`、state指定から明示取得できるようにする
+
 ## ライセンス
 
 - code、CLI、Schema、validator、doctor、test: Apache-2.0

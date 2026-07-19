@@ -15,9 +15,9 @@
         "resource_state": "available",
         "review_state": "review-wanted"
       },
-      "evidence": ["help/capabilities.json", "atlantis_cli/help_mode.py", "tests/test_help_mode.py"],
-      "claim_scope": "習熟度と実装意図を推定しない読み取り専用の能力・入口案内",
-      "unknowns": ["第三者初心者review", "各persona当事者による案内表現review"]
+      "evidence": ["help/capabilities.json", "help/interfaces.json", "atlantis_cli/help_mode.py", "tests/test_help_mode.py"],
+      "claim_scope": "習熟度と実装意図を推定せず、PLI／CLI／Execution Envelopeを真贋化しない読み取り専用案内",
+      "unknowns": ["第三者初心者review", "各persona当事者による案内表現review", "複数SaaS AIとmobile clientでの再観測"]
     },
     {
       "id": "persona-tutorial-entry",

@@ -40,6 +40,11 @@
     },
     {
       "repository": "SphereOS-Atlantis",
+      "path": "help/interfaces.json",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
       "path": "docs/operations/corn-stack.ja.md",
       "required": true
     },

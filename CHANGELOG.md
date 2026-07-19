@@ -20,6 +20,8 @@ SphereOS Atlantisの公開候補に含める変更を記録します。日付は
 - `Presentation.Function.SemanticKernel`三層座標、legacy alias migration receipt、接続fixture
 - SemanticKernel／World Config／capability／World Visaに基づく陸続き、Portal、異因果Gate validator
 - 習熟度と実装意図を推定しない読み取り専用Help／能力状態案内
+- Prompt Line Interface／Command Line InterfaceとLLMI／Execution Envelopeを分離するmachine registry
+- `atlantis interfaces`による操作面契約のread-only表示とdoctor検査
 
 ### Changed
 
@@ -30,6 +32,8 @@ SphereOS Atlantisの公開候補に含める変更を記録します。日付は
 - dirty componentをreadyとして扱わず、部分初期化でも既存ready componentをworkspaceから落とさない
 - component remoteのhost固定を外し、GitLab等の分散Forgeへ持ち出せる契約へ変更
 - Noteの棚・種別をPython固定列挙から`note/registry.json`へ移動
+- 自然言語入口を偽CLIまたはPython CLIの再現物と呼ばず、PLI／CLIをD軸／L軸の主な適性として表示
+- 既定Helpを利用可能入口優先の`summary`へ変更し、全状態を`--detail all`／`capabilities`へ分離
 
 ### Preserved boundaries
 
@@ -46,6 +50,7 @@ SphereOS Atlantisの公開候補に含める変更を記録します。日付は
 - `ZeroRoomLab-manifest`側の0.25.1-alpha横断契約が先にmergeされるまで、clean checkoutでは一部sourceが`CONTEXT-INCOMPLETE`になり得る
 - 火力、runner、cloud-to-edge module構成は`RESOURCE-WAIT`または設計review待ち
 - 異SemanticKernel間の接続はvalidator契約だけで、cross-causal runtime gatewayは未実装
+- 複数SaaS AI／mobile clientが新しいPLI表現を採用するかは再観測待ち。repository契約だけでvendor出力を保証しない
 
 不具合、クソゲーフラグ、未対応環境、説明のずれは
 [GitHub Issues](https://github.com/saitoomituru/SphereOS-Atlantis/issues)へ報告してください。

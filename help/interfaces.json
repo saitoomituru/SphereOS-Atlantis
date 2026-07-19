@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "contract_state": "ALPHA",
+  "default_interface_by_entry": {
+    "atlantis-cli": "command-line",
+    "natural-language-agent": "prompt-line"
+  },
+  "presentation_contract": {
+    "prompt_line_startup_label_ja": "起動モード: Prompt Engineering Edition",
+    "route_subject": "current-request-and-explicit-context",
+    "persistent_person_classification": false,
+    "default_boundary_disclosure": "on-operation-request",
+    "permission_disclosure": "on-write-request",
+    "unknown_route": "help",
+    "default_help_detail": "summary",
+    "explicit_detail_values": ["summary", "all"]
+  },
+  "interfaces": [
+    {
+      "id": "prompt-line",
+      "display_name": "Prompt Line Interface",
+      "scoped_alias": "Atlantis PLI",
+      "kind": "interaction-surface",
+      "input_contract": "intent-context-and-constraints",
+      "primary_fit": {
+        "axis": "D",
+        "summary_ja": "Context Dimension、nD Fold、World、意味、目的、unknownを含む高抽象・低初期拘束の探索に向く。"
+      },
+      "tradeoff_ja": "抽象構造の探索に強い一方、Schema、tool、approval、testなどを束ねない単独状態ではピンポイントな高強度拘束に弱い。",
+      "command_name": null,
+      "file_extension": null,
+      "does_not_infer": {
+        "execution_envelope": true,
+        "actor_role": true,
+        "persona": true,
+        "world": true,
+        "authority": true,
+        "implementation_state": true
+      },
+      "bindings": {
+        "execution_envelope": null,
+        "actor_role": null,
+        "persona": null,
+        "world": null
+      }
+    },
+    {
+      "id": "command-line",
+      "display_name": "Command Line Interface",
+      "scoped_alias": "Atlantis CLI",
+      "kind": "interaction-surface",
+      "input_contract": "command-and-arguments",
+      "primary_fit": {
+        "axis": "L",
+        "summary_ja": "hardware、POSIX OS、runtime、library／SDK、Appへ届く再現可能なピンポイント高強度拘束に向く。"
+      },
+      "tradeoff_ja": "正確な操作と検証に強い一方、DSLやscriptへ符号化していない高次の意味・目的探索はPrompt Line Interfaceほど直接には扱わない。",
+      "command_name": "atlantis",
+      "file_extension": null,
+      "does_not_infer": {
+        "execution_envelope": true,
+        "actor_role": true,
+        "persona": true,
+        "world": true,
+        "authority": true,
+        "implementation_state": true
+      },
+      "bindings": {
+        "execution_envelope": "python-process",
+        "actor_role": null,
+        "persona": null,
+        "world": null
+      }
+    }
+  ],
+  "execution_envelopes": [
+    {
+      "id": "llm-mediated",
+      "display_name": "Large Language Model Interface",
+      "short_name": "LLMI",
+      "layer": "execution-envelope",
+      "selects_interface": false,
+      "summary_ja": "model、provider、tool connector、token budgetなどを含み得る媒介・driver境界。PLI／CLIの真贋や優劣を決めない。"
+    },
+    {
+      "id": "python-process",
+      "display_name": "Python Process Envelope",
+      "short_name": null,
+      "layer": "execution-envelope",
+      "selects_interface": false,
+      "summary_ja": "現在のatlantis CLIを実行するPython process境界。standalone Atlantis runtimeの実装済みを意味しない。"
+    }
+  ],
+  "authenticity_contract": {
+    "ranking_axis": null,
+    "prompt_line_is_cli_emulation": false,
+    "command_line_is_prompt_line_emulation": false,
+    "natural_language_is_fake_programming_language": false,
+    "interface_does_not_grant_authority": true,
+    "interface_does_not_prove_runtime": true
+  }
+}
