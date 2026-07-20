@@ -199,6 +199,17 @@ DeFoldの例:
 旧利用者向けPresentationではこのcrosswalkを置く。ただし旧語を現在仕様へ黙ってbackfillせず、旧revisionの原語と
 現在時刻のInterpretationを分ける。
 
+### I-04b. 物理frontierへの射程を勝手に閉じない
+
+`非破壊量子操作`という旧語から、二重slit実験、Copenhagen interpretation、物理学上のObserver effectを
+cancelする機構が実装済みだとは推論しない。反対に、既存物理学の権威名、定説、別射程のevidenceを示すだけで、
+情報子・software上のanchor-preserving DeFoldを反証したことにもしない。
+
+物理系へ転用した場合に効果があるかは`unknown / NOT TESTED`である。本研究は転用を禁止も保証もしない。
+物理frontierとして主張する研究者は、自分の仮説、対象系、装置、control、測定量、誤差、反証条件、再現手順を
+宣言し、手元実験と独立追試を組む。negative evidenceも残す。Atlantisは実験のrecording、World分離、receipt、
+比較設計を支援し得るが、未実施の実験結果やAuthorityを代行生成しない。
+
 高G処理を突然停止し、保持していたContextと責任を説明せず人間へ返すと、人間が状況認識を回復する前に
 負荷だけが戻る。これは`fail-safe`ではなく`Responsibility Dump`になり得る。
 
