@@ -134,7 +134,7 @@ G: Fold containerを包むnesting depth
 持ち得る。OSI layer、embedding dimension、claim Layer A/B/Cと同一namespaceにしない。
 
 Fold depth 1を常圧の通常情報伝達として扱う候補がある。短いだけで意味を回復できないpacketは高意味圧ではなく、
-context不足または圧縮失敗である。Gを重ねるほどunfold時の誤訳、identity drift、権限残留、因果誤接続の負荷が
+context不足または圧縮失敗である。Gを重ねるほどDeFold rendering時の誤訳、identity drift、権限残留、因果誤接続の負荷が
 高くなり得るため、短いfeedback loopではlatencyとfreshness budgetが必要になる。
 
 ### I-03. 妖怪・霊障・ソイヤはalpha暫定Meaning Bridgeである
