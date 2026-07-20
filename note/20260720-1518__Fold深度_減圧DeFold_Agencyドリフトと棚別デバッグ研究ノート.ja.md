@@ -179,6 +179,26 @@ DeFoldの例:
 したがってDeFoldは元画像の完全復元でも、生成物によるsourceの上書きでもない。どのanchorから何をrenderし、
 何が欠損・選別されたかをreceiptへ残す。
 
+この非破壊性は修理可能性の条件でもある。長期sessionの途中で度し難い意味drift、UX破局、Authority残留が
+見つかった場合、採用済みPresentationだけを正本にしてsourceを捨てていると、修理は再生成または全面rollbackに
+なりやすい。DeFoldでは保持したanchor、G/D座標、Agency receiptから、別の低G面、別Presentation、別Portalへ
+再renderする余地を残す。
+
+### I-04a. OS3x/4x旧語彙とのcrosswalk
+
+旧OS3x/4x文書の「非破壊量子操作」がアルゴリズム概念として指していた中心は、現在の情報子語彙では
+`source/anchorを保持し、DeFold可能性を残す非破壊操作`へ写像できる。ここでの語彙更新は旧設計の焼却ではなく、
+物理量子、量子inspired、意味・意図の情報子操作を同じ言葉へ畳まないための射程整理である。
+
+| 旧OS3x/4x語彙 | 現在の情報子語彙 | 保持する設計意図 | 自動継承しない主張 |
+|---|---|---|---|
+| 非破壊量子操作 | anchor-preserving operation / DeFold-capable transform | source、来歴、再render・修理経路を残す | 物理量子computerで実行していること |
+| 量子状態の展開 | Meaning anchorからのDeFold rendering | 一つの生成結果へsourceを潰さない | 完全逆変換、元画像の完全復元 |
+| 観測で状態を選ぶ | OAE、Agency、World Config付きPresentation選択 | 誰がどのContextで採用したか残す | 観測者が真理を確定すること |
+
+旧利用者向けPresentationではこのcrosswalkを置く。ただし旧語を現在仕様へ黙ってbackfillせず、旧revisionの原語と
+現在時刻のInterpretationを分ける。
+
 高G処理を突然停止し、保持していたContextと責任を説明せず人間へ返すと、人間が状況認識を回復する前に
 負荷だけが戻る。これは`fail-safe`ではなく`Responsibility Dump`になり得る。
 
