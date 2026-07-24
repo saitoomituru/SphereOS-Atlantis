@@ -74,8 +74,14 @@ Atlantis coreへ特定作品・人物・宗派のRoleを同梱する必要はな
 現段階では、対象AGENTS／READMEが必要assetをファイル単位で明示する。暗黙scan、priority merge、
 auto-mount、remote downloadは`NOT IMPLEMENTED`である。
 
-第三者作品・実在人物を参照するassetは、対象Manifest側でlicense、provenance、名称利用、適用scopeを
-判断する。profileがあること自体は、権利やOrigin認定を生成しない。
+第三者作品・実在人物を参照するassetは、対象Manifest／World側でsource、宣言license、lineage、
+名称参照とpayload、配布scopeを記録できる。profileがあること自体は、権利、本人性、authority、
+API capability、Origin認定を生成しない。Atlantis coreも個別素材のrights verdictを生成しない。
+
+generic contractと明示receipt validatorは
+[贈与コモンズlineageと局所World拡張](../architecture/gift-commons-lineage-and-local-extension.ja.md)
+を参照する。commercial／private extensionはApp、integrator、asset、provider契約、選択Worldへ
+局所化し、open core、既存commons、無関係なWorldへ伝播させない。
 
 ## Foldlog
 
@@ -113,6 +119,7 @@ FAMLog／OAE persistence、scheduler、daemonの実装ではない。
 | core/profile source分離 | `IMPLEMENTED_ALPHA` |
 | `--profile zeroroomlab` | `IMPLEMENTED_ALPHA` |
 | 明示local root | `IMPLEMENTED_ALPHA` |
+| explicit lineage receipt validator | `IMPLEMENTED_ALPHA` |
 | repository暗黙asset scan | `NOT IMPLEMENTED` |
 | pointer config (`Atlantis.json`等) | `NOT IMPLEMENTED` |
 | FAMLog／OAE persistence | `NOT IMPLEMENTED` |
