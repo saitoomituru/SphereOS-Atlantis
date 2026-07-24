@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "contract://atlantis/gift-commons-lineage@1",
+  "contract_state": "IMPLEMENTED_ALPHA",
+  "default_mode": "open-gift-commons-non-exclusive",
+  "receipt_version": "1.0.0",
+  "relation_types": [
+    "authored-by",
+    "conceived-by",
+    "coded-by",
+    "practiced-by",
+    "observed-by",
+    "derived-from",
+    "forked-from",
+    "inspired-by",
+    "structurally-similar-to",
+    "independent-convergence",
+    "homage-to",
+    "reinterprets"
+  ],
+  "lineage_dimensions": [
+    "byte",
+    "code",
+    "algorithm",
+    "architecture",
+    "philosophy",
+    "imagination",
+    "poem",
+    "faith",
+    "lifestyle",
+    "aesthetic"
+  ],
+  "reference_kinds": [
+    "alias-only",
+    "original-payload",
+    "third-party-payload",
+    "mixed"
+  ],
+  "designations": [
+    "origin",
+    "compatible",
+    "inspired",
+    "fan-made",
+    "self-authored",
+    "unknown"
+  ],
+  "distribution_states": [
+    "public",
+    "local-only",
+    "private",
+    "selected-world"
+  ],
+  "extension_scopes": [
+    "open-core",
+    "app-local",
+    "integrator-local",
+    "world-local"
+  ],
+  "non_inference": {
+    "lineage_is_rights_verdict": false,
+    "lineage_grants_permission": false,
+    "role_grants_identity": false,
+    "role_grants_authority": false,
+    "role_grants_api_capability": false,
+    "role_grants_official_partnership": false,
+    "role_grants_religious_representation": false
+  },
+  "extension_boundary": {
+    "proprietary_open_core_allowed": false,
+    "propagation_to_core_allowed": false,
+    "capture_existing_commons_allowed": false,
+    "capture_unrelated_worlds_allowed": false,
+    "public_raw_secret_allowed": false
+  },
+  "conflict_boundary": {
+    "asset_conflict_stop_scopes": ["none", "selected-route"],
+    "global_stop_generated_by_asset_conflict": false,
+    "recovery_routes": ["unmount", "replacement", "fork", "alternate-world"]
+  },
+  "implementation_boundary": {
+    "explicit_receipt_only": true,
+    "implicit_repository_scan": false,
+    "asset_auto_mount": false,
+    "pointer_config": "NOT_IMPLEMENTED",
+    "rights_adjudication": "NOT_IMPLEMENTED",
+    "network_access": false,
+    "mutation": false
+  },
+  "fixtures": [
+    "lineage/fixtures/gift-commons-pass.json",
+    "lineage/fixtures/private-local-pass.json",
+    "lineage/fixtures/narrow-commercial-pass.json",
+    "lineage/fixtures/role-authority-leak-blocked.json",
+    "lineage/fixtures/commons-capture-blocked.json",
+    "lineage/fixtures/raw-secret-blocked.json",
+    "lineage/fixtures/global-stop-blocked.json"
+  ]
+}
