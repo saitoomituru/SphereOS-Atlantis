@@ -118,6 +118,10 @@ FAMLog／OAE persistence、scheduler、daemonの実装ではない。
 | FAMLog／OAE persistence | `NOT IMPLEMENTED` |
 | scheduler／daemon | `NOT IMPLEMENTED` |
 
+pointer config、asset loader、authority、priority、securityの制定判断は
+[#10 明示profileからpointer config／asset loaderへ進むUser Gate](https://github.com/saitoomituru/SphereOS-Atlantis/issues/10)
+へ停止した。
+
 ## 下流波及票
 
 - ZeroRoomLab-manifest: AGENTS／foldlogから`zeroroomlab` profileを明示する
