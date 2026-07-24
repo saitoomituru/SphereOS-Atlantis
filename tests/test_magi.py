@@ -42,7 +42,7 @@ class MagiSkillBundleTestCase(unittest.TestCase):
             self.assertIn("神託: false", text)
             self.assertIn("外部操作: false", text)
 
-    def test_resolverは隔離cloneでも公開参照だけを案内する(self) -> None:
+    def test_resolverは隔離cloneでもcoreだけで閉じる(self) -> None:
         source_map = self.load_json(MAGI_ROOT / "source-map.json")
         for slot in source_map["slots"]:
             completed = subprocess.run(
@@ -62,13 +62,17 @@ class MagiSkillBundleTestCase(unittest.TestCase):
             )
             self.assertEqual(completed.returncode, 0, completed.stderr)
             result = json.loads(completed.stdout)
+            self.assertIsNone(result["profile"])
             self.assertFalse(result["summary"]["network_access_performed"])
             self.assertFalse(result["summary"]["secret_scan_performed"])
-            self.assertGreater(result["summary"]["required_missing_locally"], 0)
+            self.assertEqual(result["summary"]["required_missing_locally"], 0)
+            self.assertTrue(
+                all(source["repository"] == "SphereOS-Atlantis" for source in result["sources"])
+            )
             for source in result["sources"]:
                 self.assertTrue(source["public_url"].startswith("https://github.com/"))
 
-    def test_resolverの厳格modeは欠損を成功扱いしない(self) -> None:
+    def test_ZeroRoomLab_profileだけManifestを明示追加する(self) -> None:
         completed = subprocess.run(
             [
                 sys.executable,
@@ -76,6 +80,38 @@ class MagiSkillBundleTestCase(unittest.TestCase):
                 str(MAGI_ROOT / "resolve_sources.py"),
                 "--slot",
                 "composite",
+                "--profile",
+                "zeroroomlab",
+                "--repo-root",
+                "ZeroRoomLab-manifest=/__atlantis_missing_manifest__",
+            ],
+            cwd=PROJECT_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        result = json.loads(completed.stdout)
+        self.assertEqual(result["profile"], "zeroroomlab")
+        self.assertGreater(result["summary"]["required_missing_locally"], 0)
+        self.assertTrue(
+            any(
+                source["source_layer"] == "profile:zeroroomlab"
+                and source["repository"] == "ZeroRoomLab-manifest"
+                for source in result["sources"]
+            )
+        )
+
+    def test_profileの厳格modeはManifest欠損を成功扱いしない(self) -> None:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(MAGI_ROOT / "resolve_sources.py"),
+                "--slot",
+                "composite",
+                "--profile",
+                "zeroroomlab",
                 "--repo-root",
                 "ZeroRoomLab-manifest=/__atlantis_missing_manifest__",
                 "--require-local",
@@ -88,6 +124,16 @@ class MagiSkillBundleTestCase(unittest.TestCase):
         self.assertEqual(completed.returncode, 2)
         result = json.loads(completed.stdout)
         self.assertGreater(result["summary"]["required_missing_locally"], 0)
+
+    def test_bundleはAtlantisをMAGI実装正本とする(self) -> None:
+        bundle = self.load_json(MAGI_ROOT / "bundle.json")
+        ownership = bundle["ownership"]
+        self.assertEqual(
+            ownership["implementation_repository"],
+            "https://github.com/saitoomituru/SphereOS-Atlantis",
+        )
+        self.assertEqual(ownership["profile_mount_mode"], "explicit")
+        self.assertIs(ownership["implicit_repository_scan"], False)
 
     def validate_temporal(self, value: dict[str, object]) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
