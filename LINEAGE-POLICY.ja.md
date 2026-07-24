@@ -63,9 +63,39 @@ community-modified machine
 Access Map、Transformer、receiptを記録します。
 
 第三者作品の名称、素材、キャラクター等を公開利用する権利は、本規約によって付与されません。
-各World authorが、利用する素材と配布範囲に応じて扱います。
+各World author／operator／integratorが、利用する素材と配布範囲に応じて扱います。
+Atlantis coreは権利を付与せず、同時に個別素材の利用可否を全Worldへ裁定する権利審判機にもなりません。
 
-## 5. 自己申告Manifest
+## 5. 贈与コモンズと多次元lineage
+
+Atlantisの既定は`open-gift-commons-non-exclusive`です。
+
+作者、先行思想、神話、神、code、詩、生活様式へのrespectは、対象を取り合う希少tokenではありません。
+関係は増やせます。誰がauthor、coder、observer、practitionerか、byte、algorithm、architecture、
+philosophy、faith、poem、lifestyle等のどこで接続したかを、複数edgeとして記録できます。
+
+```text
+authored-by | coded-by | practiced-by | observed-by
+derived-from | forked-from | inspired-by | structurally-similar-to
+independent-convergence | homage-to | reinterprets
+```
+
+lineage graphはProvenanceであり、ownership verdict、permission、本人性、権威、公式提携、
+宗派代表、API capability、価値rankではありません。
+
+`official`表示を使う場合は、どのWorld、distribution、作品、組織の制定authorityによる表示かを
+scope付きで記録します。別Worldや別団体の公認へ自動拡張しません。`compatible`、`inspired`、
+`fan-made`は関係表示であり、品質または許可のrankではありません。
+
+commercial App、社内asset、provider契約、閉鎖Worldは、選択されたApp／integrator／Worldへ
+局所化できます。閉鎖をopen core、既存commons、公開lineage、無関係なWorld、upstream fork権へ
+継承させません。魔王城を作る自由と、大陸全土の通行税を徴収する権利は別です。
+
+machine contractと負例は
+[贈与コモンズlineageと局所World拡張](docs/architecture/gift-commons-lineage-and-local-extension.ja.md)
+を参照してください。
+
+## 6. 自己申告Manifest
 
 ```yaml
 identity:
@@ -96,7 +126,7 @@ compatibility:
 
 互換試験は品質情報であり、系譜を開始する許可ではありません。
 
-## 6. ライセンス境界
+## 7. ライセンス境界
 
 本規約全文はCC BY-SA 4.0で共有します。code、一般文書、第三者素材のlicenseは
 [LICENSE-POLICY.ja.md](LICENSE-POLICY.ja.md)を参照してください。

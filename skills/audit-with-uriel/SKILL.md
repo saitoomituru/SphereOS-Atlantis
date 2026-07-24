@@ -9,7 +9,8 @@ description: Uriel Positionから、観測事実、protocol、約束、規則、
 
 ## 実行
 
-1. `python3 magi/0.2.1/resolve_sources.py --slot uriel`を実行する。
+1. `python3 magi/0.2.1/resolve_sources.py --slot uriel`を実行する。対象repositoryがprofileを
+   明示している場合だけ`--profile <id>`と`--repo-root NAME=PATH`を加える。
 2. resolverが返した現行sourceを全文読む。ローカル欠損時だけ公開URLを使い、どちらでも読めない必須sourceがあれば監査を開始せず`SOURCE-BLOCK`を返す。
 3. 対象、媒体、claim layer、Registry、fact scope、protocol、話者の利害位置を明示する。
 4. 事実、予定、願望、神話、未確認、責任、資源を別欄へ分ける。

@@ -1,0 +1,52 @@
+{
+  "expected_status": "PASS",
+  "receipt_version": "1.0.0",
+  "asset": {
+    "asset_id": "asset://vendor/app/paid-bridge@1",
+    "author": "third-party-integrator",
+    "source_refs": ["source://vendor/contract-declared"],
+    "revision": "1",
+    "scope_ref": "app://vendor/selected-app",
+    "declared_license": "commercial-contract",
+    "reference_kind": "original-payload",
+    "designation": "compatible",
+    "distribution": "selected-world",
+    "public_manifest_presence": "declared"
+  },
+  "lineage_edges": [
+    {
+      "relation": "coded-by",
+      "dimension": "code",
+      "source_ref": "source://vendor/integrator",
+      "observer_ref": "observer://vendor",
+      "claim_scope_ref": "claim-scope://integrator-glue"
+    }
+  ],
+  "claims": {
+    "identity": false,
+    "authority": false,
+    "api_capability": false,
+    "official_partnership": false,
+    "religious_representation": false,
+    "rights_verdict": false
+  },
+  "rights_adjudication_performed": false,
+  "extension": {
+    "scope": "integrator-local",
+    "proprietary": true,
+    "propagates_to_core": false,
+    "captures_existing_commons": false,
+    "captures_unrelated_worlds": false,
+    "secret_ref": "secret://vendor/provider-key"
+  },
+  "routing": {
+    "unmount": "available",
+    "replacement": "available",
+    "fork": "open-core-remains-forkable",
+    "alternate_world": "available"
+  },
+  "conflict": {
+    "state": "none",
+    "stop_scope": "none"
+  }
+}

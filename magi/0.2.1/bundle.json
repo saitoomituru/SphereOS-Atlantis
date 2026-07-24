@@ -14,6 +14,12 @@
     "source_path": "docs/theory/atlantis-magi-sdk-0.2.1.ja.md",
     "previous_bundle": "magi/0.2.0/bundle.json"
   },
+  "ownership": {
+    "implementation_repository": "https://github.com/saitoomituru/SphereOS-Atlantis",
+    "generic_contract": "docs/magi/magi-core-and-explicit-profile.ja.md",
+    "profile_mount_mode": "explicit",
+    "implicit_repository_scan": false
+  },
   "audit_slots": [
     {
       "id": "maxwell",
@@ -47,6 +53,11 @@
     "skill_output_is_oracle": false,
     "three_position_majority_is_truth": false,
     "chikuwa_cannon_is_fourth_vote": false,
+    "lineage_is_rights_verdict": false,
+    "role_grants_identity": false,
+    "role_grants_authority": false,
+    "role_grants_api_capability": false,
+    "local_world_contract_captures_core": false,
     "initialization_invokes_model": false,
     "unknown_is_pass": false,
     "reconciliation_is_trust": false,

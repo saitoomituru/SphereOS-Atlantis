@@ -19,7 +19,9 @@
 3. [暖簾分け・互換・系譜規約](LINEAGE-POLICY.ja.md)
 4. [ライセンス境界](LICENSE-POLICY.ja.md)
 5. [CONTRIBUTING.md](CONTRIBUTING.md)
-6. 変更対象に最も近いSchema、docs、test
+6. Role／Flavor／World extensionを扱う場合は
+   [贈与コモンズlineageと局所World拡張](docs/architecture/gift-commons-lineage-and-local-extension.ja.md)
+7. 変更対象に最も近いSchema、docs、test
 
 ## READMEレジスター
 
@@ -68,6 +70,18 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 - `compatible`は自由な自己申告であり、Originの認可markへ変えない
 - Origin、Community Lineage、compatible、inspiredを格付けへ変えない
 
+## 贈与コモンズと局所extension
+
+- lineageはauthor、source、revision、関係、次元、scopeのProvenanceであり、権利審判、許可証、rankではない
+- `alias-only`と第三者payload利用を分離する
+- Role／Flavor／profileからidentity、authority、公式提携、宗派代表、API capabilityを生成しない
+- local-only／private assetをpublic repository欠損へ変換せず、内容や存在をscan／backfillしない
+- proprietary scopeはApp、integrator glue、asset、provider契約、選択Worldへ局所化する
+- open core、既存commons、公開lineage、無関係なWorld、upstream fork権を局所契約で囲い込まない
+- asset競合のSemantic Stopはselected routeへ局所化し、unmount、replacement、fork、別Worldを残す
+- public configへraw secretを置かず、明示的な外部`secret_ref`だけを扱う
+- `atlantis lineage`は明示receiptだけをoffline検査する。repository scan、asset mount、権利裁定を捏造しない
+
 ## Helpと習熟度
 
 - 初回案内の既定値は`proficiency=unknown`、`intent=look-around`、`route=help`とする
@@ -96,7 +110,7 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 - code、CLI、Schema、validator、doctor、test: Apache-2.0
 - 一般文書、神話、Flavor、UX: CC-BY-4.0
 - 二重記述憲章、暖簾分け・公式系譜憲章: CC-BY-SA-4.0
-- third-party material: 個別licenseと出典を必須とする
+- third-party material: source側の個別licenseと出典を保持し、coreによる認証済み表示へ変換しない
 
 詳細は[LICENSE-POLICY.ja.md](LICENSE-POLICY.ja.md)を優先します。
 
@@ -120,11 +134,15 @@ commit形式は`[layer] scope: 日本語の説明`を基本とします。
 ## MAGIポジショントーク監査（必読）
 
 計画提案、状態評価、README／技術文書の主張変更、component間の優先順位決定、
-複数repositoryへ波及する変更の前に、ZeroRoomLab-manifestの
-[AGENTS.md §0.4](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/AGENTS.md)、
-[Atlantis-MAGISDK 0.2.1](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/theory/atlantis-magi-sdk-0.2.1.ja.md)、
-[Context定規・因果・OAE横断監査規約](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/operations/context-ruler-and-causality-audit.ja.md)
-を読むこと。
+複数repositoryへ波及する変更の前に、本repositoryの
+[`magi/0.2.1/bundle.json`](magi/0.2.1/bundle.json)、
+[`MAGI coreと明示profile責務契約`](docs/magi/magi-core-and-explicit-profile.ja.md)、
+対象Position Skillを読むこと。
+
+対象Manifest／repositoryがprofileを宣言している場合だけ、resolverへ`--profile <id>`と対象rootを
+明示する。profile未指定時はAtlantis coreだけで閉じる。repository暗黙scan、Flavor auto-mount、
+常駐daemonをこの規則から起動しない。ZeroRoomLab一般規約を監査するときは、
+ZeroRoomLab-manifestの`AGENTS.md`と`foldlog/AGENTS.md`を読み、`--profile zeroroomlab`を使う。
 
 Declared Position、Position-talk Risk、媒体とclaim scope、外部定規の出所を分離し、
 現在のrepository、cwd、vendor、binary実装、一般的な線形roadmapを暗黙のmainへ置かない。

@@ -68,3 +68,19 @@ Narrativeだけ、codeだけ、translationだけのPRも有効です。全項目
 明記してください。
 
 自由なfork、compatible、inspired、魔改造を歓迎します。Originの許可は不要です。
+
+名前・肩書だけの`alias-only`と、文章、台詞、画像、音声、3D model等のpayload利用は分けてください。
+local-only／private assetはpublic Manifestへbackfillせず、公開欠損扱いもしません。
+
+lineage receiptを追加または変更した場合は、次を実行します。
+
+```console
+python3 -B -m atlantis_cli lineage validate
+python3 -B -m atlantis_cli lineage inspect --receipt <明示したreceipt.json>
+```
+
+validatorは権利認証機ではありません。author、source、revision、scope、宣言license、関係次元を
+読みやすくし、Roleからauthority／API／本人性が漏れること、閉鎖Worldがcore／commonsを囲い込むこと、
+raw secret、global Semantic Stopを防ぐ構造fixtureです。詳細は
+[贈与コモンズlineageと局所World拡張](docs/architecture/gift-commons-lineage-and-local-extension.ja.md)
+を参照してください。

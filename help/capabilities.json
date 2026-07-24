@@ -82,6 +82,13 @@
       "evidence": ["atlantis_cli/versioning.py", "tests/test_versioning.py"]
     },
     {
+      "id": "gift-commons-lineage-validator",
+      "label_ja": "贈与コモンズlineage validator",
+      "state": "AVAILABLE-NOW",
+      "summary_ja": "明示receiptだけを読み、系譜、Role非越権、局所extension、scoped stopを権利裁定なしでoffline検査する。",
+      "evidence": ["lineage/contract.json", "atlantis_cli/lineage.py", "tests/test_lineage.py"]
+    },
+    {
       "id": "sphere-dos-development-shell",
       "label_ja": "Sphere-DOS開発shell",
       "state": "SCAFFOLDED",
