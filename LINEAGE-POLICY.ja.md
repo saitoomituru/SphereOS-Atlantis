@@ -83,6 +83,10 @@ independent-convergence | homage-to | reinterprets
 lineage graphはProvenanceであり、ownership verdict、permission、本人性、権威、公式提携、
 宗派代表、API capability、価値rankではありません。
 
+`official`表示を使う場合は、どのWorld、distribution、作品、組織の制定authorityによる表示かを
+scope付きで記録します。別Worldや別団体の公認へ自動拡張しません。`compatible`、`inspired`、
+`fan-made`は関係表示であり、品質または許可のrankではありません。
+
 commercial App、社内asset、provider契約、閉鎖Worldは、選択されたApp／integrator／Worldへ
 局所化できます。閉鎖をopen core、既存commons、公開lineage、無関係なWorld、upstream fork権へ
 継承させません。魔王城を作る自由と、大陸全土の通行税を徴収する権利は別です。

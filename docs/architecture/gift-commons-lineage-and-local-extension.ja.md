@@ -79,7 +79,7 @@ mixed
 designation:
 
 ```text
-origin / compatible / inspired / fan-made / self-authored / unknown
+origin / official / compatible / inspired / fan-made / self-authored / unknown
 ```
 
 distribution:
@@ -89,6 +89,7 @@ public / local-only / private / selected-world
 ```
 
 designationは来歴、distributionは配布状態であり、同じ軸ではない。
+`official`は選択scopeの制定authority参照を必要とし、全Worldの公認へ拡張しない。
 `compatible`は自己申告で、Origin認定markではない。local-only／private receiptは
 `public_manifest_presence=not-required`を正例とし、public repository欠損へ変換しない。
 

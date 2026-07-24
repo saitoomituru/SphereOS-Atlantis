@@ -148,6 +148,12 @@ def validate_lineage_receipt(
     for asset_key, contract_key in enum_contracts.items():
         if asset.get(asset_key) not in contract[contract_key]:
             errors.append(f"asset.{asset_key}が未登録です。")
+    if asset.get("designation") in {"origin", "official"}:
+        _string(
+            asset.get("designation_authority_ref"),
+            "asset.designation_authority_ref",
+            errors,
+        )
 
     presence = asset.get("public_manifest_presence")
     if presence not in {"declared", "not-required"}:
@@ -218,7 +224,9 @@ def validate_lineage_receipt(
         errors.append("routing recovery boundaryが必要です。")
         routing = {}
     for key in ("unmount", "replacement", "fork", "alternate_world"):
-        _string(routing.get(key), f"routing.{key}", errors)
+        route = _string(routing.get(key), f"routing.{key}", errors)
+        if route is not None and route.startswith("blocked"):
+            errors.append(f"routing.{key}に回復不能なblocked routeを置けません。")
 
     conflict = value.get("conflict")
     if not isinstance(conflict, dict):

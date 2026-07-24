@@ -8,6 +8,8 @@ import unittest
 
 from atlantis_cli.lineage import (
     inspect_lineage_receipt,
+    load_lineage_contract,
+    validate_lineage_receipt,
     validate_lineage_contract,
 )
 
@@ -40,6 +42,20 @@ class LineageContractTests(unittest.TestCase):
             PROJECT_ROOT,
         )
         self.assertEqual(result["status"], "PASS", result["errors"])
+
+    def test_official表示はscope付き制定authorityを必要とする(self) -> None:
+        receipt = json.loads(
+            (FIXTURE_ROOT / "gift-commons-pass.json").read_text(encoding="utf-8")
+        )
+        receipt["asset"]["designation"] = "official"
+        contract = load_lineage_contract(PROJECT_ROOT)
+        blocked = validate_lineage_receipt(receipt, contract)
+        self.assertEqual(blocked["status"], "BLOCK")
+        self.assertIn("designation_authority_ref", "\n".join(blocked["errors"]))
+
+        receipt["asset"]["designation_authority_ref"] = "authority://selected-world/author"
+        passed = validate_lineage_receipt(receipt, contract)
+        self.assertEqual(passed["status"], "PASS", passed["errors"])
 
     def test_Roleはauthority_API_本人性を生成しない(self) -> None:
         result = inspect_lineage_receipt(
