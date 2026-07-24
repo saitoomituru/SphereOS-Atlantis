@@ -1,8 +1,8 @@
 # MAGI coreと明示profile責務契約
 
-状態: `[CANONICAL-CANDIDATE]` `[IMPLEMENTED-ALPHA]` `[0.200.1]`  
-stable ID: `contract://atlantis/magi-core-explicit-profile@0.200.1`  
-制定authority: SphereOS Atlantis repository  
+状態: `[CANONICAL-CANDIDATE]` `[IMPLEMENTED-ALPHA]` `[0.200.1]`\
+stable ID: `contract://atlantis/magi-core-explicit-profile@0.200.1`\
+制定authority: SphereOS Atlantis repository\
 適用scope: `magi/0.2.1` resolver、Position Skill、validator、test
 
 ## 旧定義
