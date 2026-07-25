@@ -1,0 +1,44 @@
+{
+  "expected_status": "BLOCK",
+  "receipt_version": "1.0.0",
+  "asset": {
+    "asset_id": "asset://example/role/fake-root-angel@0.1",
+    "author": "example-author",
+    "source_refs": ["source://example/alias"],
+    "revision": "0.1",
+    "scope_ref": "world://example/test",
+    "declared_license": "unknown",
+    "reference_kind": "alias-only",
+    "designation": "inspired",
+    "distribution": "public",
+    "public_manifest_presence": "declared"
+  },
+  "lineage_edges": [],
+  "claims": {
+    "identity": true,
+    "authority": true,
+    "api_capability": true,
+    "official_partnership": false,
+    "religious_representation": true,
+    "rights_verdict": false
+  },
+  "rights_adjudication_performed": false,
+  "extension": {
+    "scope": "app-local",
+    "proprietary": false,
+    "propagates_to_core": false,
+    "captures_existing_commons": false,
+    "captures_unrelated_worlds": false,
+    "secret_ref": null
+  },
+  "routing": {
+    "unmount": "available",
+    "replacement": "available",
+    "fork": "available",
+    "alternate_world": "available"
+  },
+  "conflict": {
+    "state": "none",
+    "stop_scope": "none"
+  }
+}

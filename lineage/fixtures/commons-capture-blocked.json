@@ -1,0 +1,44 @@
+{
+  "expected_status": "BLOCK",
+  "receipt_version": "1.0.0",
+  "asset": {
+    "asset_id": "asset://vendor/world/capture-core@1",
+    "author": "example-vendor",
+    "source_refs": ["source://vendor/local"],
+    "revision": "1",
+    "scope_ref": "world://vendor/closed",
+    "declared_license": "commercial-contract",
+    "reference_kind": "original-payload",
+    "designation": "compatible",
+    "distribution": "selected-world",
+    "public_manifest_presence": "declared"
+  },
+  "lineage_edges": [],
+  "claims": {
+    "identity": false,
+    "authority": false,
+    "api_capability": false,
+    "official_partnership": false,
+    "religious_representation": false,
+    "rights_verdict": false
+  },
+  "rights_adjudication_performed": false,
+  "extension": {
+    "scope": "open-core",
+    "proprietary": true,
+    "propagates_to_core": true,
+    "captures_existing_commons": true,
+    "captures_unrelated_worlds": true,
+    "secret_ref": null
+  },
+  "routing": {
+    "unmount": "available",
+    "replacement": "available",
+    "fork": "blocked-by-vendor",
+    "alternate_world": "blocked-by-vendor"
+  },
+  "conflict": {
+    "state": "none",
+    "stop_scope": "none"
+  }
+}

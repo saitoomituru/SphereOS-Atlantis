@@ -22,6 +22,7 @@ SphereOS Atlantisの公開候補に含める変更を記録します。日付は
 - 習熟度と実装意図を推定しない読み取り専用Help／能力状態案内
 - Prompt Line Interface／Command Line InterfaceとLLMI／Execution Envelopeを分離するmachine registry
 - `atlantis interfaces`による操作面契約のread-only表示とdoctor検査
+- 明示asset receiptだけを読む贈与コモンズlineage validatorと、Role非越権／commons capture／raw secret／scoped stop fixture
 
 ### Changed
 
@@ -51,6 +52,7 @@ SphereOS Atlantisの公開候補に含める変更を記録します。日付は
 - 火力、runner、cloud-to-edge module構成は`RESOURCE-WAIT`または設計review待ち
 - 異SemanticKernel間の接続はvalidator契約だけで、cross-causal runtime gatewayは未実装
 - 複数SaaS AI／mobile clientが新しいPLI表現を採用するかは再観測待ち。repository契約だけでvendor出力を保証しない
+- asset scan、auto-mount、pointer config、rights／identity／religious adjudication、marketplaceは未実装
 
 不具合、クソゲーフラグ、未対応環境、説明のずれは
 [GitHub Issues](https://github.com/saitoomituru/SphereOS-Atlantis/issues)へ報告してください。

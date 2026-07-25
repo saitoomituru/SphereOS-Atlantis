@@ -30,6 +30,11 @@
     },
     {
       "repository": "SphereOS-Atlantis",
+      "path": "docs/architecture/gift-commons-lineage-and-local-extension.ja.md",
+      "required": true
+    },
+    {
+      "repository": "SphereOS-Atlantis",
       "path": "docs/tutorial/README.ja.md",
       "required": true
     },

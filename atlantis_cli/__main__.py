@@ -25,6 +25,11 @@ from .doctor import doctor_json, format_doctor, run_doctor
 from .experience import create_experience_receipt, format_experience, validate_experience
 from .help_mode import build_help, format_help, format_interfaces, list_interfaces
 from .links import check_markdown_links, format_link_report
+from .lineage import (
+    format_lineage_report,
+    inspect_lineage_receipt,
+    validate_lineage_contract,
+)
 from .note import create_note
 from .release import format_release, validate_release
 from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
@@ -356,6 +361,28 @@ def build_parser() -> argparse.ArgumentParser:
     experience_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     experience_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
+    lineage_parser = commands.add_parser(
+        "lineage",
+        help="assetの系譜・非越権・局所extension receiptをoffline検査する。",
+    )
+    lineage_commands = lineage_parser.add_subparsers(
+        dest="lineage_command",
+        required=True,
+    )
+    lineage_validate_parser = lineage_commands.add_parser(
+        "validate",
+        help="contractと正負fixtureをoffline検証する。",
+    )
+    lineage_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    lineage_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+    lineage_inspect_parser = lineage_commands.add_parser(
+        "inspect",
+        help="明示指定したreceipt一件だけを読み取り専用検査する。",
+    )
+    lineage_inspect_parser.add_argument("--receipt", type=Path, required=True, help="検査するJSON receipt。")
+    lineage_inspect_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    lineage_inspect_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
     status_parser = commands.add_parser("status", help="Forge／Quest Mapの状態軸を扱う。")
     status_commands = status_parser.add_subparsers(dest="status_command", required=True)
     status_validate_parser = status_commands.add_parser(
@@ -630,6 +657,23 @@ def main(argv: list[str] | None = None) -> int:
             else format_experience(result)
         )
         return 1 if result.get("overall") == "fail" else 0
+
+    if args.command == "lineage":
+        try:
+            result = (
+                validate_lineage_contract(args.repo_root)
+                if args.lineage_command == "validate"
+                else inspect_lineage_receipt(args.receipt, args.repo_root)
+            )
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_lineage_report(result)
+        )
+        failed = result.get("overall") == "fail" or result.get("status") == "BLOCK"
+        return 1 if failed else 0
 
     if args.command == "status" and args.status_command == "validate":
         try:

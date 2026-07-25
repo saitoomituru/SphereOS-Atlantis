@@ -1,0 +1,44 @@
+{
+  "expected_status": "BLOCK",
+  "receipt_version": "1.0.0",
+  "asset": {
+    "asset_id": "asset://example/role/global-ban-hammer@0.1",
+    "author": "example-author",
+    "source_refs": ["source://example/self-authored"],
+    "revision": "0.1",
+    "scope_ref": "world://example/one",
+    "declared_license": "CC-BY-4.0",
+    "reference_kind": "original-payload",
+    "designation": "self-authored",
+    "distribution": "public",
+    "public_manifest_presence": "declared"
+  },
+  "lineage_edges": [],
+  "claims": {
+    "identity": false,
+    "authority": false,
+    "api_capability": false,
+    "official_partnership": false,
+    "religious_representation": false,
+    "rights_verdict": false
+  },
+  "rights_adjudication_performed": false,
+  "extension": {
+    "scope": "world-local",
+    "proprietary": false,
+    "propagates_to_core": false,
+    "captures_existing_commons": false,
+    "captures_unrelated_worlds": false,
+    "secret_ref": null
+  },
+  "routing": {
+    "unmount": "available",
+    "replacement": "available",
+    "fork": "available",
+    "alternate_world": "available"
+  },
+  "conflict": {
+    "state": "semantic-stop",
+    "stop_scope": "global"
+  }
+}

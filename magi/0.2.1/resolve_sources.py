@@ -36,12 +36,19 @@ def ancestor_with_marker(start: Path, marker: str) -> Path | None:
     return None
 
 
-def discover_roots(source_map: dict[str, Any], explicit: dict[str, Path]) -> dict[str, Path]:
+def discover_roots(
+    source_map: dict[str, Any],
+    explicit: dict[str, Path],
+    profile: str | None,
+) -> dict[str, Path]:
     roots = dict(explicit)
     atlantis_marker = source_map["repositories"]["SphereOS-Atlantis"]["marker"]
     atlantis = roots.get("SphereOS-Atlantis") or ancestor_with_marker(MAGI_ROOT, atlantis_marker)
     if atlantis:
         roots["SphereOS-Atlantis"] = atlantis
+
+    if profile != "zeroroomlab":
+        return roots
 
     manifest = roots.get("ZeroRoomLab-manifest")
     manifest_marker = source_map["repositories"]["ZeroRoomLab-manifest"]["marker"]
@@ -67,8 +74,25 @@ def discover_roots(source_map: dict[str, Any], explicit: dict[str, Path]) -> dic
     return roots
 
 
-def resolve(slot: str, roots: dict[str, Path], source_map: dict[str, Any]) -> dict[str, Any]:
-    entries = [*source_map["common"], *source_map["slots"][slot]]
+def resolve(
+    slot: str,
+    profile: str | None,
+    roots: dict[str, Path],
+    source_map: dict[str, Any],
+) -> dict[str, Any]:
+    entries = [
+        *({"source_layer": "core", **entry} for entry in source_map["common"]),
+        *(
+            {"source_layer": "core", **entry}
+            for entry in source_map["slots"][slot]
+        ),
+    ]
+    if profile:
+        profile_map = source_map["profiles"][profile]
+        entries.extend(
+            {"source_layer": f"profile:{profile}", **entry}
+            for entry in [*profile_map["common"], *profile_map["slots"][slot]]
+        )
     sources: list[dict[str, Any]] = []
     for entry in entries:
         repository = entry["repository"]
@@ -87,6 +111,7 @@ def resolve(slot: str, roots: dict[str, Path], source_map: dict[str, Any]) -> di
     return {
         "schema_version": source_map["schema_version"],
         "slot": slot,
+        "profile": profile,
         "sources": sources,
         "summary": {
             "sources": len(sources),
@@ -102,14 +127,15 @@ def main(argv: list[str] | None = None) -> int:
     source_map = load_map()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--slot", required=True, choices=sorted(source_map["slots"]))
+    parser.add_argument("--profile", choices=sorted(source_map["profiles"]))
     parser.add_argument("--repo-root", action="append", default=[], metavar="NAME=PATH")
     parser.add_argument("--require-local", action="store_true")
     args = parser.parse_args(argv)
     try:
-        roots = discover_roots(source_map, parse_roots(args.repo_root))
+        roots = discover_roots(source_map, parse_roots(args.repo_root), args.profile)
     except ValueError as error:
         parser.error(str(error))
-    result = resolve(args.slot, roots, source_map)
+    result = resolve(args.slot, args.profile, roots, source_map)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     if args.require_local and result["summary"]["required_missing_locally"]:
         return 2
