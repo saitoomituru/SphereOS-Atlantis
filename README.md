@@ -265,6 +265,12 @@ gift commons、lineage、閉鎖Worldの狭いextension境界は
 
 ## ライセンス概要
 
+**コードはApache-2.0、文章・用語・図解・世界観などのフレーバー層はCC BY 4.0です。
+自由に利用できますが、フレーバーを継承して語る場合は出典を明記してください。**
+
+**Code is Apache-2.0. Narrative, terminology, diagrams, and conceptual flavor are
+CC BY 4.0. Use freely, but preserve attribution when carrying the flavor forward.**
+
 - コード、CLI、Schema、validator、doctor: Apache License 2.0
 - 一般文書、ふさもふ神話、Flavor／UX: CC BY 4.0
 - 二重記述憲章、公式系譜憲章: CC BY-SA 4.0
