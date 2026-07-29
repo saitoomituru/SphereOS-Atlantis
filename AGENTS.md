@@ -108,6 +108,35 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 local-only、secret、enterprise資産は、公開repositoryの欠損扱いにせず、内容を走査、表示、log、commit、
 upload、配布しません。
 
+## library・tool再利用preflight
+
+新しいlibrary、script、validator、doctor、CLI helper、変換toolを実装する前に、対象repositoryの
+`lib/`、`scripts/`、CLI entry point、test helper、tool索引を検索します。
+
+同じ入力、出力、副作用、authority、Execution Envelopeを持つtoolがある場合は、再利用または既存toolの
+拡張を先に検討します。別名、別vendor、別agent、好みの差だけを再実装理由にしません。
+
+一方、workspace membershipだけを根拠に別repositoryのcodeをimportまたはcopyしません。再利用時は、
+source revision、license、runtime、依存、fixture、秘密境界を確認します。OS、ABI、authority、
+offline条件等が異なる場合は、別VesselまたはBridge adapterが妥当です。再利用不能理由を記録します。
+
+Atlantis固有の検討では、次を平均化せず分けます。
+
+```text
+Meaning = toolが達成する目的、成功条件、停止条件、非対象
+Vessel  = 実行code、CLI、dependency、生成artifact
+Bridge  = 別OS、別runtime、別repositoryへのadapter
+Supply  = tool索引、revision、license、fixture、引継ぎ票
+```
+
+新しいtoolを追加した場合は、local tool索引へ入出力、副作用、依存、license、既存toolを拡張しなかった理由、
+検証方法を追記します。作業終了時は、探索した既存tool、reuse／extend／adapt／createの判断、未試験範囲を
+兵站票へ残します。
+
+このpreflightの背景候補は、ZeroRoomLab-manifestの
+`note/20260724-1154__multi_agent_lib_reuse_and_potato_note_supply.ja.md`です。noteは観測と運用仮説であり、
+Atlantis Runtime実装済み、全repository共通schema、料理toolのSphere依存を意味しません。
+
 ## commit
 
 commit形式は`[layer] scope: 日本語の説明`を基本とします。
