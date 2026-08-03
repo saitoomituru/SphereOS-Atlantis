@@ -96,6 +96,7 @@ read-only doctor、公開境界fixture、community testの未確認範囲を確�
 - Origin、暖簾分け、Community Lineage、compatible、inspiredの来歴表示
 - 非排他的lineage、Role非越権、局所World extensionのoffline validator
 - component repositoryが実装する契約への索引
+- 人間可読な説明とFAM／protocol／実行拘束を結ぶProton.md Core契約とoffline validator
 
 ZeroRoomLab-manifestは、情報子工学、FAM一般論、開発規約、主張強度、workspace境界、
 横断正本ルーターを担当します。IBD、AAE、ASTRO等のSchema、API、runtime、fixtureは、
@@ -111,6 +112,12 @@ LLM、provider、connectorはLLMI／Execution Envelopeとして別に記録し�
 World、権限、standalone runtime実装済みを推定しません。詳細は
 [Prompt Line InterfaceとCommand Line Interface](docs/architecture/prompt-line-and-command-line-interface.ja.md)、
 machine contractは[`help/interfaces.json`](help/interfaces.json)を参照してください。
+
+module、protocol、叡智、Context Architectureを人間可読なMarkdownと機械blockで渡す
+`Proton.md`の契約は
+[Proton.md実行可能Context Container](docs/architecture/proton-md-executable-context-container.ja.md)を参照してください。
+現時点でoffline validatorは利用できますが、generic block executor、FAM JSON Core Schema、pointer Resolver、
+OAE persistenceは未実装です。
 
 ```bash
 python3 -B -m atlantis_cli interfaces

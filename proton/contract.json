@@ -1,0 +1,65 @@
+{
+  "schema_version": "proton.contract/0.1.0-draft",
+  "proton_version": "proton.md/0.1.0-draft",
+  "contract_state": "IMPLEMENTED_ALPHA",
+  "stable_id": "contract://atlantis/proton-md-core@0.1.0-draft",
+  "canonical_repository": "https://github.com/saitoomituru/SphereOS-Atlantis",
+  "purpose": "人間可読なMarkdownと機械可読な叡智・protocol・実行拘束を同じsourceへ非破壊に収めるLiterate Executable Context Container",
+  "manifest_block_language": "proton-manifest",
+  "required_manifest_fields": [
+    "proton_version",
+    "document_id",
+    "document_version",
+    "document_kind",
+    "language",
+    "lineage",
+    "execution",
+    "claim_scopes"
+  ],
+  "document_kinds": [
+    "architecture",
+    "module",
+    "protocol",
+    "wisdom",
+    "profile",
+    "composite"
+  ],
+  "embedded_block_languages": [
+    "fam-json",
+    "json",
+    "json-ld",
+    "yaml",
+    "mermaid",
+    "mindmap",
+    "mdx",
+    "text"
+  ],
+  "execution_contract": {
+    "default_mode": "interpret-only",
+    "allowed_modes": ["interpret-only", "validate", "plan", "execute"],
+    "default_side_effect": "deny",
+    "allowed_side_effects": ["deny", "none", "read", "write", "network", "physical"],
+    "load_implies_execution": false,
+    "execute_requires_authority": true,
+    "execute_requires_oae_transaction": true,
+    "unknown_capability_action": "last-order",
+    "unresolved_pointer_action": "retain"
+  },
+  "claim_scope_values": [
+    "OBSERVATION",
+    "DESIGN-DECISION",
+    "HYPOTHESIS",
+    "EXPLANATORY-MODEL",
+    "POSITION",
+    "MARKETING-CANDIDATE",
+    "UNVERIFIED"
+  ],
+  "boundaries": {
+    "markdown_is_execution_authority": false,
+    "citation_is_implementation_proof": false,
+    "hash_is_truth_verdict": false,
+    "fam_jsonp_is_web_jsonp": false,
+    "json_ld_projection_is_canonical_fam": false,
+    "historical_evidence_is_historical_oae": false
+  }
+}

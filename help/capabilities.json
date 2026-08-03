@@ -89,6 +89,13 @@
       "evidence": ["lineage/contract.json", "atlantis_cli/lineage.py", "tests/test_lineage.py"]
     },
     {
+      "id": "proton-document-validator",
+      "label_ja": "Proton.md文書validator",
+      "state": "AVAILABLE-NOW",
+      "summary_ja": "実行可能Context文書のmanifest、JSON block、authority／OAE境界を実行せずoffline検査する。",
+      "evidence": ["proton/contract.json", "atlantis_cli/proton.py", "tests/test_proton.py"]
+    },
+    {
       "id": "sphere-dos-development-shell",
       "label_ja": "Sphere-DOS開発shell",
       "state": "SCAFFOLDED",

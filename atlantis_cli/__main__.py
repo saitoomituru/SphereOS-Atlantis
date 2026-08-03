@@ -31,6 +31,7 @@ from .lineage import (
     validate_lineage_contract,
 )
 from .note import create_note
+from .proton import format_proton_report, validate_proton_document
 from .release import format_release, validate_release
 from .sphere_dos import boot_sphere_dos, format_sphere_dos, sphere_dos_status
 from .status_map import format_status_maps, validate_status_maps
@@ -416,6 +417,21 @@ def build_parser() -> argparse.ArgumentParser:
     )
     version_connect_parser.add_argument("--fixture", type=Path, required=True, help="接続fixture JSON。")
     version_connect_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    proton_parser = commands.add_parser(
+        "proton",
+        help="Proton.mdのmanifestと埋込blockを実行せず検査する。",
+    )
+    proton_commands = proton_parser.add_subparsers(dest="proton_command", required=True)
+    proton_validate_parser = proton_commands.add_parser(
+        "validate",
+        help="指定Proton.mdをoffline・read-onlyで検査する。",
+    )
+    proton_validate_parser.add_argument(
+        "--document", type=Path, required=True, help="検査する.proton.md。"
+    )
+    proton_validate_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    proton_validate_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
     return parser
 
 
@@ -714,6 +730,18 @@ def main(argv: list[str] | None = None) -> int:
             parser.error(str(error))
         print(json.dumps(result, ensure_ascii=False, indent=2) if args.json else output)
         return 1 if failed else 0
+
+    if args.command == "proton" and args.proton_command == "validate":
+        try:
+            result = validate_proton_document(args.document, args.repo_root)
+        except (OSError, ValueError, json.JSONDecodeError) as error:
+            parser.error(str(error))
+        print(
+            json.dumps(result, ensure_ascii=False, indent=2)
+            if args.json
+            else format_proton_report(result)
+        )
+        return 1 if result["status"] == "fail" else 0
 
     parser.error("未対応のcommandです。")
     return 2
