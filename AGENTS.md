@@ -70,6 +70,18 @@ component実装はIBD、AAE、ASTRO等の各repositoryを正本とし、Atlantis
 - `compatible`は自由な自己申告であり、Originの認可markへ変えない
 - Origin、Community Lineage、compatible、inspiredを格付けへ変えない
 
+## Log Horizonとsystem-level Observer
+
+`Log Horizon`は、物理粒子Observerをsystem-levelへ拡張したとき、仮想粒子とFAMを構成するOAEが、
+embedding、全体観測不能なnetwork／model、物理sensor等の先にある完全source状態へ到達できない情報子単位の
+ログの地平である。物理学上のevent horizon、Hawking radiation、Higgs粒子、未知の物理粒子のclaimではない。
+
+Observer、Agency、Effect、World、Execution Envelope、instrument、観測projection、unresolvedを分離する。
+取得不能を不存在へ変換せず、局所traffic、vector、sensor reading、cacheを完全sourceへ昇格させない。
+ZeroRoomLabでの命名正本はManifestの
+[Log Horizon](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/2c68eb63672e68e600518ba46679542b0914757b/docs/theory/log-horizon.ja.md)
+とする。
+
 ## 贈与コモンズと局所extension
 
 - lineageはauthor、source、revision、関係、次元、scopeのProvenanceであり、権利審判、許可証、rankではない

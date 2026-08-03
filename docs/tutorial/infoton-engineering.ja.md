@@ -35,3 +35,20 @@ Q:
 
 FAMを回答文だけへ縮退させず、再探索可能な探索技と来歴を保持します。別Registryの情報子クラスターを
 混ぜる場合は、明示的な合成条件を要求してから[共通到達点](README.ja.md#全棚に共通する到達点)へ進みます。
+
+## Log Horizonを越えて全体を捏造しない
+
+system-level Observerが取得できるのは、完全なsource状態ではなく、traffic、embedding、model output、sensor reading、
+hash、receipt等の部分投影である場合があります。この観測境界を`Log Horizon`と呼びます。
+
+```text
+complete source state
+  ↓ Log Horizon
+observed infoton projection
+  ↓ FAM JSONP／OAE ref
+current Worldでの採用・解釈・作用
+```
+
+`取得できない`を`存在しない`へ変換せず、取得したprojectionを全体状態へ昇格させません。物理event horizon、
+Hawking radiation、Higgs粒子の観測claimでもありません。詳細は
+[system-level ObserverとLog Horizon](../architecture/system-observer-and-log-horizon.ja.md)を参照してください。
