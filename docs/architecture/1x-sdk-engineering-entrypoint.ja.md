@@ -3,7 +3,8 @@
 状態: `[DRAFT]` `[0.25.1 DESIGN LINE]` `[1.x TARGET]`
 
 この文書は、SphereOS Atlantis 1.xの実行系を鍛造するエンジニア向けに、component repository、
-技術Layer `L`、Context Dimension `D Fold`、SDK surface `S`を混線させず案内する。
+技術Layer `L`、Context Dimension `D Fold`、Fold nesting depth `G`を正本三軸として案内し、
+SDK surface `S`をLの実行経路を構成するSDK／toolchain strataとして分離する。
 
 ここでいう募集は雇用ではなくOSS同人開発への参加募集である。報酬、業務委託、賞金がある場合は、
 対象issueまたは別契約で明示される。
@@ -43,11 +44,13 @@ SphereOS Atlantis x.x.n   security／corrective patch
 隣接repositoryを同じworkspaceで開けることは、変更権限や暗黙依存を意味しない。各repositoryを編集する前に
 その`AGENTS.md`と最寄りの仕様を読む。
 
-## 3. `L`、`D`、`S`を別キーで持つ
+## 3. 正本三軸`L`、`D`、`G`とSDK strata `S`を別キーで持つ
 
 ### 3.1 技術Layer `L`
 
-`L`は何の上で何が実行されるかという順序軸である。
+`L`は、選択したhardware、kernel、runtime、SDK、tool、Appを串刺しし、対象環境で利用可能なartifactへ
+materializeする実行経路である。全候補を一本の普遍的な直線へ固定するのではなく、SDK／toolchain graphから
+targetごとに選択された経路を記録する。
 
 ```text
 hardware
@@ -55,11 +58,14 @@ hardware
   → POSIX-compatible OS
   → process／container runtime
   → Sphere runtime
-  → library／SDK／App／prompt surface
+  → library／SDK／tool／engine／App
+  → build／package／interpreter／Runner
+  → .exe／.pkg／.gba／App bundle／service等のtarget artifact
 ```
 
 順序を変えると依存構造が変わる。POSIX、process、container、database kernel、device driverはここに属する。
-SphereOSはPOSIX OSを置換せず、その上で動く。
+SphereOSはPOSIX OSを置換せず、その上で動く。すべてのartifactが`.exe`になるという意味ではない。
+利用対象に応じてpackage、ROM image、script、model bundle、service等へ到達すればよい。
 
 ### 3.2 Context Dimension `D Fold`
 
@@ -79,7 +85,19 @@ Actor 4D Fold = User / Assistant / System / Vendor
 
 両方とも4Dだが、同じ四軸ではない。`D`をembedding dimension、配列長、技術Layer番号へ流用しない。
 
-### 3.3 SDK surface `S`
+### 3.3 Fold nesting depth `G`
+
+`G`は、Fold containerが別のFold containerを包むnesting depthである。
+
+```text
+G = nesting_depth(fold_containers)
+```
+
+各GはそれぞれD軸集合とLの実行経路を持ち得る。`G`をSDK抽象度、通信速度、無線世代、embedding dimensionへ
+流用しない。正本はQ Atlantisの
+[Fold7G・Fold8G研究地図](https://quantaril.cloud/docs/engineering/q-atlantis/fold7g-fold8g-research-map)とする。
+
+### 3.4 SDK／toolchain strata `S`（旧S軸表記の再分類）
 
 `S`は同じcapabilityへ入る抽象度である。
 
@@ -92,6 +110,16 @@ Actor 4D Fold = User / Assistant / System / Vendor
 | `S4` | User／Assistant／Agent | promptから型付きQuery／FAMへcompileする入口 |
 
 上位surfaceは下位surfaceを隠せるが、Registry、Fold、Provenance、Transformer、OAE、unknownを捨てない。
+
+旧文書では`S`を`L / D / S`の独立した三軸目として記述していた。この説明はSDK入口の分類として有用だが、
+正本三軸`L / D / G`のGを置換しない。現在は、Lの経路を構成するSDK／framework／toolchainのstrataまたは
+subgraphとして再分類する。同じ製品内でも複数Sを通り、target別に異なるL経路を選び得る。
+
+engineやRunnerは完成物を実行可能にするVesselであり、完成物のMeaning、作品価値、真正性を格付けする軸ではない。
+たとえば『ドラゴンクエストモンスターズ3』はUnity公式の開発事例で
+[Unity採用が明記されている](https://unity3d.jp/game/dragonquest-monsters-3/)が、Unity採用によって作品が
+「Unityそのもの」へ縮退するわけではない。これは特定engineの優劣ではなく、基盤来歴と成果物identityを
+別責務として記録するための例である。
 
 ## 4. SDK bundleの最低キー
 
