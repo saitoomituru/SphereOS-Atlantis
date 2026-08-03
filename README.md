@@ -116,6 +116,8 @@ machine contractは[`help/interfaces.json`](help/interfaces.json)を参照して
 module、protocol、叡智、Context Architectureを人間可読なMarkdownと機械blockで渡す
 `Proton.md`の契約は
 [Proton.md実行可能Context Container](docs/architecture/proton-md-executable-context-container.ja.md)を参照してください。
+歴史的AQC原典から学術引用とFAMの原初目的を保持してsalvageした
+[`FoldAccessMapper.proton.md 0.210.1-Beta`](proton/modules/FoldAccessMapper.proton.md)も同契約のmoduleとして配置しています。
 現時点でoffline validatorは利用できますが、generic block executor、FAM JSON Core Schema、pointer Resolver、
 OAE persistenceは未実装です。
 

@@ -254,7 +254,11 @@ python3 -B -m atlantis_cli proton validate \
 
 ## 12. 系譜
 
-- AQC `demo/FoldAccessMapper.proton.md 0.2.1-alpha`: 歴史的Proton／FAM原典
+- AQC `demo/FoldAccessMapper.proton.md 0.2.1-alpha`: 読み取り専用の歴史的Proton／FAM原典
+- [`FoldAccessMapper.proton.md 0.210.1-Beta`](../../proton/modules/FoldAccessMapper.proton.md):
+  原典の著者・監修・引用・意味を保持し、FAM JSON、Resolver、OAE、Log Horizonへ接続したAtlantis salvage版
+- [`FAM Family`](../../proton/modules/FAMFamily.proton.md):
+  FAM JSON、Query／Composite、FAMLog、JSONP、JSON-LD、OAE sidecarの派生・投影・profile責務
 - ZeroRoomLab Manifest: 情報子工学、FAM一般論、claim boundary
 - SphereOS Atlantis: Proton.md Core、Context／World／OAE／実行拘束
 - IBD: FAM JSON、projection、pointer、Resolver、freshness、保存・検索
