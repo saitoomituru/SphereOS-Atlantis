@@ -3,7 +3,7 @@
   "map_type": "forge",
   "project_version": "0.25.1-alpha.1",
   "canonical_coordinate": "0.250.1",
-  "as_of": "2026-07-19",
+  "as_of": "2026-08-08",
   "items": [
     {
       "id": "salvage-and-development-scaffold",
@@ -55,7 +55,7 @@
     },
     {
       "id": "standalone-runner",
-      "label_ja": "Atlantis本体runner",
+      "label_ja": "Atlantis固有standalone runner",
       "status_axes": {
         "content_maturity": "proposal",
         "engineering_state": "not-started",
@@ -63,9 +63,33 @@
         "resource_state": "resource-wait",
         "review_state": "review-wanted"
       },
-      "evidence": ["sphere-dos/profile.json"],
-      "claim_scope": "standalone OS/runtime、model inference、component runtime起動",
+      "evidence": [
+        "sphere-dos/profile.json",
+        "docs/architecture/runner-and-mechanical-verification-boundary.ja.md"
+      ],
+      "claim_scope": "standalone OS/runtime、model inference、component runtime起動、常駐scheduler／daemon",
       "unknowns": ["実装開始時期", "実行資源", "production profile"]
+    },
+    {
+      "id": "mechanical-verification-plane",
+      "label_ja": "CLI／validator／GitHub Actions機械検証面",
+      "status_axes": {
+        "content_maturity": "accepted-contract",
+        "engineering_state": "implemented",
+        "distribution_state": "alpha-candidate",
+        "resource_state": "available",
+        "review_state": "review-wanted"
+      },
+      "evidence": [
+        ".github/workflows/verify.yml",
+        ".github/workflows/note-pr.yml",
+        "atlantis_cli/",
+        "tests/",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/31114556857",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/29687900790"
+      ],
+      "claim_scope": "Git追跡物からCLI、validator、unit test、clean-room再構築をGitHub-hosted runnerで検査し、workflow結果をGitHubへ残す",
+      "unknowns": ["第三者forkでの再現件数", "全component runtime統合", "production運用"]
     },
     {
       "id": "cloud-to-edge-modules",
