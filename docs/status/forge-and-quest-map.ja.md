@@ -46,8 +46,15 @@ GitHub Actions自身はGitHub-hosted runner上で実行されますが、これ�
 Git receiptまで未実装へ丸めることもできません。詳細は
 [runner・機械拘束・証跡の分離契約](../architecture/runner-and-mechanical-verification-boundary.ja.md)を参照してください。
 
-2026-08-08観測では、`最小再構築検証`はrun 41まで到達し最新runがsuccess、`Note-only PR検証`はrun 9が
-successです。これは各workflowに列挙された検査がそのrevisionで通った証拠であり、全component runtime、
+2026-08-08の状態更新そのものが機械拘束の自己追試になりました。Forge Mapへ9個目のitemを追加したcommit
+`400eb480f83d740dbaf24facaec384f0bf8746ed`に対する`最小再構築検証` run 42は、status map testが
+旧fixture `[8, 5]`に固定されていたため、実測`[9, 5]`を拒否して`failure`になりました。fixtureを
+9件へ追従したcommit `87768f5b1051d92cffc0dab93e418c089b02f446`ではrun 43が`success`となり、Python 3.11／3.14の
+unit test、doctor、各offline validator、Sphere-DOS scaffold検査が通り、3.14ではclean-room再構築まで
+成功しています。`Note-only PR検証` run 9も既存の成功証跡として保持します。
+
+この系列は「CIが存在する」という文書自己申告だけでなく、状態契約の差分を実際に拒否し、fixture修正後に
+再受理したreceiptです。ただし、列挙checkがそのrevisionでgreenであることを示すだけで、全component runtime、
 production環境、第三者fork、未列挙条件までsystem greenへ昇格する証拠ではありません。
 
 ```bash

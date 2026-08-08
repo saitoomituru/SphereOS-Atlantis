@@ -85,10 +85,11 @@
         ".github/workflows/note-pr.yml",
         "atlantis_cli/",
         "tests/",
-        "https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/31114556857",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/31244820143",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/31244925572",
         "https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/29687900790"
       ],
-      "claim_scope": "Git追跡物からCLI、validator、unit test、clean-room再構築をGitHub-hosted runnerで検査し、workflow結果をGitHubへ残す",
+      "claim_scope": "Git追跡物からCLI、validator、unit test、clean-room再構築をGitHub-hosted runnerで検査し、失敗と成功のworkflow結果をGitHubへ残す",
       "unknowns": ["第三者forkでの再現件数", "全component runtime統合", "production運用"]
     },
     {

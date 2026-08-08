@@ -62,14 +62,30 @@ Git receipt全体の状態ではありません。
 `.github/workflows/note-pr.yml`はNote-only PRについて、base／head SHAを渡して境界validatorを実行します。
 これらは自然言語の自己申告ではなく、workflowに記述されたcommandのexit statusで合否を返す機械検査です。
 
-2026-08-08にGitHub APIから観測した履歴では、`最小再構築検証`はrun 41まで到達し最新run 41が
-`success`、`Note-only PR検証`はrun 9が`success`でした。
+### 4.1 状態更新で発火した自己追試
 
-- `https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/31114556857`
-- `https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/29687900790`
+2026-08-08、Forge Mapへ`mechanical-verification-plane`を追加したcommit
+`400eb480f83d740dbaf24facaec384f0bf8746ed`に対する`最小再構築検証` run 42は`failure`になりました。
+失敗したのはPython 3.11／3.14の同じunit testで、Forge Mapのitem数が実測9件へ増えた一方、
+`tests/test_status_map.py`の期待fixtureが8件のままだったためです。
 
-この観測は各runが対象revisionで成功したことを示します。将来run、第三者fork、未列挙OS、全component、
-production loadまで自動的に保証しません。
+```text
+observed map counts = [9, 5]
+expected fixture    = [8, 5]
+result              = reject / exit 1
+```
+
+fixtureを9件へ更新したcommit `87768f5b1051d92cffc0dab93e418c089b02f446`に対するrun 43は
+`completed / success`となりました。Python 3.11／3.14ともunit test、doctor、workspace plan、CORN、
+Forge／Quest、release候補、Sphere-DOS scaffoldのboot／statusが成功し、Python 3.14ではGit追跡物だけを
+使うclean-room再構築まで成功しています。
+
+- run 42 failure: `https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/31244820143`
+- run 43 recovery: `https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/31244925572`
+- Note-only PR run 9: `https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/29687900790`
+
+この系列は、機械検証面が単に存在するだけでなく、正本の状態差分とtest fixtureの不整合を実際に拒否した
+receiptです。一方で、run 43 successを全component runtimeやproductionへ拡張しません。
 
 ## 5. PLIと機械拘束の接続
 
