@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "roadmap_coordinate": "m.6xx.1-candidate",
+  "registry_state": "SCAFFOLDED",
+  "products": [
+    {
+      "id": "spheredos-server",
+      "path": "products/spheredos-server",
+      "presentation_candidate": 0,
+      "function_series_candidate": "6xx",
+      "protocol_generation": 1,
+      "engineering_state": "NOT_IMPLEMENTED",
+      "responsibility": "headless-ctl-host-and-durable-state",
+      "must_not_own": ["provider-payment", "provider-account-activation", "fold8g-global-authority"]
+    },
+    {
+      "id": "spheredos-code",
+      "path": "products/spheredos-code",
+      "presentation_candidate": 0,
+      "function_series_candidate": "6xx",
+      "protocol_generation": 1,
+      "engineering_state": "NOT_IMPLEMENTED",
+      "responsibility": "vscode-cockpit-presentation",
+      "must_not_own": ["oae-commit-authority", "provider-payment", "durable-state-canonical-store"]
+    }
+  ]
+}

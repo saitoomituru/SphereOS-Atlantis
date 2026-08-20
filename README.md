@@ -99,6 +99,23 @@ Sphere Reincarnation Framework、Lean Kernel、SphereDOS Server／Code、FAM Acc
 意味しません。公開Issueを議論と受入条件の正本、Projectを棚・優先順位・進捗のprojectionとして扱います。
 現行利用者は引き続き`main`を参照し、6xxの実装・fixture・移行作業へ参加する場合だけDevブランチを使用してください。
 
+### Devブランチ進捗
+
+現在は`Phase 0: branch／package boundary`です。
+
+| 対象 | 現在地 | 次の機械受入条件 |
+|---|---|---|
+| repository階層 | `products/`と`packages/`の責務境界を追加 | package manifestとimport境界fixture |
+| Reincarnation Lean Kernel | `NOT IMPLEMENTED`、source置場を確保 | task／lease／OAE state machineの負例 |
+| Fold Access Mapper | 既存Proton moduleは`Beta`、6xx packageは`SCAFFOLDED` | FAM JSON探索木とoverlay解決fixture |
+| Provider Adapters | 既存agent registry／CLI検出は`IMPLEMENTED-ALPHA` | auth／quota／refusal passthrough fixture |
+| SphereDOS Server | `NOT IMPLEMENTED`、headless Host境界を確保 | VS Code切断後のresume fixture |
+| SphereDOS Code | `NOT IMPLEMENTED`、Cockpit Presentation境界を確保 | Kernel decisionとGUI表示の一致fixture |
+
+既存の`atlantis_cli/`、`agents/`、`corn/`、`proton/`、`sphere-dos/`は現行0.250.1の追跡可能なSourceです。
+Phase 0では移動・renameせず、6xx側からの対応表を先に置きます。詳細は
+[m.6xx.1 Dev Roadmap](docs/status/m6xx-dev-roadmap.ja.md)を参照してください。
+
 ## このリポジトリの責務
 
 このリポジトリは、SphereOS Atlantisの製品系列と配布構成を管理します。

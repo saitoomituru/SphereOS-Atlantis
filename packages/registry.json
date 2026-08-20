@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "roadmap_coordinate": "m.6xx.1-candidate",
+  "registry_state": "SCAFFOLDED",
+  "packages": [
+    {
+      "id": "reincarnation-lean-kernel",
+      "path": "packages/reincarnation-lean-kernel",
+      "engineering_state": "NOT_IMPLEMENTED",
+      "responsibility": "world-fold-task-lease-oae-receipt-kernel",
+      "source_paths": ["corn", "atlantis_cli/corn.py"],
+      "must_not_own": ["provider-auth", "provider-payment", "gui-rendering", "model-inference"]
+    },
+    {
+      "id": "fold-access-mapper",
+      "path": "packages/fold-access-mapper",
+      "engineering_state": "SCAFFOLDED",
+      "responsibility": "fam-access-projection-and-proton-resolution",
+      "source_paths": ["proton", "atlantis_cli/proton.py"],
+      "must_not_own": ["oae-commit-authority", "global-consensus", "silent-overlay"]
+    },
+    {
+      "id": "provider-adapters",
+      "path": "packages/provider-adapters",
+      "engineering_state": "SCAFFOLDED",
+      "responsibility": "provider-cli-discovery-and-opaque-result-transport",
+      "source_paths": ["agents", "atlantis_cli/agent.py"],
+      "must_not_own": ["provider-install", "provider-auth", "provider-payment", "provider-activation"]
+    }
+  ]
+}
