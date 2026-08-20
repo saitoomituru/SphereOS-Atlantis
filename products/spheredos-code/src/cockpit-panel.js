@@ -35,7 +35,7 @@ class CockpitPanel {
   }
 
   static disposeCurrent() {
-    CockpitPanel.currentPanel?.dispose();
+    CockpitPanel.currentPanel?.panel.dispose();
   }
 
   constructor(panel, extensionUri, fixtureName) {

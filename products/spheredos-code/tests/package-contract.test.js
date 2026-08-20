@@ -31,4 +31,5 @@ test('Webviewはnonce付きCSPを宣言する', () => {
   assert.match(panelSource, /default-src 'none'/);
   assert.match(panelSource, /script-src 'nonce-\$\{nonce\}'/);
   assert.match(panelSource, /crypto\.randomBytes/);
+  assert.match(panelSource, /currentPanel\?\.panel\.dispose\(\)/);
 });
