@@ -23,3 +23,12 @@ test('testと生成物をextension packageから除外する', () => {
   assert.match(ignore, /tests\/\*\*/);
   assert.doesNotMatch(ignore, /fixtures\/\*\*/);
 });
+
+test('Webviewはnonce付きCSPを宣言する', () => {
+  const panelSource = fs.readFileSync(path.join(root, 'src', 'cockpit-panel.js'), 'utf8');
+
+  assert.match(panelSource, /Content-Security-Policy/);
+  assert.match(panelSource, /default-src 'none'/);
+  assert.match(panelSource, /script-src 'nonce-\$\{nonce\}'/);
+  assert.match(panelSource, /crypto\.randomBytes/);
+});
