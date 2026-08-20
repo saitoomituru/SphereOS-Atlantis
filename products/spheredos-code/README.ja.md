@@ -1,12 +1,74 @@
 # SphereDOS Code
 
-状態: `[SCAFFOLDED]` `[GUI NOT IMPLEMENTED]`
+状態: `[GUI HARNESS IMPLEMENTED-ALPHA]` `[PRODUCTION RUNTIME NOT IMPLEMENTED]`
 
-VS Code上で各社CLI、task、World／Fold、OAE、diff、receiptを同じCockpitへ投影するPresentation候補です。
-GUIはauthorityやtransaction正本ではなく、Lean Kernel／SphereDOS Serverのdecisionを表示するclientです。
+VS Code上でtask、World／Fold、provider control、OAE、receiptを同じCockpitへ投影するPresentation候補です。
+現段階はrepository内の合成fixtureだけを読むGUI Harnessです。GUIはauthorityやtransaction正本ではなく、
+将来のLean Kernel／SphereDOS Server decisionを表示するclientです。
 
-- `src/`: extension host／webview／CTL client adapterの予定地
-- `tests/`: Kernel decisionとGUI表示の一致fixture予定地
-- provider固有GUIの再実装や課金画面の代理提供は非目標
+## 実装状態
 
-VS Codeが終了してもtaskを失わないこと、Kernel拒否を成功表示しないことを最初の受入境界にします。
+| 対象 | 状態 |
+|---|---|
+| GUI Harness | `IMPLEMENTED-ALPHA` |
+| Mock fixture transport | `IMPLEMENTED-ALPHA` |
+| Production CTL connection | `NOT IMPLEMENTED` |
+| Lean Kernel runtime | `NOT IMPLEMENTED` |
+| SphereDOS Server runtime | `NOT IMPLEMENTED` |
+| Provider execution | `NOT IMPLEMENTED` |
+| Durable OAE persistence | `NOT IMPLEMENTED` |
+| VS Code Extension Host目視試験 | `NOT TESTED` |
+
+`products/registry.json`は共有registryであり今回のwrite scope外のため変更していません。registryの
+`engineering_state: NOT_IMPLEMENTED`を、本Harnessの局所状態でsilent rewriteしません。
+
+## Command
+
+Command Paletteから次を呼び出します。
+
+- `SphereDOS Code: Cockpitを開く` (`spheredosCode.openCockpit`)
+- `SphereDOS Code: prepared fixtureを表示`
+- `SphereDOS Code: Kernel rejected fixtureを表示`
+- `SphereDOS Code: provider auth required fixtureを表示`
+- `SphereDOS Code: disconnected recoverable fixtureを表示`
+- `SphereDOS Code: Cockpit fixtureを再読込`
+
+Extension Development Hostで確認する場合は、このrepositoryをVS Codeで開き、
+`products/spheredos-code`をextension development pathとして起動します。外部dependency、build、
+provider login、network接続は不要です。今回の実行環境ではVS Code CLIを確認できなかったため、
+Extension Hostでの目視結果は`NOT TESTED`です。
+
+## Harnessの責務
+
+- `fixtures/`の合成JSONだけを固定allowlistから読む
+- Coordinate、World／Fold、Task／Lease、Kernel、Provider、OAE、Receipt、GUI transportを別sectionで表示する
+- providerのauth／quota／refusal／opaque出力をchat回答へ変換しない
+- Kernel rejectを成功色へ変換しない
+- disconnectをabortまたは永続データ消失の確定へ変換しない
+- missing fieldを`unknown`または`not provided`として表示する
+- fixture由来の表示値をHTML escapeし、Webviewへnonce付きContent Security Policyを設定する
+
+次の状態機械は互いの代用品ではありません。
+
+```text
+provider exit 0 != OAE commit
+provider refusal != Mission failure
+Issue close != Mission completion
+GUI success display != Effect applied
+detected != registered != approved != dispatchable
+```
+
+## 検証
+
+```console
+node --test products/spheredos-code/tests/*.test.js
+```
+
+`src/`はextension host、projection model、mock transport、Webviewを保持します。`tests/`はfixture contract、
+負例projection、HTML escape、CSP、package contractを検査します。
+
+## 非責務
+
+production Kernel、daemon、scheduler、Cron、OAE永続化、GitHub API write、provider CLI実行・install・login・
+token取得、課金・quota購入、model inference、GUIからのOAE commit／Issue close、Matchbox／Fold8G runtimeは
+実装していません。Cockpitが表示した状態をEffect適用、durable state、製品完成の証拠へ昇格させません。
