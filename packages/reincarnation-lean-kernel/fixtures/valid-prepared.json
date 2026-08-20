@@ -1,0 +1,31 @@
+{
+  "harness_only": true,
+  "canonical_contract": false,
+  "authority": "none",
+  "world_ref": "synthetic-world-0001",
+  "fold_ref": "synthetic-fold-g1",
+  "task_id": "synthetic-task-0001",
+  "lease_id": "synthetic-lease-0001",
+  "lease_state": "held",
+  "base_revision": "rev-10",
+  "observed_revision": "rev-10",
+  "write_set": ["artifacts/synthetic-artifact-0001.json"],
+  "requested_paths": ["artifacts/synthetic-artifact-0001.json"],
+  "artifact_claims": [
+    {
+      "artifact_id": "synthetic-artifact-0001",
+      "claimed_by_task": "synthetic-task-0001",
+      "conflicts_with_task": null
+    }
+  ],
+  "provider_process_state": "running",
+  "provider_exit_code": null,
+  "provider_control_state": "synthetic-only",
+  "oae_transaction_state": "prepared",
+  "effect_applied": false,
+  "unknown": [],
+  "provenance": {
+    "source": "harness-fixture",
+    "note": "正式OAE Schemaではない疑似transaction入力"
+  }
+}
