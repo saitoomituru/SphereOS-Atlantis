@@ -1,0 +1,34 @@
+{
+  "schema_version": "0.1-harness",
+  "harness_only": true,
+  "production_kernel": false,
+  "authority": "none",
+  "persistence_scope": "explicit-test-root",
+  "protocol_generation": 1,
+  "function_series": "6xx-candidate",
+  "root_directory_name": ".spheredos-harness",
+  "generated_paths": [
+    ".spheredos-harness/harness.json",
+    ".spheredos-harness/worlds",
+    ".spheredos-harness/folds",
+    ".spheredos-harness/tasks",
+    ".spheredos-harness/leases",
+    ".spheredos-harness/transactions",
+    ".spheredos-harness/receipts",
+    ".spheredos-harness/artifacts",
+    ".spheredos-harness/providers",
+    ".spheredos-harness/decisions"
+  ],
+  "prohibited_roots": [
+    "filesystem-root",
+    "user-home",
+    "repository-root",
+    "empty-string"
+  ],
+  "unknowns": [
+    "fold7g-g-registry-nesting-contract",
+    "production-lean-kernel-language",
+    "spheredos-dotfiles-canonical-path",
+    "oae-durable-persistence-schema"
+  ]
+}
