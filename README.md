@@ -84,6 +84,21 @@ read-only doctor、公開境界fixture、community testの未確認範囲を確�
 [Forge Map／Quest Map](docs/status/forge-and-quest-map.ja.md)、変更点と既知の制約は
 [0.25.1-alpha.1候補ノート](docs/releases/0.25.1-alpha.1.ja.md)を参照してください。
 
+## 6xx次世代開発の入口
+
+`main`は現行`0.250.1` Prompt Engineering Editionの再構築可能な基準線として維持します。
+Sphere Reincarnation Framework、Lean Kernel、SphereDOS Server／Code、FAM Access Mapperを束ねる
+`m.6xx.1`候補の鍛造は、次世代Devブランチへ移動して進めています。
+
+- 開発ブランチ: [`dev/m6xx.1-reincarnation-sdk`](https://github.com/saitoomituru/SphereOS-Atlantis/tree/dev/m6xx.1-reincarnation-sdk)
+- 公開Roadmap: [Issue #16](https://github.com/saitoomituru/SphereOS-Atlantis/issues/16)
+- 公開Milestone: [`m.6xx.1 — Sphere Reincarnation SDK Next Generation`](https://github.com/saitoomituru/SphereOS-Atlantis/milestone/1)
+- 運用Project: [プロジェクトスフィア：サルベージエッジスフィア #2](https://github.com/users/saitoomituru/projects/2)（private運用盤）
+
+`m.6xx.1`はRoadmap上の候補座標であり、release済み、standalone runtime実装済み、LTS制定済みを
+意味しません。公開Issueを議論と受入条件の正本、Projectを棚・優先順位・進捗のprojectionとして扱います。
+現行利用者は引き続き`main`を参照し、6xxの実装・fixture・移行作業へ参加する場合だけDevブランチを使用してください。
+
 ## このリポジトリの責務
 
 このリポジトリは、SphereOS Atlantisの製品系列と配布構成を管理します。
