@@ -1,0 +1,54 @@
+{
+  "name": "spheredos-code-cockpit-harness",
+  "displayName": "SphereDOS Code Cockpit Harness",
+  "description": "SphereDOS Codeのfixture駆動VS Code Cockpit Harness",
+  "version": "0.0.1-alpha.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": ">=1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:spheredosCode.openCockpit",
+    "onCommand:spheredosCode.showPrepared",
+    "onCommand:spheredosCode.showKernelRejected",
+    "onCommand:spheredosCode.showProviderAuthRequired",
+    "onCommand:spheredosCode.showDisconnectedRecoverable",
+    "onCommand:spheredosCode.reloadCockpit"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "spheredosCode.openCockpit",
+        "title": "SphereDOS Code: Cockpitを開く"
+      },
+      {
+        "command": "spheredosCode.showPrepared",
+        "title": "SphereDOS Code: prepared fixtureを表示"
+      },
+      {
+        "command": "spheredosCode.showKernelRejected",
+        "title": "SphereDOS Code: Kernel rejected fixtureを表示"
+      },
+      {
+        "command": "spheredosCode.showProviderAuthRequired",
+        "title": "SphereDOS Code: provider auth required fixtureを表示"
+      },
+      {
+        "command": "spheredosCode.showDisconnectedRecoverable",
+        "title": "SphereDOS Code: disconnected recoverable fixtureを表示"
+      },
+      {
+        "command": "spheredosCode.reloadCockpit",
+        "title": "SphereDOS Code: Cockpit fixtureを再読込"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

@@ -1,0 +1,30 @@
+:root {
+  color-scheme: light dark;
+  font-family: var(--vscode-font-family);
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  color: var(--vscode-foreground);
+  background: var(--vscode-editor-background);
+}
+
+header {
+  border-bottom: 1px solid var(--vscode-panel-border);
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  color: var(--vscode-descriptionForeground);
+  font-family: var(--vscode-editor-font-family);
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 8px;
+}
+
+#cockpit {
+  min-height: 8rem;
+}

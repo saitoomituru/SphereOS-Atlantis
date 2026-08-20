@@ -1,0 +1,6 @@
+.gitignore
+.DS_Store
+tests/**
+**/*.test.js
+node_modules/**
+coverage/**
