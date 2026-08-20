@@ -1,7 +1,10 @@
 'use strict';
 
 const crypto = require('node:crypto');
+const path = require('node:path');
 const vscode = require('vscode');
+const { FixtureTransport } = require('./fixture-transport');
+const { projectFixture, renderProjectionHtml } = require('./cockpit-model');
 
 class CockpitPanel {
   static currentPanel;
@@ -38,20 +41,38 @@ class CockpitPanel {
   constructor(panel, extensionUri, fixtureName) {
     this.panel = panel;
     this.extensionUri = extensionUri;
+    this.transport = new FixtureTransport(extensionUri.fsPath || path.resolve(__dirname, '..'));
     this.fixtureName = fixtureName;
     this.disposables = [];
     this.panel.webview.html = this.getHtml();
     this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
+    this.panel.webview.onDidReceiveMessage((message) => {
+      if (message?.type === 'cockpit.ready') {
+        this.showFixture(this.fixtureName);
+      }
+    }, null, this.disposables);
     this.showFixture(fixtureName);
   }
 
   showFixture(fixtureName) {
     this.fixtureName = fixtureName;
-    this.panel.webview.postMessage({
-      type: 'cockpit.fixture-selected',
-      fixtureName,
-      projection: null
-    });
+    try {
+      const projection = projectFixture(this.transport.load(fixtureName));
+      this.panel.webview.postMessage({
+        type: 'cockpit.projection',
+        fixtureName,
+        projection: {
+          ...projection,
+          html: renderProjectionHtml(projection)
+        }
+      });
+    } catch (error) {
+      this.panel.webview.postMessage({
+        type: 'cockpit.error',
+        fixtureName,
+        message: error instanceof Error ? error.message : 'unknown fixture error'
+      });
+    }
   }
 
   getHtml() {
@@ -75,7 +96,7 @@ class CockpitPanel {
     <h1>SphereDOS Code Cockpit</h1>
     <p id="fixture-state">fixtureを待機中</p>
   </header>
-  <main id="cockpit" aria-live="polite"></main>
+  <main id="cockpit" aria-live="polite"><p>projectionを準備中</p></main>
   <script nonce="${nonce}" src="${scriptUri}"></script>
 </body>
 </html>`;

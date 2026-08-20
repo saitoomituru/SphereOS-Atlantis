@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "coordinate": {
+    "function_series": "6xx",
+    "protocol_generation": 1,
+    "presentation": "spheredos-code-cockpit",
+    "implementation_boundary": "candidate coordinate / GUI Harness implemented-alpha"
+  },
+  "world_fold": {
+    "world_ref": "world://fixture/disconnected",
+    "fold_ref": "fold://fixture/recovery",
+    "scope": "mock-only",
+    "unknown": ["server-process-liveness"]
+  },
+  "task_lease": {
+    "task_id": "task-fixture-disconnected",
+    "task_state": "recoverable",
+    "lease_state": "unknown",
+    "base_revision": "fixture-base-004",
+    "write_set": ["artifact://fixture/pending"],
+    "artifact_claim": "claim://fixture/pending",
+    "issue_state": "open",
+    "mission_state": "suspended"
+  },
+  "kernel": {
+    "decision": "not-observed",
+    "reason": "gui-transport-disconnected",
+    "effect_applied": false
+  },
+  "provider": {
+    "provider_id": "provider://fixture/mock-a",
+    "detected": true,
+    "registered": true,
+    "approved": true,
+    "dispatchable": "unknown",
+    "process_state": "unknown",
+    "control_state": "unknown",
+    "control_output": null,
+    "chat_response": null
+  },
+  "oae_transaction": {
+    "opened": true,
+    "prepared": false,
+    "suspended": true,
+    "committed": false,
+    "aborted": false,
+    "branched": false
+  },
+  "receipt": {
+    "source": "fixture://disconnected-recoverable",
+    "process": "mock-gui-transport",
+    "revision": "fixture-revision-004",
+    "artifact": "artifact://fixture/pending",
+    "observed_at": "2026-08-20T00:03:00Z",
+    "unknown": ["persisted", "server-process-liveness"]
+  },
+  "gui_transport": {
+    "state": "disconnected",
+    "recoverable": true,
+    "durable_state_owner": "spheredos-server-candidate",
+    "persisted": "unknown"
+  },
+  "effect_applied": false
+}

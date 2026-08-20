@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "coordinate": {
+    "function_series": "6xx",
+    "protocol_generation": 1,
+    "presentation": "spheredos-code-cockpit",
+    "implementation_boundary": "candidate coordinate / GUI Harness implemented-alpha"
+  },
+  "world_fold": {
+    "world_ref": "world://fixture/kernel-rejected",
+    "fold_ref": "fold://fixture/task-observation",
+    "scope": "mock-only",
+    "unknown": []
+  },
+  "task_lease": {
+    "task_id": "task-fixture-rejected",
+    "task_state": "rejected",
+    "lease_state": "missing",
+    "base_revision": "fixture-base-002",
+    "write_set": ["artifact://fixture/rejected"],
+    "artifact_claim": "claim://fixture/rejected",
+    "issue_state": "open",
+    "mission_state": "not-completed"
+  },
+  "kernel": {
+    "decision": "rejected",
+    "reason": "lease-missing",
+    "effect_applied": false
+  },
+  "provider": {
+    "provider_id": "provider://fixture/mock-a",
+    "detected": true,
+    "registered": true,
+    "approved": false,
+    "dispatchable": false,
+    "process_state": "not-started",
+    "control_state": "none",
+    "control_output": null,
+    "chat_response": null
+  },
+  "oae_transaction": {
+    "opened": true,
+    "prepared": false,
+    "suspended": false,
+    "committed": false,
+    "aborted": true,
+    "branched": false
+  },
+  "receipt": {
+    "source": "fixture://kernel-rejected",
+    "process": "mock-kernel-candidate",
+    "revision": "fixture-revision-002",
+    "artifact": null,
+    "observed_at": "2026-08-20T00:01:00Z",
+    "unknown": []
+  },
+  "gui_transport": {
+    "state": "connected-mock",
+    "recoverable": true,
+    "durable_state_owner": "spheredos-server-candidate",
+    "persisted": "unknown"
+  },
+  "effect_applied": false
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "coordinate": {
+    "function_series": "6xx",
+    "protocol_generation": 1,
+    "presentation": "spheredos-code-cockpit",
+    "implementation_boundary": "candidate coordinate / GUI Harness implemented-alpha"
+  },
+  "world_fold": {
+    "world_ref": "world://fixture/provider-auth",
+    "fold_ref": "fold://fixture/provider-control",
+    "scope": "mock-only",
+    "unknown": ["provider-auth-state"]
+  },
+  "task_lease": {
+    "task_id": "task-fixture-auth-required",
+    "task_state": "suspended",
+    "lease_state": "held-fixture",
+    "base_revision": "fixture-base-003",
+    "write_set": [],
+    "artifact_claim": null,
+    "issue_state": "open",
+    "mission_state": "pending-provider-interaction"
+  },
+  "kernel": {
+    "decision": "not-evaluated",
+    "reason": "provider-interaction",
+    "effect_applied": false
+  },
+  "provider": {
+    "provider_id": "provider://fixture/vendor-cui",
+    "detected": true,
+    "registered": true,
+    "approved": true,
+    "dispatchable": false,
+    "process_state": "provider-interaction",
+    "control_state": "auth-required",
+    "control_output": "provider CUI requires local authentication",
+    "chat_response": null
+  },
+  "oae_transaction": {
+    "opened": true,
+    "prepared": false,
+    "suspended": true,
+    "committed": false,
+    "aborted": false,
+    "branched": false
+  },
+  "receipt": {
+    "source": "fixture://provider-auth-required",
+    "process": "provider-cui-control-output",
+    "revision": "fixture-revision-003",
+    "artifact": null,
+    "observed_at": "2026-08-20T00:02:00Z",
+    "unknown": ["credential-presence", "quota"]
+  },
+  "gui_transport": {
+    "state": "connected-mock",
+    "recoverable": true,
+    "durable_state_owner": "spheredos-server-candidate",
+    "persisted": "unknown"
+  },
+  "effect_applied": false
+}

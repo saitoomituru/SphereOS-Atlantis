@@ -28,3 +28,76 @@ h1 {
 #cockpit {
   min-height: 8rem;
 }
+
+.status {
+  align-items: center;
+  border: 1px solid var(--vscode-panel-border);
+  border-left-width: 6px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 12px;
+}
+
+.status-success { border-left-color: var(--vscode-testing-iconPassed); }
+.status-rejected { border-left-color: var(--vscode-testing-iconFailed); }
+.status-control { border-left-color: var(--vscode-editorWarning-foreground); }
+.status-recoverable { border-left-color: var(--vscode-charts-blue); }
+.status-pending { border-left-color: var(--vscode-progressBar-background); }
+.status-unknown, .status-neutral { border-left-color: var(--vscode-descriptionForeground); }
+
+.summary {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.summary li,
+section {
+  background: var(--vscode-sideBar-background);
+  border: 1px solid var(--vscode-panel-border);
+  padding: 12px;
+}
+
+.summary span,
+.summary strong {
+  display: block;
+}
+
+.summary span,
+dt {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.85rem;
+}
+
+.sections {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+section h2 {
+  font-size: 1rem;
+  margin-top: 0;
+}
+
+dl,
+dd {
+  margin: 0;
+}
+
+.row {
+  border-top: 1px solid var(--vscode-panel-border);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(120px, 0.8fr) minmax(120px, 1.2fr);
+  padding: 8px 0;
+}
+
+dd {
+  font-family: var(--vscode-editor-font-family);
+  overflow-wrap: anywhere;
+}
