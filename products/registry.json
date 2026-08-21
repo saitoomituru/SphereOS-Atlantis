@@ -10,6 +10,7 @@
       "function_series_candidate": "6xx",
       "protocol_generation": 1,
       "engineering_state": "NOT_IMPLEMENTED",
+      "capability_status_ref": "status/capability-matrix.json#production-spheredos-server",
       "responsibility": "headless-ctl-host-and-durable-state",
       "must_not_own": ["provider-payment", "provider-account-activation", "fold8g-global-authority"]
     },
@@ -19,7 +20,8 @@
       "presentation_candidate": 0,
       "function_series_candidate": "6xx",
       "protocol_generation": 1,
-      "engineering_state": "NOT_IMPLEMENTED",
+      "engineering_state": "IMPLEMENTED_HARNESS",
+      "capability_status_ref": "status/capability-matrix.json#spheredos-code-cockpit-harness",
       "responsibility": "vscode-cockpit-presentation",
       "must_not_own": ["oae-commit-authority", "provider-payment", "durable-state-canonical-store"]
     }

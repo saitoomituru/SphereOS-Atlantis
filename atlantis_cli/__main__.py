@@ -296,7 +296,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     help_parser.add_argument(
         "--state",
-        choices=("AVAILABLE-NOW", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"),
+        choices=("AVAILABLE-NOW", "IMPLEMENTED-HARNESS", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"),
         help="表示する能力状態を絞り込む。",
     )
     help_parser.add_argument(
@@ -314,7 +314,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     capabilities_parser.add_argument(
         "--state",
-        choices=("AVAILABLE-NOW", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"),
+        choices=("AVAILABLE-NOW", "IMPLEMENTED-HARNESS", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"),
         help="表示する能力状態を絞り込む。",
     )
     capabilities_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")

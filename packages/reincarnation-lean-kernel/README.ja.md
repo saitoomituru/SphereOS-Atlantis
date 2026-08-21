@@ -1,6 +1,6 @@
 # Sphere Reincarnation Lean Kernel
 
-状態: `[SCAFFOLDED]` `[RUNTIME NOT IMPLEMENTED]`
+状態: `[FILESYSTEM HARNESS IMPLEMENTED-ALPHA]` `[PRODUCTION RUNTIME NOT IMPLEMENTED]`
 
 意味管理情報子clusterを別Vessel／Presentationへ渡しても、source、scope、unknown、provenance、authority、
 因果を崩壊させない最小のtransaction核です。
@@ -31,6 +31,9 @@ fixtureだけで再現する試験Harnessです。production Kernelではあり�
 | User dotfiles layout (`~/.spheredos`等) | `NOT STANDARDIZED` |
 
 Harnessの完成は、上記のいずれのproduction項目もKernel完成へ昇格しません。
+
+実装、結合、検証、配布物化、公開範囲、保守責任は
+[m.6xx.1 能力状態表](../../docs/status/m6xx-capability-matrix.ja.md)で別軸に管理します。
 
 ### 使い方
 

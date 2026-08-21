@@ -5,7 +5,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -15,13 +17,18 @@ import zipfile
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
-def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
+def run(
+    command: list[str],
+    cwd: Path,
+    env: dict[str, str] | None = None,
+) -> subprocess.CompletedProcess[str]:
     completed = subprocess.run(
         command,
         cwd=cwd,
         capture_output=True,
         text=True,
         check=False,
+        env=env,
     )
     if completed.returncode != 0:
         detail = "\n".join(part for part in (completed.stdout, completed.stderr) if part).strip()
@@ -65,10 +72,44 @@ def clean_room(ref: str = "HEAD") -> dict[str, object]:
         bootstrap_receipt = json.loads(bootstrap.stdout)
         python = str(bootstrap_receipt["venv_python"])
         tests = run([python, "-B", "-m", "unittest", "discover", "-s", "tests", "-v"], checkout)
+        kernel_env = dict(os.environ)
+        kernel_env["PYTHONPATH"] = str(checkout / "packages/reincarnation-lean-kernel/src")
+        kernel_tests = run(
+            [
+                python,
+                "-B",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "packages/reincarnation-lean-kernel/tests",
+                "-v",
+            ],
+            checkout,
+            env=kernel_env,
+        )
+        node = shutil.which("node")
+        if node is None:
+            raise RuntimeError("SphereDOS CodeコックピットGUI試験に必要なnodeが見つかりません")
+        cockpit_test_files = sorted(
+            (checkout / "products/spheredos-code/tests").glob("*.test.js")
+        )
+        if not cockpit_test_files:
+            raise RuntimeError("SphereDOS CodeコックピットGUIの試験ファイルが見つかりません")
+        cockpit_tests = run(
+            [node, "--test", *(str(path) for path in cockpit_test_files)],
+            checkout,
+        )
         doctor = run([python, "-B", "-m", "atlantis_cli", "doctor", "--json"], checkout)
         doctor_receipt = json.loads(doctor.stdout)
 
         test_lines = [line for line in tests.stderr.splitlines() if line.strip()]
+        kernel_test_lines = [line for line in kernel_tests.stderr.splitlines() if line.strip()]
+        cockpit_test_lines = [line for line in cockpit_tests.stdout.splitlines() if line.strip()]
+        cockpit_test_summary = next(
+            (line.removeprefix("# ") for line in cockpit_test_lines if line.startswith("# pass ")),
+            "completed",
+        )
         return {
             "schema_version": "1.0.0",
             "source_revision": revision,
@@ -76,6 +117,8 @@ def clean_room(ref: str = "HEAD") -> dict[str, object]:
             "venv_created": bootstrap_receipt["created"],
             "network_access": bootstrap_receipt["network_access"],
             "unit_test_summary": test_lines[-1] if test_lines else "completed",
+            "kernel_test_summary": kernel_test_lines[-1] if kernel_test_lines else "completed",
+            "cockpit_test_summary": cockpit_test_summary,
             "doctor_overall": doctor_receipt["overall"],
             "model_invoked": False,
             "authentication_started": False,

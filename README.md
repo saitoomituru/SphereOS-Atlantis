@@ -10,17 +10,17 @@ SphereOS Atlantisは、人間、AI、神話、科学、魔術、物語、機械�
 ここは雇用募集ではありません。**OSS同人サークルです。**
 
 ふさもふ神話本体の「もふ」が、体重138kgから73kgまで禊しながら吐き出した脳汁を、
-コード、ポエム、UX、神話、土偶、札、Schemaへ定着させる鍛造場です。
+コード、ポエム、UX、神話、土偶、札、スキーマへ定着させる鍛造場です。
 
 科学と魔術の両岸へ首を突っ込めるMAD巫女サイエンティスト、超電磁工作員、
-カエル医工学ドクター、神話UX術師、Schema陰陽師、急募。
+カエル医工学ドクター、神話UX術師、スキーマー陰陽師、急募。
 
 持ち込み歓迎。コードでも、ポエムでも、フレーバーテキストでも、飯でも、投げ銭でも、
 GPU、Raspberry Pi、検証機、翻訳、レビュー、観測記録、火力でも構いません。
 
 スピリチュアル、ゲーム、TRPG・卓上ゲーム、工学、情報子工学、Sphere Architectureの、
 どの棚から来ても構いません。初心者が自分の言葉を捨てずに開発へ降りられる棚別チュートリアルを育て、
-最後は同じ再構築可能な開発環境、Schema、test、Git履歴へ橋を架けます。
+最後は同じ再構築可能な開発環境、スキーマ、試験、Git履歴へ橋を架けます。
 
 **エンジニアよ、意味を削るな。**
 神話、象徴、物語は、ユーザーが世界へ入るための認知インターフェースです。
@@ -54,7 +54,7 @@ Atlantis core、既存commons、公開lineage、無関係なWorld、upstream for
 > The README opens with the public-facing view. The technical notes below assume readers will inspect the hardware, commits, logs, test conditions, and claim boundaries before extending any result.
 
 ここから下は技術レジスターです。冒頭のビジョンを実装証拠として代用せず、以下の状態、
-commit、Schema、試験条件、未実装境界を読んでから結果を拡張してください。
+commit、スキーマ、試験条件、未実装境界を読んでから結果を拡張してください。
 
 ## 現在の状態
 
@@ -84,6 +84,9 @@ read-only doctor、公開境界fixture、community testの未確認範囲を確�
 [Forge Map／Quest Map](docs/status/forge-and-quest-map.ja.md)、変更点と既知の制約は
 [0.25.1-alpha.1候補ノート](docs/releases/0.25.1-alpha.1.ja.md)を参照してください。
 
+6xx開発線の機能ごとの実装、接続、検証、梱包、配布、支援状態は、これらを一語へ丸めず
+[m.6xx.1 機能状態表](docs/status/m6xx-capability-matrix.ja.md)で確認できます。
+
 ## 6xx次世代開発の入口
 
 `main`は現行`0.250.1` Prompt Engineering Editionの再構築可能な基準線として維持します。
@@ -101,20 +104,22 @@ Sphere Reincarnation Framework、Lean Kernel、SphereDOS Server／Code、FAM Acc
 
 ### Devブランチ進捗
 
-現在は`Phase 0: branch／package boundary`です。
+Phase 0の棚分けを終え、Lean KernelとSphereDOS Codeの試験ハーネスを追加しました。
+両者を接続した縦通し試験、製品向け実行系、ISO／インストーラーはまだありません。
 
 | 対象 | 現在地 | 次の機械受入条件 |
 |---|---|---|
-| repository階層 | `products/`と`packages/`の責務境界を追加 | package manifestとimport境界fixture |
-| Reincarnation Lean Kernel | `NOT IMPLEMENTED`、source置場を確保 | task／lease／OAE state machineの負例 |
+| リポジトリ階層 | `products/`と`packages/`の責務境界を追加済み | package manifestとimport境界fixture |
+| Reincarnation Lean Kernel | ファイルシステム試験ハーネスを実装済み。製品向けKernelは未実装 | task／lease／OAE状態機械の負例拡張 |
 | Fold Access Mapper | 既存Proton moduleは`Beta`、6xx packageは`SCAFFOLDED` | FAM JSON探索木とoverlay解決fixture |
 | Provider Adapters | 既存agent registry／CLI検出は`IMPLEMENTED-ALPHA` | auth／quota／refusal passthrough fixture |
-| SphereDOS Server | `NOT IMPLEMENTED`、headless Host境界を確保 | VS Code切断後のresume fixture |
-| SphereDOS Code | `NOT IMPLEMENTED`、Cockpit Presentation境界を確保 | Kernel decisionとGUI表示の一致fixture |
+| SphereDOS Server | 棚と責務境界のみ。常駐Serverは未実装 | VS Code切断後のresume fixture |
+| SphereDOS Code | 合成fixtureによるコックピットGUI試験ハーネスを実装済み | Kernel receiptとの縦通し試験 |
 
 既存の`atlantis_cli/`、`agents/`、`corn/`、`proton/`、`sphere-dos/`は現行0.250.1の追跡可能なSourceです。
 Phase 0では移動・renameせず、6xx側からの対応表を先に置きます。詳細は
-[m.6xx.1 Dev Roadmap](docs/status/m6xx-dev-roadmap.ja.md)を参照してください。
+[m.6xx.1 Dev Roadmap](docs/status/m6xx-dev-roadmap.ja.md)と
+[m.6xx.1 機能状態表](docs/status/m6xx-capability-matrix.ja.md)を参照してください。
 
 ## このリポジトリの責務
 

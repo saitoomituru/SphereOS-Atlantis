@@ -1,7 +1,7 @@
 {
   "name": "spheredos-code-cockpit-harness",
   "displayName": "SphereDOS Code Cockpit Harness",
-  "description": "SphereDOS Codeのfixture駆動VS Code Cockpit Harness",
+  "description": "SphereDOS Codeの合成fixture駆動VS CodeコックピットGUIハーネス",
   "version": "0.0.1-alpha.0",
   "private": true,
   "license": "Apache-2.0",

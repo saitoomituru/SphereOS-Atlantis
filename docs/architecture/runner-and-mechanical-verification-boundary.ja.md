@@ -152,3 +152,13 @@ GitHub-hosted runner executed Sphere-DOS scaffold checks
 - [`status/forge-map.json`](../../status/forge-map.json)
 - [`verify.yml`](../../.github/workflows/verify.yml)
 - [`note-pr.yml`](../../.github/workflows/note-pr.yml)
+
+## 10. 2026-08-21の6xx試験ハーネス
+
+6xx Dev線では、Lean Kernelのファイルシステム試験ハーネスとSphereDOS CodeのコックピットGUI試験ハーネスが
+実装されています。これは、試験用の入力と受入条件を実行できることを示しますが、製品向けKernel、
+常駐Server、起動可能ISO、インストーラー、全体接続の完成を示しません。
+
+状態は[機能状態表](../status/m6xx-capability-matrix.ja.md)で、実装・接続・検証・梱包・配布・支援の軸を
+分けて記録します。GitHub Actionsには両ハーネスの試験を追加し、試験を収集しないまま
+「検証済み」と表示することを防ぎます。

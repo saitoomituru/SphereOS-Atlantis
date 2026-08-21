@@ -1,6 +1,6 @@
 # m.6xx.1 Dev Roadmap
 
-- 状態: `[ROADMAP-CANDIDATE]` `[PHASE-0]` `[RUNTIME NOT IMPLEMENTED]`
+- 状態: `[ROADMAP-CANDIDATE]` `[PHASE-0 COMPLETE]` `[HARNESS IMPLEMENTED]` `[PRODUCTION RUNTIME NOT IMPLEMENTED]`
 - branch: `dev/m6xx.1-reincarnation-sdk`
 - 公開正本: [Issue #16](https://github.com/saitoomituru/SphereOS-Atlantis/issues/16)
 - Milestone: [m.6xx.1 — Sphere Reincarnation SDK Next Generation](https://github.com/saitoomituru/SphereOS-Atlantis/milestone/1)
@@ -84,14 +84,14 @@ Reincarnation Lean Kernel
 
 | Phase | 内容 | 状態 |
 |---|---|---|
-| 0 | branch、README、package／product棚、旧Source対応表 | `IN PROGRESS` |
+| 0 | branch、README、package／product棚、旧Source対応表 | `COMPLETE` |
 | 1 | package manifest、coordinate handshake、Context Envelope | `NOT STARTED` |
-| 2 | Lean Kernel task／lease／OAE state machine | `NOT STARTED` |
+| 2 | Lean Kernel task／lease／OAE状態機械 | `HARNESS IMPLEMENTED`／製品向けKernelは`NOT IMPLEMENTED` |
 | 3 | Provider Adapter probe／opaque output fixture | `NOT STARTED` |
 | 4 | Fold Access Mapper FAM JSON／Proton resolver | `NOT STARTED` |
 | 5 | SphereDOS Server headless Host | `NOT STARTED` |
-| 6 | SphereDOS Code Cockpit最小Presentation | `NOT STARTED` |
-| 7 | Server／Code統合、crash／resume／conflict負例 | `NOT STARTED` |
+| 6 | SphereDOS CodeコックピットGUIの最小Presentation | `HARNESS IMPLEMENTED`／手動検証は`PENDING` |
+| 7 | Server／Code統合、crash／resume／conflict負例 | `INTEGRATION TEST PENDING` |
 | 8 | exact coordinate、Stable／LTS／release User Gate | `BLOCKED BY USER GATE` |
 
 ## 6. 最初のUFOムーブfixture
@@ -116,3 +116,14 @@ Reincarnation Lean Kernel
 - action gate: `pass with user gates`
 
 この文書は現在時点のInterpretation OAEであり、過去commitへ当時のIntentを遡及生成しない。
+
+## 8. 2026-08-21の観測と状態正本
+
+PR #17のDevへの`merge`により、ファイルシステム試験ハーネスはDev基準線へ入りました。
+SphereDOS Codeにも合成fixture駆動のコックピットGUI試験ハーネスがあります。ただし、両者を正式receiptで接続した
+縦通し試験とVS Code Extension Host上の手動検証は未実施です。
+
+機能ごとの状態は[機能状態表](m6xx-capability-matrix.ja.md)を人間向け入口、
+[`status/capability-matrix.json`](../../status/capability-matrix.json)を機械可読正本とします。
+この観測は2026-08-21時点の現在解釈であり、過去の作業者のIntentは
+`historical-oae-unavailable`として遡及生成しません。

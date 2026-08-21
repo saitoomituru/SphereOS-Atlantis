@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0.0",
+  "matrix_id": "status://atlantis/m6xx-capabilities@2026-08-21",
+  "canonical_owner": "SphereOS-Atlantis",
+  "roadmap_coordinate": "m.6xx.1-candidate",
+  "as_of": "2026-08-21",
+  "source_branch": "dev/m6xx.1-reincarnation-sdk",
+  "human_projection": "docs/status/m6xx-capability-matrix.ja.md",
+  "items": [
+    {
+      "id": "filesystem-kernel-harness",
+      "label_ja": "ファイルシステム判定ハーネス",
+      "responsibility_ja": "明示された一時ディレクトリと合成fixtureだけを使い、lease、revision、write-set、provider終了状態とOAE commitを分離して判定する。",
+      "status_axes": {
+        "implementation_state": "implemented-harness",
+        "integration_state": "not-connected",
+        "verification_state": "ci-verified",
+        "manual_verification_state": "not-applicable",
+        "packaging_state": "source-only",
+        "distribution_state": "development-line",
+        "support_state": "experimental"
+      },
+      "evidence": [
+        "packages/reincarnation-lean-kernel/src/sphere_reincarnation_harness/",
+        "packages/reincarnation-lean-kernel/tests/",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/32341163744",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/commit/e7398b98f45ddd7d9bb4bac5d27920e00cac8ad8"
+      ],
+      "claim_scope_ja": "本番用Lean Kernelではない。実Effectを適用せず、accepted時もeffect_applied=falseを維持する。",
+      "unknowns_ja": [
+        "本番用lease管理",
+        "永続OAE保存",
+        "SphereDOS Server接続"
+      ]
+    },
+    {
+      "id": "spheredos-code-cockpit-harness",
+      "label_ja": "SphereDOS CodeコックピットGUIハーネス",
+      "responsibility_ja": "VS Code上で合成fixtureを読み、Kernel拒否、provider認証要求、切断復旧可能状態を権限へ昇格させずコックピットGUIへ表示する。",
+      "status_axes": {
+        "implementation_state": "implemented-harness",
+        "integration_state": "integration-test-pending",
+        "verification_state": "ci-verified",
+        "manual_verification_state": "manual-test-pending",
+        "packaging_state": "source-only",
+        "distribution_state": "development-line",
+        "support_state": "experimental"
+      },
+      "evidence": [
+        "products/spheredos-code/src/",
+        "products/spheredos-code/tests/",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/commit/423075d02d135f3bd671eb61d2c1e6077fee5917",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/actions/runs/32440492299"
+      ],
+      "claim_scope_ja": "合成fixtureの表示ハーネスであり、Kernel判定、OAE commit、永続状態の正本ではない。",
+      "unknowns_ja": [
+        "VS Code Extension Host目視試験",
+        "Kernelからreceiptを経由した縦結合",
+        "本番CTL接続"
+      ]
+    },
+    {
+      "id": "kernel-receipt-cockpit-integration",
+      "label_ja": "Kernel・receipt・コックピットGUIの縦結合",
+      "responsibility_ja": "Kernel判定とreceiptをSphereDOS Codeへ渡し、拒否や停止を成功表示へ変換しないことを結合試験する。",
+      "status_axes": {
+        "implementation_state": "not-started",
+        "integration_state": "integration-test-pending",
+        "verification_state": "not-tested",
+        "manual_verification_state": "manual-test-pending",
+        "packaging_state": "not-applicable",
+        "distribution_state": "not-provided",
+        "support_state": "unsupported"
+      },
+      "evidence": [
+        "products/spheredos-code/README.ja.md",
+        "packages/reincarnation-lean-kernel/README.ja.md"
+      ],
+      "claim_scope_ja": "個別ハーネスが存在しても縦結合済みとは表示しない。",
+      "unknowns_ja": [
+        "接続transport",
+        "正式receiptスキーマ",
+        "結合試験完了receipt"
+      ]
+    },
+    {
+      "id": "bootable-iso",
+      "label_ja": "起動可能ISOイメージ",
+      "responsibility_ja": "ノイマン型マシンへ直接導入する起動媒体を提供する。",
+      "status_axes": {
+        "implementation_state": "not-started",
+        "integration_state": "not-applicable",
+        "verification_state": "not-tested",
+        "manual_verification_state": "manual-test-pending",
+        "packaging_state": "not-provided",
+        "distribution_state": "not-provided",
+        "support_state": "unsupported"
+      },
+      "evidence": [
+        "README.md",
+        "docs/status/m6xx-dev-roadmap.ja.md"
+      ],
+      "claim_scope_ja": "起動可能ISOイメージ、インストーラー、一般用途の完成版OS配布物は提供していない。",
+      "unknowns_ja": [
+        "対象hardware",
+        "installer方式",
+        "配布時期"
+      ]
+    },
+    {
+      "id": "production-spheredos-server",
+      "label_ja": "本番運用SphereDOS Server",
+      "responsibility_ja": "task、lease、OAE、receiptを持続管理し、切断後の再接続と復旧を担う。",
+      "status_axes": {
+        "implementation_state": "scaffolded",
+        "integration_state": "not-connected",
+        "verification_state": "not-tested",
+        "manual_verification_state": "manual-test-pending",
+        "packaging_state": "not-provided",
+        "distribution_state": "not-provided",
+        "support_state": "unsupported"
+      },
+      "evidence": [
+        "products/spheredos-server/README.ja.md",
+        "products/registry.json"
+      ],
+      "claim_scope_ja": "製品棚と責務境界だけがあり、本番運用サーバー、常駐デーモン、SLAは提供していない。",
+      "unknowns_ja": [
+        "Host実装",
+        "永続化方式",
+        "保守資源"
+      ]
+    }
+  ]
+}

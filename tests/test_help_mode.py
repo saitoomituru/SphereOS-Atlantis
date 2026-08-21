@@ -48,9 +48,11 @@ class HelpModeTestCase(unittest.TestCase):
         states = {item["state"] for item in registry["capabilities"]}
 
         self.assertTrue(
-            {"AVAILABLE-NOW", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT"}
+            {"AVAILABLE-NOW", "IMPLEMENTED-HARNESS", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT"}
             <= states
         )
+        harness_result = build_help(state="IMPLEMENTED-HARNESS", repo_root=PROJECT_ROOT)
+        self.assertEqual(len(harness_result["capabilities"]), 2)
         result = build_help(state="NOT-IMPLEMENTED", repo_root=PROJECT_ROOT)
         self.assertTrue(result["capabilities"])
         self.assertTrue(all(item["state"] == "NOT-IMPLEMENTED" for item in result["capabilities"]))
