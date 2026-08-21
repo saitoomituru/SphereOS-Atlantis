@@ -1,6 +1,6 @@
 # SphereDOS Code
 
-状態: `[GUI HARNESS IMPLEMENTED-ALPHA]` `[PRODUCTION RUNTIME NOT IMPLEMENTED]`
+状態: `[GUI HARNESS IMPLEMENTED-ALPHA]` `[INTEGRATION TEST PENDING]` `[PRODUCTION RUNTIME NOT IMPLEMENTED]`
 
 VS Code上でtask、World／Fold、provider control、OAE、receiptを同じCockpitへ投影するPresentation候補です。
 現段階はrepository内の合成fixtureだけを読むGUI Harnessです。GUIはauthorityやtransaction正本ではなく、
@@ -19,8 +19,9 @@ VS Code上でtask、World／Fold、provider control、OAE、receiptを同じCock
 | Durable OAE persistence | `NOT IMPLEMENTED` |
 | VS Code Extension Host目視試験 | `NOT TESTED` |
 
-`products/registry.json`は共有registryであり今回のwrite scope外のため変更していません。registryの
-`engineering_state: NOT_IMPLEMENTED`を、本Harnessの局所状態でsilent rewriteしません。
+複数軸の現在地は[m.6xx.1 能力状態表](../../docs/status/m6xx-capability-matrix.ja.md)を正本とします。
+`products/registry.json`は本ハーネスの実装状態と正本参照を持ちますが、結合済み、本番配布済み、
+保守対象へ自動昇格しません。
 
 ## Command
 

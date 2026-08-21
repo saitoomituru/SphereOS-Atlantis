@@ -6,7 +6,7 @@
   },
   "proficiency_values": ["unknown", "newcomer", "explorer", "contributor", "maintainer"],
   "intent_values": ["look-around", "learn", "write-note", "report-experience", "inspect", "implement"],
-  "states": ["AVAILABLE-NOW", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"],
+  "states": ["AVAILABLE-NOW", "IMPLEMENTED-HARNESS", "SCAFFOLDED", "NOT-IMPLEMENTED", "NOT-TESTED", "RESOURCE-WAIT", "UNKNOWN"],
   "entry_options": [
     {
       "id": "project-map",
@@ -101,6 +101,20 @@
       "state": "SCAFFOLDED",
       "summary_ja": "再構築可能な開発足場であり、standalone Atlantis runtimeではない。",
       "evidence": ["atlantis_cli/sphere_dos.py", "sphere-dos/profile.json"]
+    },
+    {
+      "id": "filesystem-kernel-harness",
+      "label_ja": "ファイルシステム判定ハーネス",
+      "state": "IMPLEMENTED-HARNESS",
+      "summary_ja": "明示した一時ディレクトリと合成fixtureだけを使い、lease、revision、write-set、provider終了状態とOAE commitを分離して判定する。",
+      "evidence": ["status/capability-matrix.json", "packages/reincarnation-lean-kernel/tests/"]
+    },
+    {
+      "id": "spheredos-code-cockpit-harness",
+      "label_ja": "SphereDOS CodeコックピットGUIハーネス",
+      "state": "IMPLEMENTED-HARNESS",
+      "summary_ja": "VS Code上で合成fixtureを表示する。Kernel・receiptとの縦結合と本番CTL接続は未試験・未実装。",
+      "evidence": ["status/capability-matrix.json", "products/spheredos-code/tests/"]
     },
     {
       "id": "standalone-atlantis-runtime",

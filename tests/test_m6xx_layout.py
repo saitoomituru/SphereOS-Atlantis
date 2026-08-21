@@ -22,15 +22,29 @@ class M6xxLayoutTestCase(unittest.TestCase):
             self.assertTrue((ROOT / entry["path"]).is_dir(), entry["path"])
             self.assertTrue((ROOT / entry["path"] / "README.ja.md").is_file(), entry["path"])
 
-    def test_scaffoldをruntime実装済みへ昇格しない(self) -> None:
+    def test_試験ハーネスと本番ランタイムを同一状態へ潰さない(self) -> None:
         package_registry = self.load_registry("packages/registry.json")
         product_registry = self.load_registry("products/registry.json")
 
         self.assertEqual(package_registry["roadmap_coordinate"], "m.6xx.1-candidate")
         self.assertEqual(product_registry["roadmap_coordinate"], "m.6xx.1-candidate")
+        product_states = {
+            product["id"]: product["engineering_state"]
+            for product in product_registry["products"]
+        }
+        package_states = {
+            package["id"]: package["engineering_state"]
+            for package in package_registry["packages"]
+        }
+        self.assertEqual(product_states["spheredos-server"], "NOT_IMPLEMENTED")
+        self.assertEqual(product_states["spheredos-code"], "IMPLEMENTED_HARNESS")
         self.assertEqual(
-            {product["engineering_state"] for product in product_registry["products"]},
-            {"NOT_IMPLEMENTED"},
+            package_states["reincarnation-lean-kernel"], "IMPLEMENTED_HARNESS"
+        )
+        self.assertTrue(
+            product_registry["products"][0]["capability_status_ref"].startswith(
+                "status/capability-matrix.json#"
+            )
         )
 
     def test_provider課金とOAE権限を誤所有しない(self) -> None:

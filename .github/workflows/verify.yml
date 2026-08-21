@@ -34,10 +34,20 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           check-latest: false
+      - name: Node.jsを準備
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
       - name: venvと開発依存を再構築
         run: python -B scripts/bootstrap_venv.py --install-dev --json
       - name: unit test
         run: .venv/bin/python -B -m unittest discover -s tests -v
+      - name: Lean Kernel試験ハーネス
+        env:
+          PYTHONPATH: packages/reincarnation-lean-kernel/src
+        run: .venv/bin/python -B -m unittest discover -s packages/reincarnation-lean-kernel/tests -v
+      - name: SphereDOS CodeコックピットGUI試験ハーネス
+        run: node --test products/spheredos-code/tests/*.test.js
       - name: read-only doctor
         run: .venv/bin/python -B -m atlantis_cli doctor --json
       - name: component workspace計画をoffline検証

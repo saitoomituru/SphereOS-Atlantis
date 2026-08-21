@@ -6,7 +6,8 @@
     {
       "id": "reincarnation-lean-kernel",
       "path": "packages/reincarnation-lean-kernel",
-      "engineering_state": "NOT_IMPLEMENTED",
+      "engineering_state": "IMPLEMENTED_HARNESS",
+      "capability_status_ref": "status/capability-matrix.json#filesystem-kernel-harness",
       "responsibility": "world-fold-task-lease-oae-receipt-kernel",
       "source_paths": ["corn", "atlantis_cli/corn.py"],
       "must_not_own": ["provider-auth", "provider-payment", "gui-rendering", "model-inference"]

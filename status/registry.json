@@ -41,5 +41,52 @@
       "accepted",
       "not-applicable"
     ]
+  },
+  "capability_matrix_axes": {
+    "implementation_state": [
+      "not-started",
+      "scaffolded",
+      "implemented-harness",
+      "implemented-runtime",
+      "not-applicable"
+    ],
+    "integration_state": [
+      "not-connected",
+      "integration-test-pending",
+      "integration-verified",
+      "not-applicable"
+    ],
+    "verification_state": [
+      "not-tested",
+      "local-tested",
+      "ci-verified",
+      "not-applicable"
+    ],
+    "manual_verification_state": [
+      "manual-test-pending",
+      "manual-verified",
+      "not-applicable"
+    ],
+    "packaging_state": [
+      "source-only",
+      "development-package",
+      "packaged",
+      "not-provided",
+      "not-applicable"
+    ],
+    "distribution_state": [
+      "branch-only",
+      "development-line",
+      "released-alpha",
+      "released",
+      "not-provided",
+      "not-applicable"
+    ],
+    "support_state": [
+      "experimental",
+      "unsupported",
+      "production-supported",
+      "not-applicable"
+    ]
   }
 }
