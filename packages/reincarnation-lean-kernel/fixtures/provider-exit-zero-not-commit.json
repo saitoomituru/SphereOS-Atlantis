@@ -1,0 +1,25 @@
+{
+  "harness_only": true,
+  "canonical_contract": false,
+  "authority": "none",
+  "world_ref": "synthetic-world-0001",
+  "fold_ref": "synthetic-fold-g1",
+  "task_id": "synthetic-task-0006",
+  "lease_id": "synthetic-lease-0006",
+  "lease_state": "held",
+  "base_revision": "rev-10",
+  "observed_revision": "rev-10",
+  "write_set": [],
+  "requested_paths": [],
+  "artifact_claims": [],
+  "provider_process_state": "exited",
+  "provider_exit_code": 0,
+  "provider_control_state": "synthetic-only",
+  "oae_transaction_state": "prepared",
+  "effect_applied": false,
+  "unknown": [],
+  "provenance": {
+    "source": "harness-fixture",
+    "note": "provider exit 0をOAE commitへ自動変換しない負例"
+  }
+}
