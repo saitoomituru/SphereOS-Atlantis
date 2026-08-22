@@ -56,6 +56,7 @@ Phase 0では既存moduleを物理移動しない。先に次を満たしてか�
 | `atlantis_cli/corn.py`、`corn/` | Lean Kernelのqueue／receipt Bridge | `RESEARCH` |
 | `atlantis_cli/proton.py`、`proton/` | `packages/fold-access-mapper/` | `BETA SOURCE PRESERVED` |
 | `atlantis_cli/sphere_dos.py`、`sphere-dos/` | Server／Code共通Host bootstrap | `ADAPT-CANDIDATE` |
+| `docs/architecture/gand-edge-bootstrap-harness.ja.md` | Canonical GAND Boot Contract／Edge Harness境界 | `TARGET-SPEC / NOT IMPLEMENTED` |
 | `skills/` | Hostから明示mountするContext Supply | `DO NOT AUTO-MOUNT` |
 
 ## 4. 責務境界
@@ -79,6 +80,9 @@ Reincarnation Lean Kernel
 - GUIはauthorityではなくKernel decisionのPresentationである
 - VS Codeが終了してもServer／CTL側のtask、lease、OAE stateを失わない設計にする
 - same Protocol Generationはcapability、authority、World互換を自動生成しない
+- GAND正本語彙、初期整列条件、秘密参照、知識検証、回答checkはEdge Harness契約へ置き、
+  vendor／model別語彙差をModel Compatibility Adapterへ隔離する
+- ASTRO単体起動は維持し、Atlantis process常駐を必須化せず、互換Harnessをbundleできる契約にする
 
 ## 5. Phase
 
