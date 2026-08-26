@@ -3,6 +3,28 @@
 SphereOS Atlantisの公開候補に含める変更を記録します。日付はrepository上の公開候補日であり、
 全Worldの出来事、実装開始、原案作成時刻を意味しません。
 
+## [Unreleased] - 2026-08-03
+
+### Corrected
+
+- `README.md`と`docs/architecture/1x-sdk-engineering-entrypoint.ja.md`で欠落していた
+  `G = Fold container nesting depth`を、Q AtlantisのFold7G／Fold8G研究地図を正本として復元
+- 誤って`L / D / S`の三軸目へ昇格していた`S`を削除せず、旧S軸表記の来歴を保持したまま、
+  Lの実行・materialization経路を構成するSDK／toolchain strataへ再分類
+- Lを単一vendorの固定階層ではなく、hardwareからtarget artifactとRunnerまでを串刺しする選択経路として補足
+- engine／framework／Runnerの採用と完成物の作品価値・真正性を分離し、Unity公式の
+  『ドラゴンクエストモンスターズ3』開発事例を参照例として追加
+
+影響ファイル: `README.md`、`docs/architecture/1x-sdk-engineering-entrypoint.ja.md`、`CHANGELOG.md`
+
+修正前は`L = execution stack`、`D = Context Dimension`、`S = SDK surface`を三本の別軸としていました。
+修正後は正本三軸を`L / D / G`へ戻し、S0〜S4の既存分類はL配下のSDK／toolchain strataとして保持します。
+
+いつ、なぜGが欠落したかは未確定です。README／1.x導線の整理時にSDK surfaceと三軸を混同した可能性は
+ありますが、現時点では仮説に留めます。当時の同時点OAEは未確認であり、commit履歴からIntentやObserverを
+遡及生成しません。事故追跡とMAGIの検出脆性疑いは
+[#13](https://github.com/saitoomituru/SphereOS-Atlantis/issues/13)で継続します。
+
 ## [0.25.1-alpha.1] - 2026-07-19
 
 状態: release candidate branch。tag未作成、正式releaseではありません。
