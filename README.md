@@ -73,10 +73,17 @@ repository state       OPEN / RESOURCE-WAIT / REVIEW-WANTED
 三層座標です。右端は一般的なSemVer patchではありません。この`/1` machine contractと既存`0.25.1`
 legacy aliasはSource Event、validator、配布互換を壊さず保持します。
 
-2026-08-26以降のTarget Contract `sphere-context-os-coordinate/2`では、先頭値をPresentationではなく
-Context責務として扱います。`0`は一人のDeveloperが複数Agentをteam化し、Git／Actions／CTLで成果物を
-合流するSphereDOS Development Contextです。`1`は個人／会社／事業目的、`2`は共有現実、`3`はWorld Law、
-`4`はMeta-World orchestrationを担当します。同じ数字でも`/1`から`/2`へsilent copyしません。
+2026-08-26以降のTarget Contract `sphere-context-os-coordinate/2`は、
+`UserContextSolution.SDKSeries.ProtocolKernelGeneration`の三ブロックです。Userは左から、
+`Solution／Runner／Presentation -> SDK -> Protocol／Kernel`の順にsystemへinterfaceし、result／receiptは
+逆方向へ戻ります。先頭はUserからの抽象距離で並べたOS bundle、Runner、GUI／Presentation、利用場面と
+主Context責務を表します。`0`は一人のDeveloperが複数Agentをteam化し、
+Git／Actions／CTLで成果物を合流するSphereDOS、`1`は個人／会社／事業目的、`2`は共有現実、`3`は
+World Law、`4`はMeta-World orchestrationです。中段はSDK、右端はProtocol／Kernel世代です。
+同じ数字でも`/1`から`/2`へsilent copyしません。
+
+Solution、SDK、Protocol／Kernelを分けることで、GUI、Runner、daemon、distribution、SDKを別速度で
+build／配布／交換しつつ、共通Protocolで合成できるLinux生態系的な分散開発耐性を目標とします。
 
 詳細正本はZeroRoomLab-manifestの
 [Sphere Context OS責務座標と世代namespace](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/agent/gand-local-salvage-inventory/docs/theory/sphere-context-os-responsibility-coordinate.ja.md)です。
@@ -113,8 +120,9 @@ Sphere Reincarnation Framework、Lean Kernel、SphereDOS Server／Code、FAM Acc
 - 公開Milestone: [`m.6xx.1 — Sphere Reincarnation SDK Next Generation`](https://github.com/saitoomituru/SphereOS-Atlantis/milestone/1)
 - 運用Project: [プロジェクトスフィア：サルベージエッジスフィア #2](https://github.com/users/saitoomituru/projects/2)（private運用盤）
 
-`m.6xx.1`の`m`は複数Context責務classを検討するRoadmap metavariableであり、正式なPresentation番号や
-release座標ではありません。現在実装済みのCLI、Filesystem Harness、SphereDOS Code Cockpit、CORN、
+`m.6xx.1`の`m`はUser Context SolutionのRoadmap metavariableであり、`6xx`はSDK Series、末尾`1`は
+Protocol／Kernel Generation候補です。正式release座標ではありません。現在実装済みのCLI、
+Filesystem Harness、SphereDOS Code Cockpit、CORN、
 validator、clean-room、Actions連携は、まず`0.6xx.1` Development Contextへ段階移行する候補です。
 release済み、standalone runtime実装済み、LTS制定済みを意味しません。公開Issueを議論と受入条件の正本、
 Projectを棚・優先順位・進捗のprojectionとして扱います。

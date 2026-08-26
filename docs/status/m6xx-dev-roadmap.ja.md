@@ -13,14 +13,23 @@
 source、scope、unknown、provenance、authority、因果を失わないSphere Reincarnation Frameworkを鍛造する。
 その最小の意味伝達保証核を`Sphere Reincarnation Lean Kernel`候補とする。
 
-`m.6xx.1`は正式release座標ではない。`m`はPresentation番号ではなく、複数のContext責務classを検討する
-Roadmap metavariableとして保持する。Function値、runtime言語、package分割、release日、Stable／LTS条件は
+`m.6xx.1`は正式release座標ではない。`m`はUserからの抽象距離で並べた、OSをbundleするRunner、
+GUI／Presentation、利用場面と主Context責務を表すUser Context SolutionのRoadmap metavariableである。
+`6xx`はSDK Series、末尾`1`はProtocol／Kernel
+Generation候補を表す。exact Solution値、SDK値、runtime言語、package分割、release日、Stable／LTS条件は
 User Gateまで固定しない。
+
+三ブロックを分けることで、Solution／Runner、SDK、Protocol／Kernelを別repository・別速度でbuild、配布、
+交換できる。Linux生態系のようにGUI、CLI、daemon、distribution、driver、SDKが複数存在しても、同じ
+Protocol GenerationのContext EnvelopeとKernel境界で合成できる分散開発耐性とbuild可搬性を目標とする。
 
 ### 1.1 Context OS責務への投影
 
-2026-08-26以降のTarget Contractでは、`x.xxx.n`の先頭`x`を完成度やGUIではなく、OSが正本として
-衝突を裁定するContext責務classとして扱う。
+2026-08-26以降のTarget Contractでは、`m.xxx.n`を
+`UserContextSolution.SDKSeries.ProtocolKernelGeneration`として扱う。これはUserがsystemへinterfaceする
+`User -> m: Solution／Runner／Presentation -> xxx: SDK -> n: Protocol／Kernel`の順序である。
+result／receiptは逆方向へ戻る。先頭はGUIだけではなくRunnerとPresentationを含むOS Solutionであり、
+UserからのContext抽象距離により`0～4`へ分かれる。
 
 ```text
 0.6xx.1  SphereDOS
@@ -122,7 +131,7 @@ Reincarnation Lean Kernel
 - GUIはauthorityではなくKernel decisionのPresentationである
 - VS Codeが終了してもServer／CTL側のtask、lease、OAE stateを失わない設計にする
 - same Protocol Generationはcapability、authority、World互換を自動生成しない
-- `sphere-version-coordinate/1`のPresentation値と、`sphere-context-os-coordinate/2`のContextScope値を
+- `sphere-version-coordinate/1`のPresentation値と、`sphere-context-os-coordinate/2`のUserContextSolution値を
   同じ数字だけでcopyしない。migration receiptを要求する
 - Context OSがUser-declared World Lawを否定して別Contextで黙ってRunすることを禁止する
 - GAND正本語彙、初期整列条件、秘密参照、知識検証、回答checkはEdge Harness契約へ置き、
@@ -155,7 +164,7 @@ Reincarnation Lean Kernel
 - Fold越境tokenなしのEffect
 - VS Code切断をtask abortへ変換
 - Kernel拒否をGUIが成功表示
-- `/1` Presentation値を`/2` ContextScopeへsilent copy
+- `/1` Presentation値を`/2` UserContextSolutionへsilent copy
 - `遊ぶ`ContextのTNT命令を、対象Worldを落として現実の製造へ誤配送
 - User-declared World Lawを否定後、vendor default Contextでphysical EffectをRun
 - MR／simulation成功をfab／家電／robotの物理実行権限へ昇格
@@ -164,7 +173,7 @@ Reincarnation Lean Kernel
 
 - Maxwell: SphereDOSの都合で一般業務、PostPet、Party、MR／VR、現実改変、Meta-World branchを焼却しない
 - Uriel: `/1`座標、`/2` Target、現行実装、6xx候補を分離し、scaffoldをruntimeへ昇格しない
-- Raphael: 0～4 Context class、世代namespace、Kernel、Mapper、Server、Code、Project、Issueを別棚として接続する
+- Raphael: 0～4 Solution／Context class、SDK、Protocol／Kernel、世代namespace、Server、Code、Project、Issueを別棚として接続する
 - preserved unknown: exact coordinate、runtime言語、物理repo分割時期、Stable／LTS資源
 - action gate: `pass with user gates`
 
