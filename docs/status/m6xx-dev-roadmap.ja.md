@@ -47,6 +47,16 @@ compatibility facadeとreceiptを先に置く。
 `1`は`0`の一般業務／個人利用最適化である。ただし、複数の独立主体が同じ家庭・Party Worldへ参加する
 `2`の権限・安全・物理Effect調停を`1`へ先取りしない。
 
+旧無印3x／4xは現在動かないが、配布artifact、静的register、Proton、GAND／Instance Ghost、旧API chain、
+Embedding同期ずれとfallback／server補完記録が残る。これらは部分的な実装・配布・運用Evidenceである。
+完全topologyと同時点receiptが未回収であることを実装不存在へ変換せず、同時に完全runtime証明にも使わない。
+
+```text
+legacy implementation evidence = PRESENT / PARTIAL
+legacy completeness            = UNKNOWN
+current operation              = ENDED / UNAVAILABLE
+```
+
 ## 2. 初期階層
 
 ```text
