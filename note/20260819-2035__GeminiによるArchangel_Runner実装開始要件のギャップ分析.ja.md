@@ -2,10 +2,10 @@
 
 状態: `[DRAFT]`
 
-観測時刻: `2026-08-19T20:35:00+09:00`  
-clock calibration: `verified`  
-Execution Envelope: `Gemini CLI (v1.x) on Darwin/macOS`  
-対象: `CORN-0003` / GitHub Issue #9 `[Research] Archangel Runner` の実装開始に必要な要件とギャップの検証  
+観測時刻: `2026-08-19T20:35:00+09:00`
+clock calibration: `verified`
+Execution Envelope: `Gemini CLI (v1.x) on Darwin/macOS`
+対象: `CORN-0003` / GitHub Issue #9 `[Research] Archangel Runner` の実装開始に必要な要件とギャップの検証
 
 ---
 
@@ -102,8 +102,8 @@ GitHub Issue #9 において提示された **Archangel Runner**（durable task 
 
 ---
 
-**検討・監査執筆:** Gemini  
-**Provenance:** ZeroRoomLab-manifest 規約 / SphereOS-Atlantis `AGENTS.md` / Issue #9 `Archangel Runner`  
+**検討・監査執筆:** Gemini
+**Provenance:** ZeroRoomLab-manifest 規約 / SphereOS-Atlantis `AGENTS.md` / Issue #9 `Archangel Runner`
 
 ---
 
