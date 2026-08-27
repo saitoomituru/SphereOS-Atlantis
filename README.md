@@ -69,9 +69,31 @@ standalone runtime     NOT IMPLEMENTED
 repository state       OPEN / RESOURCE-WAIT / REVIEW-WANTED
 ```
 
-`0.250.1`はPresentation 0／Function 250／SemanticKernel 1の三層座標です。右端は意味、同一性、OAE、
-時間、因果の定規を表し、一般的なSemVer patchではありません。既存の`0.25.1`はSource Eventと配布互換を
-壊さないlegacy aliasとして保持します。旧SphereOSサービスの再稼働や完成済みOSバイナリーを意味しません。
+`0.250.1`は既存`sphere-version-coordinate/1`におけるPresentation 0／Function 250／SemanticKernel 1の
+三層座標です。右端は一般的なSemVer patchではありません。この`/1` machine contractと既存`0.25.1`
+legacy aliasはSource Event、validator、配布互換を壊さず保持します。
+
+2026-08-26以降のTarget Contract `sphere-context-os-coordinate/2`は、
+`UserContextSolution.SDKSeries.ProtocolKernelGeneration`の三ブロックです。Userは左から、
+`Solution／Runner／Presentation -> SDK -> Protocol／Kernel`の順にsystemへinterfaceし、result／receiptは
+逆方向へ戻ります。先頭はUserからの抽象距離で並べたOS bundle、Runner、GUI／Presentation、利用場面と
+主Context責務を表します。`0`は一人のDeveloperが複数Agentをteam化し、
+Git／Actions／CTLで成果物を合流するSphereDOS、`1`は個人／会社／事業目的、`2`は共有現実、`3`は
+World Law、`4`はMeta-World orchestrationです。中段はSDK、右端はProtocol／Kernel世代です。
+同じ数字でも`/1`から`/2`へsilent copyしません。
+
+Solution、SDK、Protocol／Kernelを分けることで、GUI、Runner、daemon、distribution、SDKを別速度で
+build／配布／交換しつつ、共通Protocolで合成できるLinux生態系的な分散開発耐性を目標とします。
+
+詳細正本はZeroRoomLab-manifestの
+[Sphere Context OS責務座標と世代namespace](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/agent/gand-local-salvage-inventory/docs/theory/sphere-context-os-responsibility-coordinate.ja.md)です。
+旧SphereOSサービスの再稼働や完成済みOSバイナリーを意味しません。
+
+旧無印SphereOS 3x／4xには、配布artifact、静的register、Proton、GAND／Instance Ghost、旧API chain、
+Embedding同期ずれとfallback／server補完の記録が残っています。現在動かないことや第三者sunset後に
+完全再現できないことを「実装がなかった」へ変換しません。一方、断片Evidenceから当時の全機能、完全性、
+正確なtopologyを証明したとも表示しません。
+
 Manifest、workspace、Boot Schema、VS Code、異種coding agentを使い、Atlantisを鍛造できる
 公開開発環境を再構成する設計系列です。
 
@@ -98,8 +120,12 @@ Sphere Reincarnation Framework、Lean Kernel、SphereDOS Server／Code、FAM Acc
 - 公開Milestone: [`m.6xx.1 — Sphere Reincarnation SDK Next Generation`](https://github.com/saitoomituru/SphereOS-Atlantis/milestone/1)
 - 運用Project: [プロジェクトスフィア：サルベージエッジスフィア #2](https://github.com/users/saitoomituru/projects/2)（private運用盤）
 
-`m.6xx.1`はRoadmap上の候補座標であり、release済み、standalone runtime実装済み、LTS制定済みを
-意味しません。公開Issueを議論と受入条件の正本、Projectを棚・優先順位・進捗のprojectionとして扱います。
+`m.6xx.1`の`m`はUser Context SolutionのRoadmap metavariableであり、`6xx`はSDK Series、末尾`1`は
+Protocol／Kernel Generation候補です。正式release座標ではありません。現在実装済みのCLI、
+Filesystem Harness、SphereDOS Code Cockpit、CORN、
+validator、clean-room、Actions連携は、まず`0.6xx.1` Development Contextへ段階移行する候補です。
+release済み、standalone runtime実装済み、LTS制定済みを意味しません。公開Issueを議論と受入条件の正本、
+Projectを棚・優先順位・進捗のprojectionとして扱います。
 現行利用者は引き続き`main`を参照し、6xxの実装・fixture・移行作業へ参加する場合だけDevブランチを使用してください。
 
 ### Devブランチ進捗

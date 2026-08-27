@@ -5,6 +5,7 @@
 - 公開正本: [Issue #16](https://github.com/saitoomituru/SphereOS-Atlantis/issues/16)
 - Milestone: [m.6xx.1 — Sphere Reincarnation SDK Next Generation](https://github.com/saitoomituru/SphereOS-Atlantis/milestone/1)
 - 運用盤: [Project #2](https://github.com/users/saitoomituru/projects/2)（private）
+- Context責務正本: [Sphere Context OS責務座標と世代namespace](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/agent/gand-local-salvage-inventory/docs/theory/sphere-context-os-responsibility-coordinate.ja.md)
 
 ## 1. このbranchの目的
 
@@ -12,8 +13,58 @@
 source、scope、unknown、provenance、authority、因果を失わないSphere Reincarnation Frameworkを鍛造する。
 その最小の意味伝達保証核を`Sphere Reincarnation Lean Kernel`候補とする。
 
-`m.6xx.1`は正式release座標ではない。Presentation番号、Function値、runtime言語、package分割、release日、
-Stable／LTS条件はUser Gateまで固定しない。
+`m.6xx.1`は正式release座標ではない。`m`はUserからの抽象距離で並べた、OSをbundleするRunner、
+GUI／Presentation、利用場面と主Context責務を表すUser Context SolutionのRoadmap metavariableである。
+`6xx`はSDK Series、末尾`1`はProtocol／Kernel
+Generation候補を表す。exact Solution値、SDK値、runtime言語、package分割、release日、Stable／LTS条件は
+User Gateまで固定しない。
+
+三ブロックを分けることで、Solution／Runner、SDK、Protocol／Kernelを別repository・別速度でbuild、配布、
+交換できる。Linux生態系のようにGUI、CLI、daemon、distribution、driver、SDKが複数存在しても、同じ
+Protocol GenerationのContext EnvelopeとKernel境界で合成できる分散開発耐性とbuild可搬性を目標とする。
+
+### 1.1 Context OS責務への投影
+
+2026-08-26以降のTarget Contractでは、`m.xxx.n`を
+`UserContextSolution.SDKSeries.ProtocolKernelGeneration`として扱う。これはUserがsystemへinterfaceする
+`User -> m: Solution／Runner／Presentation -> xxx: SDK -> n: Protocol／Kernel`の順序である。
+result／receiptは逆方向へ戻る。先頭はGUIだけではなくRunnerとPresentationを含むOS Solutionであり、
+UserからのContext抽象距離により`0～4`へ分かれる。
+
+```text
+0.6xx.1  SphereDOS
+         一人のDeveloperが複数Agentをteam化し、Git／Issue／PR／Actions／CTLで成果物を合流する
+
+1.6xx.1  Purpose Context OS
+         個人、会社、事業、spot作業等、一つの目的主体へmulti-agentを最適化する
+         PostPet型GUI／Companion Presentationを内包可能
+
+2.6xx.1  Shared Reality Context OS
+         家庭、施設、Party、家電、端末、既存Worldの独立Intentと物理影響を調停する
+
+3.6xx.1  World-Law Context OS
+         現実法則または独自法則を持つWorldをVR／MR／simulation／fabへ投影する
+
+4.6xx.1  Meta-World Context OS
+         複数World、法則、branch、projection、physical commitをmeta-orchestrateする
+```
+
+現行のCLI、Filesystem Harness、SphereDOS Code Cockpit、CORN、validator、clean-room、Actions連携は、
+まず`0` Development ContextのDOS Server／Code系列へ責務移行する。既存pathを一括移動せず、
+compatibility facadeとreceiptを先に置く。
+
+`1`は`0`の一般業務／個人利用最適化である。ただし、複数の独立主体が同じ家庭・Party Worldへ参加する
+`2`の権限・安全・物理Effect調停を`1`へ先取りしない。
+
+旧無印3x／4xは現在動かないが、配布artifact、静的register、Proton、GAND／Instance Ghost、旧API chain、
+Embedding同期ずれとfallback／server補完記録が残る。これらは部分的な実装・配布・運用Evidenceである。
+完全topologyと同時点receiptが未回収であることを実装不存在へ変換せず、同時に完全runtime証明にも使わない。
+
+```text
+legacy implementation evidence = PRESENT / PARTIAL
+legacy completeness            = UNKNOWN
+current operation              = ENDED / UNAVAILABLE
+```
 
 ## 2. 初期階層
 
@@ -56,6 +107,7 @@ Phase 0では既存moduleを物理移動しない。先に次を満たしてか�
 | `atlantis_cli/corn.py`、`corn/` | Lean Kernelのqueue／receipt Bridge | `RESEARCH` |
 | `atlantis_cli/proton.py`、`proton/` | `packages/fold-access-mapper/` | `BETA SOURCE PRESERVED` |
 | `atlantis_cli/sphere_dos.py`、`sphere-dos/` | Server／Code共通Host bootstrap | `ADAPT-CANDIDATE` |
+| `docs/architecture/gand-edge-bootstrap-harness.ja.md` | Canonical GAND Boot Contract／Edge Harness境界 | `TARGET-SPEC / NOT IMPLEMENTED` |
 | `skills/` | Hostから明示mountするContext Supply | `DO NOT AUTO-MOUNT` |
 
 ## 4. 責務境界
@@ -79,13 +131,19 @@ Reincarnation Lean Kernel
 - GUIはauthorityではなくKernel decisionのPresentationである
 - VS Codeが終了してもServer／CTL側のtask、lease、OAE stateを失わない設計にする
 - same Protocol Generationはcapability、authority、World互換を自動生成しない
+- `sphere-version-coordinate/1`のPresentation値と、`sphere-context-os-coordinate/2`のUserContextSolution値を
+  同じ数字だけでcopyしない。migration receiptを要求する
+- Context OSがUser-declared World Lawを否定して別Contextで黙ってRunすることを禁止する
+- GAND正本語彙、初期整列条件、秘密参照、知識検証、回答checkはEdge Harness契約へ置き、
+  vendor／model別語彙差をModel Compatibility Adapterへ隔離する
+- ASTRO単体起動は維持し、Atlantis process常駐を必須化せず、互換Harnessをbundleできる契約にする
 
 ## 5. Phase
 
 | Phase | 内容 | 状態 |
 |---|---|---|
 | 0 | branch、README、package／product棚、旧Source対応表 | `COMPLETE` |
-| 1 | package manifest、coordinate handshake、Context Envelope | `NOT STARTED` |
+| 1 | package manifest、`/1`／`/2` coordinate handshake、migration receipt、Context Envelope | `NOT STARTED` |
 | 2 | Lean Kernel task／lease／OAE状態機械 | `HARNESS IMPLEMENTED`／製品向けKernelは`NOT IMPLEMENTED` |
 | 3 | Provider Adapter probe／opaque output fixture | `NOT STARTED` |
 | 4 | Fold Access Mapper FAM JSON／Proton resolver | `NOT STARTED` |
@@ -106,12 +164,16 @@ Reincarnation Lean Kernel
 - Fold越境tokenなしのEffect
 - VS Code切断をtask abortへ変換
 - Kernel拒否をGUIが成功表示
+- `/1` Presentation値を`/2` UserContextSolutionへsilent copy
+- `遊ぶ`ContextのTNT命令を、対象Worldを落として現実の製造へ誤配送
+- User-declared World Lawを否定後、vendor default Contextでphysical EffectをRun
+- MR／simulation成功をfab／家電／robotの物理実行権限へ昇格
 
 ## 7. MAGI receipt
 
-- Maxwell: SphereDOSの都合で一般業務、Open Inspector、PostPet、third-party Presentationを焼却しない
-- Uriel: 現行0.250.1の実装済み範囲と6xx候補を分離し、scaffoldをruntimeへ昇格しない
-- Raphael: main、Dev branch、Kernel、Mapper、Server、Code、Project、Issueを別棚として接続する
+- Maxwell: SphereDOSの都合で一般業務、PostPet、Party、MR／VR、現実改変、Meta-World branchを焼却しない
+- Uriel: `/1`座標、`/2` Target、現行実装、6xx候補を分離し、scaffoldをruntimeへ昇格しない
+- Raphael: 0～4 Solution／Context class、SDK、Protocol／Kernel、世代namespace、Server、Code、Project、Issueを別棚として接続する
 - preserved unknown: exact coordinate、runtime言語、物理repo分割時期、Stable／LTS資源
 - action gate: `pass with user gates`
 
