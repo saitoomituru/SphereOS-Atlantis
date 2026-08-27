@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.25.1-alpha.1",
+  "work_item_id": "CORN-0002",
+  "title": "マニフェストおよびAI就業規則フレームワークの有効性評価とドキュメント整備",
+  "kind": "concept-evaluation",
+  "workflow_state": "waiting-review",
+  "authority": {
+    "declared_by": "project-maintainer",
+    "merge_authority": "forge-side-policy",
+    "promotion_authority": "user-or-declared-maintainer"
+  },
+  "status_axes": {
+    "content_maturity": "adopted",
+    "engineering_state": "implemented",
+    "distribution_state": "not-distributed",
+    "resource_state": "available"
+  },
+  "context": {
+    "workspace_ref": "workspace-profile://sphereos-atlantis-forge",
+    "target_repositories": [
+      "ZeroRoomLab-manifest",
+      "SphereOS-Atlantis"
+    ],
+    "required_sources": [
+      "manifest-agents",
+      "manifest-corn-contract",
+      "atlantis-corn-doc"
+    ],
+    "required_hooks": [
+      "magi-position-audit"
+    ],
+    "capsule_ref": null
+  },
+  "acceptance": [
+    "ZeroRoomLab-manifestおよびSphereOS-Atlantisのnote/に日本語で評価・監査ノートが配備されること",
+    "CORN-0002としてAtlantisの作業スタックに追跡可能な形で登録されること"
+  ],
+  "projections": [],
+  "provenance": {
+    "source_refs": [
+      "Gemini CLI session chat @2026-08-19"
+    ],
+    "created_at": "2026-08-19T20:28:00Z",
+    "clock_calibration": "verified"
+  },
+  "unknowns": []
+}
