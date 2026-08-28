@@ -162,3 +162,12 @@ GitHub-hosted runner executed Sphere-DOS scaffold checks
 状態は[機能状態表](../status/m6xx-capability-matrix.ja.md)で、実装・接続・検証・梱包・配布・支援の軸を
 分けて記録します。GitHub Actionsには両ハーネスの試験を追加し、試験を収集しないまま
 「検証済み」と表示することを防ぎます。
+
+## 11. Buddy action gate
+
+6xx Dev線には、Buddyの情報注入とprocess制御を分離するoffline validatorを追加する。
+`policy/buddy-actions.json`、`atlantis_cli/buddy.py`、`tests/test_buddy.py`は機械拘束の足場だが、
+Provider Adapter、Code Cockpit、常駐Runnerへ強制配線済みではない。
+
+したがって、negative testがgreenでも「全agent間friendly-fire防止済み」と表示しない。
+現時点の主張は`validator IMPLEMENTED-ALPHA / runtime integration NOT IMPLEMENTED`で閉じる。

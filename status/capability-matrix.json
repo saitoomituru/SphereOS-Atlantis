@@ -1,12 +1,37 @@
 {
   "schema_version": "1.0.0",
-  "matrix_id": "status://atlantis/m6xx-capabilities@2026-08-21",
+  "matrix_id": "status://atlantis/m6xx-capabilities@2026-08-28",
   "canonical_owner": "SphereOS-Atlantis",
   "roadmap_coordinate": "m.6xx.1-candidate",
-  "as_of": "2026-08-21",
+  "as_of": "2026-08-28",
   "source_branch": "dev/m6xx.1-reincarnation-sdk",
   "human_projection": "docs/status/m6xx-capability-matrix.ja.md",
   "items": [
+    {
+      "id": "buddy-action-gate-harness",
+      "label_ja": "Buddy action gate試験ハーネス",
+      "responsibility_ja": "設計原文の耳打ちとreview challengeを、process停止、別agent差分変更、remote公開権限から分離してoffline判定する。",
+      "status_axes": {
+        "implementation_state": "implemented-harness",
+        "integration_state": "not-connected",
+        "verification_state": "local-tested",
+        "manual_verification_state": "not-applicable",
+        "packaging_state": "source-only",
+        "distribution_state": "development-line",
+        "support_state": "experimental"
+      },
+      "evidence": [
+        "policy/buddy-actions.json",
+        "atlantis_cli/buddy.py",
+        "tests/test_buddy.py"
+      ],
+      "claim_scope_ja": "offline validatorとnegative testの足場であり、Provider Adapter、Code Cockpit、常駐Runnerへ強制接続済みではない。",
+      "unknowns_ja": [
+        "各providerのprocess制御前への強制配線",
+        "Emergency BrakeのOS全体authority",
+        "exactなm.6xx.n末尾世代番号"
+      ]
+    },
     {
       "id": "filesystem-kernel-harness",
       "label_ja": "ファイルシステム判定ハーネス",

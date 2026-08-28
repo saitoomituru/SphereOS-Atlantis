@@ -168,6 +168,9 @@ Reincarnation Lean Kernel
 - `遊ぶ`ContextのTNT命令を、対象Worldを落として現実の製造へ誤配送
 - User-declared World Lawを否定後、vendor default Contextでphysical EffectをRun
 - MR／simulation成功をfab／家電／robotの物理実行権限へ昇格
+- Buddyの`EVIDENCE_WHISPER`を`PROCESS_INTERRUPT`へ昇格
+- POSIX pipe／TTY／session resume到達性をprocess-control authorityへ昇格
+- 設計不一致、test failure、未commit差分をEmergency Brakeへ昇格
 
 ## 7. MAGI receipt
 
@@ -176,6 +179,10 @@ Reincarnation Lean Kernel
 - Raphael: 0～4 Solution／Context class、SDK、Protocol／Kernel、世代namespace、Server、Code、Project、Issueを別棚として接続する
 - preserved unknown: exact coordinate、runtime言語、物理repo分割時期、Stable／LTS資源
 - action gate: `pass with user gates`
+
+2026-08-28のAIフレンドリーファイヤー事故を受け、Buddy action policyとoffline negative testを
+Phase 0修繕として追加する。Provider Adapter／Code Cockpit／Runnerへの強制配線、exactな末尾`n`は
+`NOT IMPLEMENTED`／User Gateとして残す。
 
 この文書は現在時点のInterpretation OAEであり、過去commitへ当時のIntentを遡及生成しない。
 

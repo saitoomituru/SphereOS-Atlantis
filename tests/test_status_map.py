@@ -17,8 +17,8 @@ class StatusMapTestCase(unittest.TestCase):
         self.assertEqual(result["project_version"], "0.25.1-alpha.1")
         self.assertEqual(result["canonical_coordinate"], "0.250.1")
         self.assertEqual([item["items"] for item in result["maps"]], [9, 5])
-        self.assertEqual(result["capability_matrix"]["items"], 5)
-        self.assertEqual(result["capability_matrix"]["as_of"], "2026-08-21")
+        self.assertEqual(result["capability_matrix"]["items"], 6)
+        self.assertEqual(result["capability_matrix"]["as_of"], "2026-08-28")
 
     def test_能力状態表が実装と配布を別軸で保持する(self) -> None:
         result = validate_status_maps(PROJECT_ROOT)

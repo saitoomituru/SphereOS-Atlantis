@@ -2,7 +2,7 @@
 
 状態: `[CANONICAL-CANDIDATE]` `[MACHINE-VALIDATED]`
 
-更新日: 2026-08-21
+更新日: 2026-08-28
 
 機械可読正本: [`status/capability-matrix.json`](../../status/capability-matrix.json)
 
@@ -23,6 +23,7 @@ CLIコマンド、既存製品名は互換性と検索性のため原表記を�
 
 | 対象 | 実装 | 結合 | 検証 | 配布物化・公開 | 保守責任 |
 |---|---|---|---|---|---|
+| Buddy action gate試験ハーネス | offline validator実装済み | Provider／Cockpit／Runner未接続 | local unit test | Dev系列のソースのみ | 実験段階 |
 | ファイルシステム判定ハーネス | 実装済みハーネス | コックピットGUIとは未接続 | Python 3.11／3.14 CI成功 | Dev系列のソースのみ | 実験段階 |
 | SphereDOS CodeコックピットGUIハーネス | 実装済みハーネス | 縦結合試験前 | GUIレンダー・境界の自動試験18件をCI確認、実画面の目視確認前 | Dev系列のソースのみ | 実験段階 |
 | Kernel・receipt・コックピットGUIの縦結合 | 未着手 | 結合試験前 | 未試験 | 未提供 | 保守対象外 |
@@ -48,6 +49,7 @@ CLIコマンド、既存製品名は互換性と検索性のため原表記を�
 
 ## 証拠境界
 
+- Buddy action gateは、耳打ちからprocess停止を導出しないnegative testをlocalで実行する。全providerへの強制配線とCI receiptは未確認である。
 - ファイルシステム判定ハーネスは、PR #17のmerge commit `e7398b9`でDev系列へ入りました。
 - Kernel側の36試験と、Python 3.11／3.14のCI成功を確認しています。
 - SphereDOS Code側では、コックピットGUIのレンダー・境界に関する自動試験18件を
