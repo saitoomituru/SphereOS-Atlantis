@@ -29,6 +29,18 @@ class MagiSkillBundleTestCase(unittest.TestCase):
         self.assertIs(chikuwa["is_audit_dimension"], False)
         self.assertTrue(all(value is False for value in bundle["invariants"].values()))
 
+    def test_Buddy耳打ちをprocess制御権限へ昇格しない(self) -> None:
+        bundle = self.load_json(MAGI_ROOT / "bundle.json")
+        invariants = bundle["invariants"]
+        self.assertIs(invariants["buddy_role_is_process_supervisor"], False)
+        self.assertIs(invariants["transport_capability_grants_authority"], False)
+        self.assertIs(invariants["evidence_whisper_grants_process_interrupt"], False)
+        self.assertIs(invariants["cross_agent_control_precedes_self_audit"], False)
+
+        patch = bundle["maintenance_patches"][0]
+        self.assertEqual(patch["status"], "IMPLEMENTED_ALPHA")
+        self.assertEqual(patch["exact_release_coordinate"], "USER_GATE")
+
     def test_Skillは人格でも神託でも外部操作でもない(self) -> None:
         bundle = self.load_json(MAGI_ROOT / "bundle.json")
         skill_paths = [item["skill"] for item in bundle["audit_slots"]]

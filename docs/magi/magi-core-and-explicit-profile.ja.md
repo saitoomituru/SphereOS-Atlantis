@@ -66,6 +66,19 @@ profileは問い、局所定規、Flavor、Presentationを追加できるが、�
 - 未実装runtimeを実装済みへ変えない
 - historical OAEを現在推論から遡及生成しない
 
+### 別agent作用前の自己適用
+
+Buddy Reviewerが別agentの設計逸脱を観測した場合、対象agentを裁定する前に、自分自身へMAGIを適用する。
+Architect source、観測Diff、現在解釈、衝突仮説、提案、User authorizationを別fieldとして扱い、
+`EVIDENCE_WHISPER`から`PROCESS_INTERRUPT`を導出しない。
+
+Observer、Interpreter、Buddy Reviewer、Architect Designer、Coder、Process Supervisorを一つのAgencyへ
+自動統合しない。POSIX pipe、TTY、session resume等へ到達できることはauthorityではない。
+
+通常のcode quality、設計不一致、test failure、未commit差分は、秘密漏えいまたは不可逆な外部破壊と
+同じaction gateへ置かない。詳細は
+[Buddy Reviewとprocess制御の境界](../architecture/buddy-review-and-process-control-boundary.ja.md)を参照する。
+
 ## Role／Flavor asset
 
 第三者developerは、自分のManifestまたはrepositoryにRole／Flavor／Presentation assetを置ける。
