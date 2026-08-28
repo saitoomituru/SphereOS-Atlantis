@@ -75,7 +75,7 @@
     {
       "id": "buddy-friendly-fire-action-gate",
       "issue": "https://github.com/saitoomituru/SphereOS-Atlantis/issues/24",
-      "policy": "policy/buddy-actions.json",
+      "policy": "magi/0.2.1/bundle.json#invariants",
       "status": "IMPLEMENTED_ALPHA",
       "exact_release_coordinate": "USER_GATE"
     }

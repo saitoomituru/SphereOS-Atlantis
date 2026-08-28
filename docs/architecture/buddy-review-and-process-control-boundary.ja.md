@@ -1,6 +1,6 @@
 # Buddy Reviewとprocess制御の境界
 
-状態: `[CANONICAL-CANDIDATE]` `[IMPLEMENTED-ALPHA]`  
+状態: `[CANONICAL-CANDIDATE]` `[0.2xx MAGI FIX IMPLEMENTED-ALPHA]`  
 事故票: [#24](https://github.com/saitoomituru/SphereOS-Atlantis/issues/24)  
 Manifest契約候補: [Manifest #31](https://github.com/saitoomituru/ZeroRoomLab-manifest/issues/31)
 
@@ -28,7 +28,7 @@ exactな0.2xx.nの末尾番号はUser Gateであり、この修繕だけで新�
 
 ## 3. m.6xx.n機械拘束
 
-[`policy/buddy-actions.json`](../../policy/buddy-actions.json)は次のactionを別capabilityとして宣言する。
+m.6xx Dev線の`policy/buddy-actions.json`は次のactionを別capabilityとして宣言する。
 
 ```text
 EVIDENCE_WHISPER
@@ -39,7 +39,7 @@ WORKTREE_MUTATION
 REMOTE_PUBLICATION
 ```
 
-[`atlantis_cli.buddy`](../../atlantis_cli/buddy.py)は、Buddy requestをofflineで判定する。
+m.6xx Dev線の`atlantis_cli.buddy`は、Buddy requestをofflineで判定する。
 
 - 設計source付き`EVIDENCE_WHISPER`を許可する
 - 設計sourceと確認質問付き`REVIEW_CHALLENGE`を許可する
@@ -83,9 +83,10 @@ Buddyはコードと論理を強く批評できるが、Architectの採用判断
 | surface | 状態 |
 |---|---|
 | 自然言語Buddy契約 | `CANONICAL-CANDIDATE` |
-| action policy JSON | `IMPLEMENTED-ALPHA` |
-| offline validator | `IMPLEMENTED-ALPHA` |
-| negative unit test | `IMPLEMENTED-ALPHA` |
+| 0.2xx MAGI不変条件 | `IMPLEMENTED-ALPHA` |
+| action policy JSON | `m.6xx Dev線 IMPLEMENTED-ALPHA`／main未提供 |
+| offline validator | `m.6xx Dev線 IMPLEMENTED-ALPHA`／main未提供 |
+| negative unit test | `m.6xx Dev線 IMPLEMENTED-ALPHA`／main未提供 |
 | Provider Adapterへの強制配線 | `NOT IMPLEMENTED` |
 | Code Cockpit表示 | `NOT IMPLEMENTED` |
 | 常駐Runnerでの制御 | `NOT IMPLEMENTED` |
