@@ -25,7 +25,12 @@
       "path": "packages/provider-adapters",
       "engineering_state": "SCAFFOLDED",
       "responsibility": "provider-cli-discovery-and-opaque-result-transport",
-      "source_paths": ["agents", "atlantis_cli/agent.py"],
+      "source_paths": [
+        "agents",
+        "atlantis_cli/agent.py",
+        "atlantis_cli/experiment.py",
+        "experiments/m6xx-agent-orchestration"
+      ],
       "must_not_own": ["provider-install", "provider-auth", "provider-payment", "provider-activation"]
     }
   ]

@@ -8,6 +8,34 @@
   "human_projection": "docs/status/m6xx-capability-matrix.ja.md",
   "items": [
     {
+      "id": "native-agent-orchestration-observation-harness",
+      "label_ja": "異種agent native orchestration観測ハーネス",
+      "responsibility_ja": "Claude、Gemini、Grokを起動せず検出し、明示targetのGit状態とclean-room task packetを秘匿化receiptへ投影する。",
+      "status_axes": {
+        "implementation_state": "implemented-harness",
+        "integration_state": "not-connected",
+        "verification_state": "local-tested",
+        "manual_verification_state": "manual-test-pending",
+        "packaging_state": "source-only",
+        "distribution_state": "development-line",
+        "support_state": "experimental"
+      },
+      "evidence": [
+        "experiments/m6xx-agent-orchestration/contract.json",
+        "atlantis_cli/experiment.py",
+        "scripts/m6xx-agent-orchestration.sh",
+        "tests/test_experiment.py",
+        "https://github.com/saitoomituru/SphereOS-Atlantis/issues/26"
+      ],
+      "claim_scope_ja": "offline観測とtask packet生成の足場であり、native agent起動、process監督、clean-room成果比較、採用、mergeは未実装。",
+      "unknowns_ja": [
+        "provider別non-interactive invocation",
+        "session resumeとopaque control output",
+        "CORN／Lean Kernel／Code Cockpit縦結合",
+        "exactなm.6xx.n末尾世代番号"
+      ]
+    },
+    {
       "id": "buddy-action-gate-harness",
       "label_ja": "Buddy action gate試験ハーネス",
       "responsibility_ja": "設計原文の耳打ちとreview challengeを、process停止、別agent差分変更、remote公開権限から分離してoffline判定する。",

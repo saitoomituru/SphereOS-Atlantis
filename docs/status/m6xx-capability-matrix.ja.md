@@ -23,6 +23,7 @@ CLIコマンド、既存製品名は互換性と検索性のため原表記を�
 
 | 対象 | 実装 | 結合 | 検証 | 配布物化・公開 | 保守責任 |
 |---|---|---|---|---|---|
+| 異種agent native orchestration観測ハーネス | offline観測・task packet生成を実装済み | provider起動／Kernel／Cockpit未接続 | local unit test | Dev系列のソースのみ | 実験段階 |
 | Buddy action gate試験ハーネス | offline validator実装済み | Provider／Cockpit／Runner未接続 | local unit test | Dev系列のソースのみ | 実験段階 |
 | ファイルシステム判定ハーネス | 実装済みハーネス | コックピットGUIとは未接続 | Python 3.11／3.14 CI成功 | Dev系列のソースのみ | 実験段階 |
 | SphereDOS CodeコックピットGUIハーネス | 実装済みハーネス | 縦結合試験前 | GUIレンダー・境界の自動試験18件をCI確認、実画面の目視確認前 | Dev系列のソースのみ | 実験段階 |
@@ -49,6 +50,8 @@ CLIコマンド、既存製品名は互換性と検索性のため原表記を�
 
 ## 証拠境界
 
+- 異種agent観測ハーネスはClaude／Gemini／Grok実行ファイルのPATH検出、明示targetのGit snapshot、
+  clean-room task packet、local sanitized receiptを実装した。provider起動、認証、実task、採用、mergeは未実装である。
 - Buddy action gateは、耳打ちからprocess停止を導出しないnegative testをlocalで実行する。全providerへの強制配線とCI receiptは未確認である。
 - ファイルシステム判定ハーネスは、PR #17のmerge commit `e7398b9`でDev系列へ入りました。
 - Kernel側の36試験と、Python 3.11／3.14のCI成功を確認しています。
