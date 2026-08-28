@@ -65,8 +65,21 @@
     "historical_evidence_is_historical_oae": false,
     "current_interpretation_is_past_observation": false,
     "same_worldline_retroactive_backfill_allowed": false,
-    "physical_time_travel_claimed": false
+    "physical_time_travel_claimed": false,
+    "buddy_role_is_process_supervisor": false,
+    "transport_capability_grants_authority": false,
+    "evidence_whisper_grants_process_interrupt": false,
+    "cross_agent_control_precedes_self_audit": false
   },
+  "maintenance_patches": [
+    {
+      "id": "buddy-friendly-fire-action-gate",
+      "issue": "https://github.com/saitoomituru/SphereOS-Atlantis/issues/24",
+      "policy": "policy/buddy-actions.json",
+      "status": "IMPLEMENTED_ALPHA",
+      "exact_release_coordinate": "USER_GATE"
+    }
+  ],
   "status": {
     "skill_workflows": "IMPLEMENTED_ALPHA",
     "oae_temporal_validator": "IMPLEMENTED_ALPHA",

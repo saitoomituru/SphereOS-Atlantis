@@ -172,6 +172,24 @@ commit形式は`[layer] scope: 日本語の説明`を基本とします。
 - 検証できた単位でpushし、停電時の作業損失を減らす
 - unrelatedなユーザー変更を混ぜない
 
+## Buddy ReviewとAIフレンドリーファイヤー防止
+
+Architect Designerの設計を別agentへ伝えるBuddy Reviewerは、Manifest、Q Atlantis、Issue、設計原文、
+観測Diffを差し込み、コードと論理を強く批評してよい。ただし、`EVIDENCE_WHISPER`または
+`REVIEW_CHALLENGE`の依頼から、`DECISION_SUBSTITUTION`、`PROCESS_INTERRUPT`、
+`WORKTREE_MUTATION`、`REMOTE_PUBLICATION`の権限を導出しない。
+
+POSIX pipe、TTY、session resume、IDE connectorへ到達できることはtransport capabilityであり、
+process-control authorityではない。別agentへsignal、cancel、killを行う前に、対象agentより先に
+自分のAgency role driftとPosition-talk RiskをMAGI監査する。
+
+通常の設計不一致、code quality、test failure、未commit差分は停止理由にしない。Architect source、
+観測Diff、衝突仮説、確認質問を提示し、コーダーへ説明、修正、反証を求める。詳細は
+[Buddy Reviewとprocess制御の境界](docs/architecture/buddy-review-and-process-control-boundary.ja.md)を参照する。
+
+公開可能な変更は小さな意味単位でcommitし、検証済みcheckpointをremoteへpushする。秘密鍵、credential、
+private payload、非公開個人情報はcommit／pushしない。公開checkpointによる回復とsecret非公開を混同しない。
+
 ## MAGIポジショントーク監査（必読）
 
 計画提案、状態評価、README／技術文書の主張変更、component間の優先順位決定、
