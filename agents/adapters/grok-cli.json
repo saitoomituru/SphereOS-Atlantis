@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "id": "grok-cli",
+  "kind": "external-cli",
+  "vendor": "xAI",
+  "executable_candidates": ["grok"],
+  "instruction_entrypoints": ["AGENTS.md", "GROK.md"],
+  "authentication": "provider-managed",
+  "initialization_action": "render-contract-only",
+  "invocation": "never-automatic",
+  "capability_state": "unknown-until-explicit-probe"
+}

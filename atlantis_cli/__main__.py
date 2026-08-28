@@ -24,6 +24,14 @@ from .corn import (
 )
 from .doctor import doctor_json, format_doctor, run_doctor
 from .experience import create_experience_receipt, format_experience, validate_experience
+from .experiment import (
+    build_doctor as build_experiment_doctor,
+    build_plan as build_experiment_plan,
+    build_run_boundary,
+    build_snapshot as build_experiment_snapshot,
+    load_experiment_contract,
+    parse_target_bindings,
+)
 from .help_mode import build_help, format_help, format_interfaces, list_interfaces
 from .links import check_markdown_links, format_link_report
 from .lineage import (
@@ -108,6 +116,31 @@ def build_parser() -> argparse.ArgumentParser:
     )
     buddy_check_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
     buddy_check_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
+
+    experiment_parser = commands.add_parser(
+        "experiment",
+        help="異種agent実験を起動せず観測・計画する。",
+    )
+    experiment_commands = experiment_parser.add_subparsers(
+        dest="experiment_command",
+        required=True,
+    )
+    for name, help_text in (
+        ("doctor", "provider CLIと明示targetを副作用なしで診断する。"),
+        ("snapshot", "明示targetのGit状態をpath非開示で観測する。"),
+        ("plan", "modelを起動せずtask packetを生成する。"),
+        ("run", "未実装のnative invocation境界を表示する。"),
+    ):
+        subparser = experiment_commands.add_parser(name, help=help_text)
+        subparser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+        subparser.add_argument("--contract", type=Path, help="実験contract JSON。")
+        subparser.add_argument(
+            "--target-root",
+            action="append",
+            default=[],
+            help="target-id=/absolute/path。明示targetだけを読む。",
+        )
+        subparser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
     workspace_parser = commands.add_parser(
         "workspace",
@@ -547,6 +580,28 @@ def main(argv: list[str] | None = None) -> int:
                 for item in output:
                     print(json.dumps(item, ensure_ascii=False))
             return 1 if failed else 0
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+
+    if args.command == "experiment":
+        try:
+            root = resolve_root(args.repo_root)
+            contract = load_experiment_contract(root, args.contract)
+            bindings = parse_target_bindings(args.target_root, contract)
+            if args.experiment_command == "doctor":
+                result = build_experiment_doctor(root, contract, bindings)
+                exit_code = 0
+            elif args.experiment_command == "snapshot":
+                result = build_experiment_snapshot(contract, bindings)
+                exit_code = 0
+            elif args.experiment_command == "plan":
+                result = build_experiment_plan(root, contract, bindings)
+                exit_code = 0
+            else:
+                result = build_run_boundary(contract)
+                exit_code = 3
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return exit_code
         except (OSError, ValueError) as error:
             parser.error(str(error))
 

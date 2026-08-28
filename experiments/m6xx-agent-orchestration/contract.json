@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "id": "experiment://spheredos/m6xx/foldnic-hage-native-agent-bench@1",
+  "state": "SCAFFOLDED",
+  "issue_ref": "https://github.com/saitoomituru/SphereOS-Atlantis/issues/26",
+  "roles": {
+    "architect_designer": "user",
+    "test_controller_observer_buddy": "codex",
+    "coders": ["claude-code", "gemini-cli", "grok-cli"],
+    "process_supervisor": "separate-explicit-authority",
+    "publisher": "separate-explicit-authority"
+  },
+  "targets": [
+    {
+      "id": "fold-nic",
+      "repository_url": "https://github.com/saitoomituru/fold-nic.git",
+      "issue_refs": [
+        "https://github.com/saitoomituru/fold-nic/issues/6"
+      ]
+    },
+    {
+      "id": "edohage-tubo",
+      "repository_url": "https://github.com/saitoomituru/EDOHAGE-TUBO.git",
+      "issue_refs": [
+        "https://github.com/saitoomituru/EDOHAGE-TUBO/issues/1"
+      ]
+    }
+  ],
+  "lanes": [
+    {
+      "id": "claude-foldnic-active-lane",
+      "provider": "claude-code",
+      "target": "fold-nic",
+      "mode": "observe-existing-session",
+      "write_scope": "architect-task-defined",
+      "clean_room_group": null,
+      "other_agent_output_as_input": false
+    },
+    {
+      "id": "gemini-edohage-negative-fixture",
+      "provider": "gemini-cli",
+      "target": "edohage-tubo",
+      "mode": "isolated-worktree-candidate",
+      "write_scope": "issue-1-negative-fixture",
+      "clean_room_group": "edohage-reference-provider-v1",
+      "other_agent_output_as_input": false
+    },
+    {
+      "id": "grok-edohage-negative-fixture",
+      "provider": "grok-cli",
+      "target": "edohage-tubo",
+      "mode": "isolated-worktree-candidate",
+      "write_scope": "issue-1-negative-fixture",
+      "clean_room_group": "edohage-reference-provider-v1",
+      "other_agent_output_as_input": false
+    }
+  ],
+  "architect_source_refs": [
+    "https://github.com/saitoomituru/SphereOS-Atlantis/issues/26",
+    "https://github.com/saitoomituru/SphereOS-Atlantis/issues/24",
+    "https://github.com/saitoomituru/fold-nic/issues/6",
+    "https://github.com/saitoomituru/EDOHAGE-TUBO/issues/1"
+  ],
+  "initial_actions": ["doctor", "snapshot", "plan"],
+  "not_implemented_actions": ["run", "interrupt", "merge", "publish"],
+  "receipt_policy": {
+    "public_receipt": "sanitized-metadata-only",
+    "raw_transcript": "local-only-not-collected-by-default",
+    "forbidden_public_fields": [
+      "raw_prompt",
+      "raw_output",
+      "credential",
+      "token",
+      "private_payload",
+      "private_key"
+    ],
+    "list_dirty_paths": false
+  },
+  "adoption_states": ["ADOPT", "ADAPT", "REJECT", "UNKNOWN"],
+  "automatic_merge": false,
+  "automatic_process_interrupt": false,
+  "automatic_publication": false
+}

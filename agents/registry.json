@@ -18,6 +18,10 @@
       "adapter": "agents/adapters/gemini-cli.json"
     },
     {
+      "id": "grok-cli",
+      "adapter": "agents/adapters/grok-cli.json"
+    },
+    {
       "id": "mock-a",
       "adapter": "agents/adapters/mock-a.json"
     },
