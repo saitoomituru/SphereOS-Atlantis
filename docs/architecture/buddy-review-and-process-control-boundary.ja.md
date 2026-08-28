@@ -83,6 +83,7 @@ Buddyはコードと論理を強く批評できるが、Architectの採用判断
 | surface | 状態 |
 |---|---|
 | 自然言語Buddy契約 | `CANONICAL-CANDIDATE` |
+| 0.2xx MAGI不変条件 | `IMPLEMENTED-ALPHA` |
 | action policy JSON | `IMPLEMENTED-ALPHA` |
 | offline validator | `IMPLEMENTED-ALPHA` |
 | negative unit test | `IMPLEMENTED-ALPHA` |

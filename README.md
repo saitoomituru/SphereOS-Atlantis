@@ -308,16 +308,26 @@ binary integration milestoneです。現行`0.250.1`（legacy `0.25.1`）、IBD 
 | World・orchestration・開発環境 | [SphereOS Atlantis](https://github.com/saitoomituru/SphereOS-Atlantis) | Atlantis SDK、World／session／connector／device管理、起動・停止・unmount |
 | 共通定規 | [ZeroRoomLab-manifest](https://github.com/saitoomituru/ZeroRoomLab-manifest) | Context Register、Access Map、Transformer、OAE、SDK bundle契約 |
 
-キーを三本の別軸として扱います。
+正本となる三軸は`L / D / G`です。
 
 ```text
-L = hardware→POSIX OS→runtime→library／SDK／Appという技術依存の順序
+L = hardwareからruntime、SDK、最終artifactまでを串刺しする実行・materialization経路
 D = 上下を作らず束ねるContext Dimensionの一意軸数（D Fold）
-S = 同じcapabilityをS0 envelopeからS4 promptまで公開するSDK surface
+G = Fold containerを包むnesting depth
 ```
 
 `4D`は四軸を束ねるというarityであり、embeddingの次元数でも、技術Layer 4でも、互換保証でもありません。
 POSIXは`L`側のportableな実行基盤であり、Sphereはそれを置換せず、その上で`D Fold`と意味境界を管理します。
+
+`S0` envelopeから`S4` promptまでの`S`は、旧文書で独立した「S軸」と表記していたSDK surfaceです。
+この分類と来歴は保持しますが、`G`を置換する三軸目ではありません。現在は、framework、library、SDK、
+tool、engine、Runner等がLの実行経路を構成する際のSDK／toolchain strataとして扱います。同じS構成でも、
+選択したtargetへbuild、package、interpretまたはrunされなければ利用者が実行できるartifactにはなりません。
+逆にUnity、Godot、Unreal、FileMaker、RPGツクール等の既存基盤を経由したことだけを理由に、完成したApp、
+ゲーム、作品の価値や真正性を低く判定しません。
+
+この節でGが欠落しSが三軸目へ昇格していた事故は、来歴を消さず
+[#13](https://github.com/saitoomituru/SphereOS-Atlantis/issues/13)でサルベージしています。
 
 詳しい責務、現況、実装課題、正本リンクは
 [1.x実行系・SDKエンジニア参入ガイド](docs/architecture/1x-sdk-engineering-entrypoint.ja.md)を参照してください。
