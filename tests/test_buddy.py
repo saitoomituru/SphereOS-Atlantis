@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from pathlib import Path
+import json
+import subprocess
+import sys
 import unittest
 
 from atlantis_cli.buddy import evaluate_buddy_action
@@ -99,6 +102,38 @@ class BuddyActionGateTestCase(unittest.TestCase):
             },
         )
         self.assertTrue(result.allowed)
+
+    def test_CLIはrequestを実行せず停止権限を拒否する(self) -> None:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                "-m",
+                "atlantis_cli",
+                "agent",
+                "buddy-check",
+                "--request",
+                "-",
+                "--json",
+            ],
+            cwd=PROJECT_ROOT,
+            input=json.dumps(
+                {
+                    "actor_role": "buddy-reviewer",
+                    "action": "PROCESS_INTERRUPT",
+                    "transport_capabilities": ["POSIX_PIPE"],
+                    "reason": "DESIGN_DISAGREEMENT",
+                }
+            ),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 2, completed.stderr)
+        result = json.loads(completed.stdout)
+        self.assertFalse(result["allowed"])
+        self.assertTrue(result["user_gate_required"])
+        self.assertFalse(result["mutations_performed"])
 
 
 if __name__ == "__main__":

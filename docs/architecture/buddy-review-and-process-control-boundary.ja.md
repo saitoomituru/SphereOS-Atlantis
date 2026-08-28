@@ -50,6 +50,14 @@ REMOTE_PUBLICATION
 このvalidatorはsignalを送らない。Provider Adapter、Code Cockpit、Archangel Runnerが実際の制御作用前に
 呼び出す統合は`NOT IMPLEMENTED`である。unit testのgreenをOS全体への強制済み表示へ昇格しない。
 
+標準入力または明示JSON fileから副作用なしで検査できる。
+
+```console
+python3 -B -m atlantis_cli agent buddy-check --request request.json --json
+```
+
+拒否時はexit `2`、許可時はexit `0`を返す。いずれもmodel、network、mutationを実行しない。
+
 ## 4. Buddy packet
 
 次世代Envelope候補は、最低限次を保持する。

@@ -13,6 +13,7 @@ from .agent import (
     resolve_root,
     verify_agent,
 )
+from .buddy import evaluate_buddy_action
 from .config import load_agent_registry
 from .corn import (
     build_context_receipt,
@@ -96,6 +97,17 @@ def build_parser() -> argparse.ArgumentParser:
         subparser.add_argument("--json", action="store_true", help="JSONで出力する。")
         if name == "init":
             subparser.add_argument("--refresh", action="store_true", help="差分のある生成済みcontractを更新する。")
+    buddy_check_parser = agent_commands.add_parser(
+        "buddy-check",
+        help="Buddy action requestを実行せずoffline判定する。",
+    )
+    buddy_check_parser.add_argument(
+        "--request",
+        default="-",
+        help="request JSON path。`-`は標準入力。",
+    )
+    buddy_check_parser.add_argument("--repo-root", type=Path, help="Atlantis repository root。")
+    buddy_check_parser.add_argument("--json", action="store_true", help="JSONで出力する。")
 
     workspace_parser = commands.add_parser(
         "workspace",
@@ -462,6 +474,31 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "agent":
         try:
             root = resolve_root(args.repo_root)
+            if args.agent_command == "buddy-check":
+                request_text = (
+                    sys.stdin.read()
+                    if args.request == "-"
+                    else Path(args.request).read_text(encoding="utf-8")
+                )
+                request = json.loads(request_text)
+                if not isinstance(request, dict):
+                    raise ValueError("Buddy action requestのrootはobjectである必要があります。")
+                decision = evaluate_buddy_action(root, request)
+                result = {
+                    "schema_version": "1.0.0",
+                    "allowed": decision.allowed,
+                    "code": decision.code,
+                    "user_gate_required": decision.user_gate_required,
+                    "model_invoked": False,
+                    "network_access_performed": False,
+                    "mutations_performed": False,
+                }
+                print(
+                    json.dumps(result, ensure_ascii=False, indent=2)
+                    if args.json
+                    else f"allowed={result['allowed']} code={result['code']}"
+                )
+                return 0 if decision.allowed else 2
             registry = load_agent_registry(root)
             known = [item["id"] for item in registry["providers"]]
             providers = args.provider or known
