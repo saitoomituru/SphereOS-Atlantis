@@ -3,6 +3,7 @@
   "default_constraints": "policy/constraints.json",
   "secret_boundaries": "policy/secret-boundaries.json",
   "cost_policy": "policy/cost-policy.json",
+  "buddy_actions": "policy/buddy-actions.json",
   "providers": [
     {
       "id": "codex",

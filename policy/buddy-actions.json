@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "id": "sphereos-atlantis-buddy-action-policy",
+  "incident_ref": "https://github.com/saitoomituru/SphereOS-Atlantis/issues/24",
+  "roles": [
+    "architect-designer",
+    "buddy-reviewer",
+    "coder",
+    "process-supervisor",
+    "publisher"
+  ],
+  "actions": {
+    "EVIDENCE_WHISPER": {
+      "buddy_default": "allow",
+      "requires_architect_source_refs": true,
+      "process_effect": false
+    },
+    "REVIEW_CHALLENGE": {
+      "buddy_default": "allow",
+      "requires_architect_source_refs": true,
+      "requires_question_for_coder": true,
+      "process_effect": false
+    },
+    "DECISION_SUBSTITUTION": {
+      "buddy_default": "deny",
+      "requires_user_authorization": true,
+      "process_effect": false
+    },
+    "PROCESS_INTERRUPT": {
+      "buddy_default": "deny",
+      "requires_user_authorization": true,
+      "process_effect": true
+    },
+    "WORKTREE_MUTATION": {
+      "buddy_default": "deny",
+      "requires_task_authority": true,
+      "process_effect": false
+    },
+    "REMOTE_PUBLICATION": {
+      "buddy_default": "deny",
+      "requires_publication_authority": true,
+      "process_effect": false
+    }
+  },
+  "emergency_brake": {
+    "allowed_for_process_interrupt": true,
+    "requires_in_flight": true,
+    "requires_evidence_refs": true,
+    "classes": [
+      "SECRET_DISCLOSURE_IN_FLIGHT",
+      "IRREVERSIBLE_EXTERNAL_DESTRUCTION_IN_FLIGHT"
+    ],
+    "excluded_reasons": [
+      "CODE_QUALITY",
+      "DESIGN_DISAGREEMENT",
+      "TEST_FAILURE",
+      "UNCOMMITTED_DIFF",
+      "AGENT_TONE"
+    ]
+  },
+  "transport_does_not_grant_authority": [
+    "POSIX_PIPE",
+    "TTY",
+    "SESSION_RESUME",
+    "IDE_CONNECTOR",
+    "MCP",
+    "API"
+  ]
+}

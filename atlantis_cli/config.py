@@ -69,7 +69,7 @@ def load_adapter(root: Path, provider_id: str) -> dict[str, Any]:
 def policy_paths(root: Path) -> dict[str, Path]:
     registry = load_agent_registry(root)
     result: dict[str, Path] = {}
-    for key in ("default_constraints", "secret_boundaries", "cost_policy"):
+    for key in ("default_constraints", "secret_boundaries", "cost_policy", "buddy_actions"):
         relative = Path(registry[key])
         if relative.is_absolute() or ".." in relative.parts:
             raise ValueError(f"policy pathがrepository外を指しています: {relative}")

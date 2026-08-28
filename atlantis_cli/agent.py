@@ -65,6 +65,9 @@ def build_contract(root: Path, provider_id: str) -> dict[str, Any]:
             "secret_default_action": policies["secret_boundaries"]["default_action"],
             "cost_class": policies["cost_policy"]["initialization_cost_class"],
             "generated_contract_is_canonical": False,
+            "buddy_action_policy": policies["buddy_actions"]["id"],
+            "buddy_non_control_actions": ["EVIDENCE_WHISPER", "REVIEW_CHALLENGE"],
+            "buddy_process_interrupt_default": "deny",
         },
     }
 
