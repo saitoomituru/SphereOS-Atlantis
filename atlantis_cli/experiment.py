@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime, timezone
+import json
 from pathlib import Path
 import subprocess
 from typing import Any
@@ -12,6 +14,7 @@ from .config import load_json
 
 
 DEFAULT_CONTRACT = Path("experiments/m6xx-agent-orchestration/contract.json")
+LOCAL_RECEIPT_ROOT = Path(".atlantis/experiments/m6xx-agent-orchestration")
 
 
 @dataclass(frozen=True)
@@ -218,3 +221,43 @@ def build_run_boundary(contract: dict[str, Any]) -> dict[str, Any]:
         "mutations_performed": False,
         "user_gate_required": True,
     }
+
+
+def attach_observation_metadata(result: dict[str, Any], command: str) -> dict[str, Any]:
+    """host clock由来であることを明示した現在観測metadataを付ける。"""
+
+    observed_at = datetime.now(timezone.utc).isoformat(timespec="microseconds")
+    return {
+        **result,
+        "observation": {
+            "command": command,
+            "observed_at": observed_at,
+            "clock_calibration_state": "unverified",
+            "historical_oae_status": "historical-oae-unavailable",
+            "interpretation_oae": "current-observation",
+        },
+    }
+
+
+def write_local_receipt(root: Path, command: str, result: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
+    """sanitized resultだけをignore済み.atlantisへ排他的に保存する。"""
+
+    destination_root = root / LOCAL_RECEIPT_ROOT
+    destination_root.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
+    destination = destination_root / f"{timestamp}-{command}.json"
+    relative = destination.relative_to(root)
+    recorded = {
+        **result,
+        "local_receipt": {
+            "path": str(relative),
+            "public_source": False,
+            "raw_transcript_included": False,
+            "target_repository_mutated": False,
+            "controller_generated_state_mutated": True,
+        },
+    }
+    with destination.open("x", encoding="utf-8", newline="\n") as stream:
+        json.dump(recorded, stream, ensure_ascii=False, indent=2)
+        stream.write("\n")
+    return destination, recorded

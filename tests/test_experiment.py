@@ -12,7 +12,9 @@ from atlantis_cli.experiment import (
     TargetBinding,
     build_plan,
     build_snapshot,
+    attach_observation_metadata,
     load_experiment_contract,
+    write_local_receipt,
 )
 
 
@@ -102,6 +104,26 @@ class AgentExperimentTestCase(unittest.TestCase):
         self.assertTrue(result["user_gate_required"])
         self.assertFalse(result["model_invoked"])
         self.assertFalse(result["mutations_performed"])
+
+    def test_local_receiptはraw会話なしでignore領域へ保存する(self) -> None:
+        result = attach_observation_metadata(
+            {
+                "schema_version": "1.0.0",
+                "raw_transcript_included": False,
+                "mutations_performed": False,
+            },
+            "snapshot",
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            destination, recorded = write_local_receipt(root, "snapshot", result)
+            self.assertTrue(destination.is_file())
+            self.assertTrue(destination.is_relative_to(root / ".atlantis"))
+            on_disk = json.loads(destination.read_text(encoding="utf-8"))
+        self.assertEqual(on_disk, recorded)
+        self.assertFalse(recorded["local_receipt"]["public_source"])
+        self.assertFalse(recorded["local_receipt"]["raw_transcript_included"])
+        self.assertFalse(recorded["local_receipt"]["target_repository_mutated"])
 
 
 if __name__ == "__main__":

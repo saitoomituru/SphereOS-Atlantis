@@ -29,8 +29,10 @@ from .experiment import (
     build_plan as build_experiment_plan,
     build_run_boundary,
     build_snapshot as build_experiment_snapshot,
+    attach_observation_metadata,
     load_experiment_contract,
     parse_target_bindings,
+    write_local_receipt,
 )
 from .help_mode import build_help, format_help, format_interfaces, list_interfaces
 from .links import check_markdown_links, format_link_report
@@ -141,6 +143,11 @@ def build_parser() -> argparse.ArgumentParser:
             help="target-id=/absolute/path。明示targetだけを読む。",
         )
         subparser.add_argument("--json", action="store_true", help="JSONで出力する。")
+        subparser.add_argument(
+            "--record-local",
+            action="store_true",
+            help="sanitized receiptをignore済み.atlantisへ明示保存する。",
+        )
 
     workspace_parser = commands.add_parser(
         "workspace",
@@ -600,6 +607,9 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 result = build_run_boundary(contract)
                 exit_code = 3
+            result = attach_observation_metadata(result, args.experiment_command)
+            if args.record_local:
+                _, result = write_local_receipt(root, args.experiment_command, result)
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return exit_code
         except (OSError, ValueError) as error:
