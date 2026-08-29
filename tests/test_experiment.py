@@ -34,6 +34,33 @@ def make_git_repo(root: Path, remote: str, dirty: bool = False) -> None:
 
 
 class AgentExperimentTestCase(unittest.TestCase):
+    def test_public実験receiptは採否と秘匿境界を保持する(self) -> None:
+        receipt_path = (
+            PROJECT_ROOT
+            / "experiments/m6xx-agent-orchestration/receipts/20260829-stage0-run-01.json"
+        )
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        lanes = {lane["lane_id"]: lane for lane in receipt["lanes"]}
+
+        self.assertFalse(receipt["raw_transcript_included"])
+        self.assertFalse(receipt["automatic_merge_performed"])
+        self.assertFalse(receipt["target_main_mutated_by_controller"])
+        self.assertEqual(
+            lanes["claude-edohage-negative-fixture-fallback"]["adoption_state"],
+            "ADAPT",
+        )
+        self.assertEqual(
+            lanes["gemini-edohage-negative-fixture"]["adoption_state"],
+            "REJECT",
+        )
+        self.assertEqual(
+            lanes["grok-edohage-negative-fixture"]["process_state"],
+            "AUTH_REQUIRED",
+        )
+        encoded = json.dumps(receipt, ensure_ascii=False).lower()
+        for forbidden in ("raw_prompt", "raw_output", "credential", "private_key"):
+            self.assertNotIn(forbidden, encoded)
+
     def test_Grokは実行せずadapterとして解決する(self) -> None:
         adapter = load_adapter(PROJECT_ROOT, "grok-cli")
         self.assertEqual(adapter["executable_candidates"], ["grok"])
@@ -76,7 +103,10 @@ class AgentExperimentTestCase(unittest.TestCase):
                 {"edohage-tubo": TargetBinding("edohage-tubo", target_root)},
             )
         clean_room = [packet for packet in result["packets"] if packet["clean_room_group"]]
-        self.assertEqual({packet["provider"] for packet in clean_room}, {"gemini-cli", "grok-cli"})
+        self.assertEqual(
+            {packet["provider"] for packet in clean_room},
+            {"claude-code", "gemini-cli", "grok-cli"},
+        )
         self.assertTrue(all(packet["other_agent_output_as_input"] is False for packet in clean_room))
         self.assertTrue(all(packet["execution_gate"] == "ready-to-render-only" for packet in clean_room))
         self.assertFalse(result["model_invoked"])

@@ -53,6 +53,15 @@
       "write_scope": "issue-1-negative-fixture",
       "clean_room_group": "edohage-reference-provider-v1",
       "other_agent_output_as_input": false
+    },
+    {
+      "id": "claude-edohage-negative-fixture-fallback",
+      "provider": "claude-code",
+      "target": "edohage-tubo",
+      "mode": "isolated-worktree-candidate",
+      "write_scope": "issue-1-negative-fixture",
+      "clean_room_group": "edohage-reference-provider-v1",
+      "other_agent_output_as_input": false
     }
   ],
   "architect_source_refs": [

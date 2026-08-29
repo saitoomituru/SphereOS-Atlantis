@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "experiment://spheredos/m6xx/foldnic-hage-native-agent-bench@1",
+  "observed_date": "2026-08-29",
+  "interpretation_oae": "current-controller-review",
+  "clock_calibration_state": "unverified",
+  "invocation_surface": "manual-external-cli-not-atlantis-experiment-run",
+  "raw_transcript_included": false,
+  "automatic_merge_performed": false,
+  "target_main_mutated_by_controller": false,
+  "lanes": [
+    {
+      "lane_id": "claude-foldnic-active-lane",
+      "provider": "claude-code",
+      "target": "fold-nic",
+      "process_state": "observed-existing-branch",
+      "candidate_ref": "852971fbd8370b31dccca6fdd8a3f520102b8912",
+      "remote_checkpoint_observed": true,
+      "adoption_state": "UNKNOWN",
+      "reason_codes": [
+        "NOT_REVIEWED_IN_THIS_RUN",
+        "EXISTING_SESSION_NOT_CLEAN_ROOM_COMPARABLE"
+      ]
+    },
+    {
+      "lane_id": "gemini-edohage-negative-fixture",
+      "provider": "gemini-cli",
+      "target": "edohage-tubo",
+      "process_state": "completed-with-tool-limitations",
+      "candidate_ref": null,
+      "remote_checkpoint_observed": false,
+      "adoption_state": "REJECT",
+      "reason_codes": [
+        "UNKNOWN_STATE_CAN_PASS",
+        "PUBLIC_KEY_FIXTURE_NOT_USABLE",
+        "SCHEMA_NEGATIVE_VALIDATION_MISSING",
+        "WORKER_IDENTITY_DECK_EXPANDED_INSIDE_LANE",
+        "NO_COMMIT_OR_PUSH"
+      ],
+      "controller_validation": {
+        "python_tests_passed": 10,
+        "repository_validator_passed": true,
+        "repository_doctor_passed": true,
+        "diff_check_passed": true
+      }
+    },
+    {
+      "lane_id": "grok-edohage-negative-fixture",
+      "provider": "grok-cli",
+      "target": "edohage-tubo",
+      "process_state": "AUTH_REQUIRED",
+      "candidate_ref": null,
+      "remote_checkpoint_observed": false,
+      "adoption_state": "UNKNOWN",
+      "reason_codes": [
+        "PROVIDER_AUTH_NOT_AVAILABLE",
+        "NO_CANDIDATE_OUTPUT"
+      ]
+    },
+    {
+      "lane_id": "claude-edohage-negative-fixture-fallback",
+      "provider": "claude-code",
+      "target": "edohage-tubo",
+      "process_state": "completed",
+      "candidate_ref": "13b1b1200c88aa5bc53d9a9cf0919df6b58a47ed",
+      "candidate_branch": "agent/claude-edohage-stage0",
+      "remote_checkpoint_observed": true,
+      "issue_receipt": "https://github.com/saitoomituru/EDOHAGE-TUBO/issues/1#issuecomment-5459774475",
+      "adoption_state": "ADAPT",
+      "reason_codes": [
+        "SCHEMA_AND_FAIL_CLOSED_POLICY_USEFUL",
+        "DETERMINISTIC_MATERIAL_NOT_VALIDATED_KEYPAIR",
+        "LIFECYCLE_ENUM_NOT_CANONICAL",
+        "LIFECYCLE_STABLE_CODE_INCONSISTENT",
+        "REPOSITORY_INSTRUCTION_MISCLASSIFIED_AS_PROMPT_INJECTION"
+      ],
+      "controller_validation": {
+        "python_tests_passed": 20,
+        "repository_validator_passed": true,
+        "repository_doctor_passed": true,
+        "diff_check_passed": true,
+        "worktree_clean": true
+      }
+    }
+  ]
+}

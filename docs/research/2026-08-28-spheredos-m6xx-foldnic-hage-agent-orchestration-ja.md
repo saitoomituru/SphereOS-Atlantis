@@ -5,6 +5,46 @@
 - 実験Issue: [#26](https://github.com/saitoomituru/SphereOS-Atlantis/issues/26)
 - machine contract: [`contract.json`](../../experiments/m6xx-agent-orchestration/contract.json)
 
+## 2026-08-29 native CLI実測
+
+Atlantisの`experiment run`は引き続き`NOT IMPLEMENTED`である。今回はControllerが外部CLIを明示起動し、
+agentごとの専用worktreeと同一base SHAを用意した。したがって、以下はnative invocation adapter完成の
+証拠ではなく、手動Controller経由の実験receiptである。公開可能なmachine記録は
+[`20260829-stage0-run-01.json`](../../experiments/m6xx-agent-orchestration/receipts/20260829-stage0-run-01.json)へ置いた。
+
+| lane | process | candidate | Controller検証 | 採否 |
+|---|---|---|---|---|
+| Claude / EDOHAGE | completed、5 commitを専用branchへpush | `13b1b12` | 20 test、validator、doctor、diff check green | `ADAPT` |
+| Gemini / EDOHAGE | completed-with-tool-limitations | uncommitted | 10 test、validator、doctor、diff check green | `REJECT` |
+| Grok / EDOHAGE | `AUTH_REQUIRED` | なし | 未実施 | `UNKNOWN` |
+| Claude / Fold NIC既存lane | branch HEADのみ観測 | `852971f` | 今回未review | `UNKNOWN` |
+
+Claude候補は、構造化された鍵状態Schema、unknownをpassにしないposture解決、productionでのDEVHAGE／
+TIBIDEVHAGE拒否を実装し、専用branchをremote保存した。局所実装としては最も先へ進んだ。一方で、
+公開fixtureの`seed`と`public_key`は固定labelを別々にSHA-256したplaceholderであり、Ed25519鍵対としての
+整合を検証していない。`lifecycle` enumは正本未確定の独自DRAFTで、`ROTATION_REQUIRED`がactive系codeを
+保持し、`REVOKED`が`HAGE_ROTATION_REQUIRED`へ畳まれるため、machine stateとstable codeの対応にも再設計が
+要る。また、最終報告で正規sourceであるZeroRoomLab-manifest AGENTSの一部を外部規範からprompt injectionと
+裁定した。作業停止や成果破棄には至らなかったが、CoderがArchitect sourceを採否する自己ルール持込みとして
+Buddy／MAGIの再現対象にする。以上から、そのまま採用する`ADOPT`ではなく`ADAPT`とした。
+
+Gemini候補はtool制約下でもファイルを作り、Controllerが既存testを含む10件greenまで確認した。しかし、
+unknown origin／lifecycleをproduction可にし得るpolicy、使えない公開鍵文字列、Schema自体の負例検証欠如があり、
+受入条件のfail-closedを満たさない。さらに単一worker比較lane内でprovider内蔵の一般agentへ作業を再委譲したため、
+worker identityの比較条件も崩れた。成果は保存するが採用候補としては`REJECT`とする。
+
+Grokは広いpermission modeを実行制御が拒否したため、権限を狭めて再試行した。その後provider認証refreshで
+停止し、成果物は生成されなかった。認証を自動回避・自動loginせず、`AUTH_REQUIRED / UNKNOWN`を保持する。
+
+source capsuleは当初repository内Markdown 386件を渡し、Geminiが約44.7万tokenを消費してquotaへ到達した。
+必読sourceを15ファイルへ固定したcapsuleへ縮小すると、Claudeは実装・検証・push・Issue receiptまで完走した。
+これは「sourceを減らせば常に品質が上がる」証明ではないが、全repository投入を避け、正本revisionと必要fileを
+明示する方が、token予算とclean-room source closureを同時に管理しやすいという実測になった。
+
+この比較ではraw transcript、認証情報、local path、session IDを公開receiptへ含めていない。candidate branchの
+merge、main変更、Issue closeは行っていない。採否は2026-08-29時点のController Interpretation OAEであり、
+provider一般の品質順位には拡張しない。
+
 ## 事実・観測
 
 Architect DesignerはUser、Fold NIC／HAGE系の製品実装者はClaude Code、Gemini CLI、Grok CLI、
