@@ -82,6 +82,16 @@ class AgentExperimentTestCase(unittest.TestCase):
         self.assertFalse(result["model_invoked"])
         self.assertFalse(result["mutations_performed"])
 
+    def test_clean_room_taskは同一baseと相互非参照を拘束する(self) -> None:
+        contract = load_experiment_contract(PROJECT_ROOT)
+        task_path = PROJECT_ROOT / contract["task_packet_refs"][0]
+        task = task_path.read_text(encoding="utf-8")
+        self.assertIn("9d1b88517cf03c2dfe45603e641c43ed60b7a81d", task)
+        self.assertIn("他方agentのbranch、worktree、transcript、未公開成果を読むこと", task)
+        self.assertIn("INSECURE_PUBLIC_TEST_KEY", task)
+        self.assertIn("production profile", task)
+        self.assertIn("git add .", task)
+
     def test_runは明示的な未実装境界で終了する(self) -> None:
         completed = subprocess.run(
             [

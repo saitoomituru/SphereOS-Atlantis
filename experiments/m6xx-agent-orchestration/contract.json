@@ -61,6 +61,9 @@
     "https://github.com/saitoomituru/fold-nic/issues/6",
     "https://github.com/saitoomituru/EDOHAGE-TUBO/issues/1"
   ],
+  "task_packet_refs": [
+    "experiments/m6xx-agent-orchestration/tasks/edohage-stage0-common.ja.md"
+  ],
   "initial_actions": ["doctor", "snapshot", "plan"],
   "not_implemented_actions": ["run", "interrupt", "merge", "publish"],
   "receipt_policy": {
