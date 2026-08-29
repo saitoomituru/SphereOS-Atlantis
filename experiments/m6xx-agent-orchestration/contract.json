@@ -64,6 +64,8 @@
   "task_packet_refs": [
     "experiments/m6xx-agent-orchestration/tasks/edohage-stage0-common.ja.md"
   ],
+  "source_capsule_ref": "experiments/m6xx-agent-orchestration/source-capsule.json",
+  "whole_repository_source_capsule": false,
   "initial_actions": ["doctor", "snapshot", "plan"],
   "not_implemented_actions": ["run", "interrupt", "merge", "publish"],
   "receipt_policy": {

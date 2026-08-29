@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "id": "source-capsule://spheredos/m6xx/edohage-stage0@1",
+  "sources": [
+    {
+      "id": "zeroroomlab-manifest",
+      "revision": "e13dc44969a279cbd02992b267a5354644896f54",
+      "files": [
+        "AGENTS.md",
+        "docs/operations/coding-ai-japanese-paraphrase-register.ja.md",
+        "docs/operations/context-ruler-and-causality-audit.ja.md",
+        "docs/operations/heterogeneous-agent-deck-governance.ja.md",
+        "docs/operations/manifest-operating-model.ja.md",
+        "foldlog/20260819-2212__Fold7G_Fold8G_DOS_registry_cross_repo_audit.ja.md"
+      ]
+    },
+    {
+      "id": "fold-nic",
+      "revision": "939e3e5ccbe2437e92a31faaf3ed6838656dde9f",
+      "files": [
+        "AGENTS.md",
+        "docs/architecture/repository-boundary.ja.md",
+        "docs/development/stage0-bare-metal-runtime.ja.md"
+      ]
+    },
+    {
+      "id": "sphereos-atlantis-contract",
+      "revision": "5f7a697e81b77b8286884f75840e3638dcc7ed68",
+      "files": [
+        "AGENTS.md",
+        "docs/architecture/prompt-line-and-command-line-interface.ja.md",
+        "docs/architecture/runner-and-mechanical-verification-boundary.ja.md",
+        "docs/charter/meaning-and-vessel-dual-register.ja.md",
+        "docs/magi/magi-core-and-explicit-profile.ja.md"
+      ]
+    },
+    {
+      "id": "sphereos-atlantis-experiment",
+      "revision": "2b0964988f35fb689201f02d55cb988be202655b",
+      "files": [
+        "experiments/m6xx-agent-orchestration/tasks/edohage-stage0-common.ja.md"
+      ]
+    }
+  ],
+  "issue_material_not_embedded": [
+    "https://github.com/saitoomituru/fold-nic/issues/5",
+    "https://github.com/saitoomituru/fold-nic/issues/6",
+    "https://github.com/saitoomituru/EDOHAGE-TUBO/issues/1"
+  ],
+  "whole_repository_archive": false,
+  "agent_output_included": false
+}
