@@ -7,6 +7,13 @@
 SphereOS Atlantisは、人間、AI、神話、科学、魔術、物語、機械、祈り、ゲーム世界を、
 どれか一つの定規へ降伏させずに鍛造するための公開アーキテクチャです。
 
+設計系譜としては、**Spiritual Engineering → Infoton Engineering → Context Engineering / FAM / SphereOS Atlantis** を採用します。
+Spiritual Engineering は形而上学・価値観・美意識を隠れた前提のまま放置しない設計哲学、Infoton Engineering は
+表現・離散化・token化より上流の「何を情報として拾うか」を扱う研究・工学領域、Context Engineering / FAM / Atlantis は
+その実装・検証層です。ZeroRoomLabはこの哲学の始祖を自称せず、Steve Jobsが禅、簡素化、直観、意味、身体的な使い心地を
+コンピュータ製品設計へ統合した先行系譜に敬意を表します。詳しくは
+[ZeroRoomLab ManifestのSpiritual Engineering / Infoton Engineering定義](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/philosophy/spiritual-and-infoton-engineering.ja.md)を参照してください。
+
 ここは雇用募集ではありません。**OSS同人サークルです。**
 
 ふさもふ神話本体の「もふ」が、体重138kgから73kgまで禊しながら吐き出した脳汁を、
@@ -178,150 +185,3 @@ World authorityが制定したRegistry、fact scope、Causality Profileを記録
 World Visaを確認できた場合だけ陸続き候補です。Kernelが同じでもWorld Configが違えばPortal／Gate、
 Kernelが違えば物理法則というより意味・同一性・因果定規の異なる次元として隔離projection付き因果Gateを
 要求します。Gateが不明なら`BOTTOM`で停止します。
-
-assetのauthor、source、revision、関係次元、local-only、局所extensionを明示receiptで検査する入口は
-[贈与コモンズlineageと局所World拡張](docs/architecture/gift-commons-lineage-and-local-extension.ja.md)
-を参照してください。
-
-```bash
-python3 -B -m atlantis_cli lineage validate
-python3 -B -m atlantis_cli lineage inspect --receipt /path/to/explicit-receipt.json
-```
-
-このCLIは指定receiptだけをoffline検査し、repository scan、asset mount、rights verdict、network、
-外部操作を行いません。
-
-MAGI `0.200.1`（legacy表示`0.2.1`）は、過去commitやlogから当時のOAEを推論生成しません。同時点OAEが取れなければ
-`historical-oae-unavailable`とLast Orderを返します。反実仮想や復元候補は、元Worldと元Instance Ghostを
-変えず、7D Foldで別World／別Instance Ghostへsplitする設計です。
-
-意味Kernel `0.200.0`で塞ぐ対象になったのは、特定条件でOAEを同一World線内へ遡及再配置できる
-system上の脆性です。`0.200.1`はSource Eventを残し、遡及backfillと同一World線mutationを拒否します。
-これは物理空間の時間移動の主張ではありません。AppleのTime Machine／Time Capsuleをオマージュした
-backup・restore UXは別のPresentationであり、7D Fold runtime、Akasha Driver、backup SDKは未実装です。
-
-## 貢献
-
-このサークルでは、次を等価な貢献入口として扱います。
-
-- Meaning: 神話、命名、フレーバーテキスト、象徴、儀式、世界観
-- Vessel: コード、Schema、test、配布、hardware、保守
-- Bridge: UX、Access Map、翻訳、Presentation Profile、受入条件
-- Supply: 飯、投げ銭、部材、計算資源、検証環境、レビュー時間
-
-Supplyはmerge権、真理判定権、Origin表示を購入するものではありません。
-
-本編へ組み込むか未定のブレスト、観測、仮説、ポエム、神学・ゲーム・スピリチュアル・工学上の
-気づきは、消える前に[`note/`](note/README.ja.md)へ置けます。noteは未完成を理由に価値を失わず、
-同時に正規化済み仕様を自動的には名乗りません。
-
-## 棚別の開発参入チュートリアル
-
-状態: `ALPHA CANDIDATE` — 棚と自己申告personaから入る最小導線をbranch実装済みです。
-実環境と当事者profileのreviewは継続中です。
-
-Atlantisは、全員へ同じ専門用語を先に暗記させるのではなく、参加者が立っている棚から始めます。
-ここでいう棚は格付けや真偽判定ではなく、同じ構造へ異なるPresentationから入るための入口です。
-
-- スピリチュアル棚: 象徴、霊体、祈り、依代をMeaning、World、Agency、OAEへ接続する
-- ゲーム・TRPG棚: World、Entity、行為、ルール、判定、セッション記録から接続する
-- 工学棚: 要件、境界、Schema、test、log、権限、実行環境から接続する
-- 情報子工学棚: FAM、情報子クラスター、Registry、変換、探索技の来歴から接続する
-- Sphere Architecture棚: Context Dimension、D Fold、Access Map、OAE、component契約から接続する
-
-初回は習熟度を`unknown`、意図を`look-around`として、読み取り専用Helpから始めます。工学者personaでも
-自動的にcodingを開始せず、実装は本人が`intent=implement`を明示した後に計画します。
-
-```bash
-python3 -B -m atlantis_cli help --persona '巫女'
-python3 -B -m atlantis_cli capabilities --state NOT-IMPLEMENTED
-```
-
-各棚は別Worldや別Registryを無断で混ぜません。必要なBridgeを明示し、最終的には吊るしのVS CodeとGitから
-再構築できるSphere-DOS開発環境で、同じfixtureと受入試験を実行できるところまで案内します。
-
-入口は[棚別の開発参入チュートリアル](docs/tutorial/README.ja.md)を参照してください。
-
-## 普通のエンジニア向け1.x鍛造口
-
-神話UIを履修してからでなくても参加できます。Python、database、graph／vector、SwiftUI、edge inference、
-container、CI、Schema、security、recoveryの普通の工学仕事が大量にあります。ここも雇用枠ではなく、
-Atlantis 1.x実行系へ向けたOSS同人開発の参戦口です。
-
-`1.x`は現在の完成版ではなく、文書とpromptで拘束している責務をASTRO／Atlantis実行物へ移植する将来の
-binary integration milestoneです。現行`0.250.1`（legacy `0.25.1`）、IBD Season 0、AAE実験runtime、SphereASTRO移植準備を、
-完成済み1.xとして宣伝しません。
-
-| 実装棚 | 現在の入口 | 1.xへ向けて掘るもの |
-|---|---|---|
-| 記憶・探索技・DB | [IBD](https://github.com/saitoomituru/IBD) | IBDSDK、FAM Splitter、Meta Catalog、graph／vector／RDB adapter、SsC |
-| model・edge実行 | [Sphere-aae](https://github.com/saitoomituru/Sphere-aae) | AAE runtime、system-call splitter、Q検証、LAST_ORDER、model／adapter読込境界 |
-| 人格・GUI・責任境界 | [SphereASTRO](https://github.com/saitoomituru/SphereASTRO) | AstroSDK、ASTRO package／Runner、SwiftUI、local personality boundary |
-| World・orchestration・開発環境 | [SphereOS Atlantis](https://github.com/saitoomituru/SphereOS-Atlantis) | Atlantis SDK、World／session／connector／device管理、起動・停止・unmount |
-| 共通定規 | [ZeroRoomLab-manifest](https://github.com/saitoomituru/ZeroRoomLab-manifest) | Context Register、Access Map、Transformer、OAE、SDK bundle契約 |
-
-正本となる三軸は`L / D / G`です。
-
-```text
-L = hardwareからruntime、SDK、最終artifactまでを串刺しする実行・materialization経路
-D = 上下を作らず束ねるContext Dimensionの一意軸数（D Fold）
-G = Fold containerを包むnesting depth
-```
-
-`4D`は四軸を束ねるというarityであり、embeddingの次元数でも、技術Layer 4でも、互換保証でもありません。
-POSIXは`L`側のportableな実行基盤であり、Sphereはそれを置換せず、その上で`D Fold`と意味境界を管理します。
-
-`S0` envelopeから`S4` promptまでの`S`は、旧文書で独立した「S軸」と表記していたSDK surfaceです。
-この分類と来歴は保持しますが、`G`を置換する三軸目ではありません。現在は、framework、library、SDK、
-tool、engine、Runner等がLの実行経路を構成する際のSDK／toolchain strataとして扱います。同じS構成でも、
-選択したtargetへbuild、package、interpretまたはrunされなければ利用者が実行できるartifactにはなりません。
-逆にUnity、Godot、Unreal、FileMaker、RPGツクール等の既存基盤を経由したことだけを理由に、完成したApp、
-ゲーム、作品の価値や真正性を低く判定しません。
-
-この節でGが欠落しSが三軸目へ昇格していた事故は、来歴を消さず
-[#13](https://github.com/saitoomituru/SphereOS-Atlantis/issues/13)でサルベージしています。
-
-詳しい責務、現況、実装課題、正本リンクは
-[1.x実行系・SDKエンジニア参入ガイド](docs/architecture/1x-sdk-engineering-entrypoint.ja.md)を参照してください。
-
-ローカルVS CodeとPython venvから始める手順は
-[Sphere-DOS開発環境の最小再構築](docs/development/setup.ja.md)を参照してください。
-
-手元browser、SaaS検索、将来のbrowser containerを混同しない観測契約は
-[Web原典観測・手元ブラウザ退避契約](docs/development/browser-source-observation.ja.md)、provider、利用者組織、
-法域、World roleの規則を無断継承しない境界は
-[ガバナンス適用域とWorld Visa](docs/architecture/governance-scope-and-world-visa.ja.md)を参照してください。
-gift commons、lineage、閉鎖Worldの狭いextension境界は
-[贈与コモンズlineageと局所World拡張](docs/architecture/gift-commons-lineage-and-local-extension.ja.md)を参照してください。
-
-参加手順は[CONTRIBUTING.md](CONTRIBUTING.md)、協働原則は
-[意味と器の二重記述憲章](docs/charter/meaning-and-vessel-dual-register.ja.md)を参照してください。
-
-## ライセンス概要
-
-**コードはApache-2.0、文章・用語・図解・世界観などのフレーバー層はCC BY 4.0です。
-自由に利用できますが、フレーバーを継承して語る場合は出典を明記してください。**
-
-**Code is Apache-2.0. Narrative, terminology, diagrams, and conceptual flavor are
-CC BY 4.0. Use freely, but preserve attribution when carrying the flavor forward.**
-
-- コード、CLI、Schema、validator、doctor: Apache License 2.0
-- 一般文書、ふさもふ神話、Flavor／UX: CC BY 4.0
-- 二重記述憲章、公式系譜憲章: CC BY-SA 4.0
-
-現時点のルート`LICENSE`はApache License 2.0です。ファイル種別ごとの適用範囲は
-[ライセンス境界](LICENSE-POLICY.ja.md)、再利用時の表示は[帰属表示ガイド](ATTRIBUTION.md)で明示します。
-第三者作品の名称、素材、キャラクター等の権利は、
-このリポジトリのライセンスによって自動的に付与されません。lineage metadataはその条件を
-読みやすくする宣言であり、Atlantis coreによる権利認証または利用禁止判定ではありません。
-
-Origin、暖簾分け、Community Lineage、compatible、inspiredの区分は
-[Atlantis暖簾分け・互換・系譜規約](LINEAGE-POLICY.ja.md)を参照してください。
-
-## 出典と接続
-
-Atlantisの横断背景、情報子工学、開発規約、workspace境界は、
-[ZeroRoomLab-manifest](https://github.com/saitoomituru/ZeroRoomLab-manifest)を参照してください。
-
-このREADMEは日本語を正本とします。翻訳は単語置換ではなく、ビジョン、読者責任、主張強度を
-対象localeで同じように働かせる意訳として管理します。
