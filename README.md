@@ -65,46 +65,63 @@ commit、Schema、試験条件、未実装境界を読んでから結果を拡�
 
 ## 現在の状態
 
+### 0.2xx.1 stable基準線
+
+`main`は現在のstable基準線です。Prompt Engineering Editionだけの文書集合ではなく、**PLI（Prompt Line Interface）、CLI（Command Line Interface）、Sphere-DOS開発shell、開発container**を持つ再構築可能な開発環境です。
+
 ```text
-product                SphereOS Atlantis
-Sphere version coordinate 0.250.1（Presentation.Function.SemanticKernel）
-legacy design line    0.25.1
-alpha candidate       v0.25.1-alpha.1（legacy配布alias／tag未作成）
-initial edition        Prompt Engineering Edition
-development environment Sphere-DOS（スフィアどすぅ〜）
-standalone runtime     NOT IMPLEMENTED
-repository state       OPEN / RESOURCE-WAIT / REVIEW-WANTED
+product                 SphereOS Atlantis
+stable coordinate       0.2xx.1 series（current main: 0.250.1）
+legacy design line      0.25.1
+edition                  Prompt Engineering Edition
+interfaces               PLI + CLI
+local development        Sphere-DOS development shell
+container surface        devcontainer available
+native dedicated runner  NOT IMPLEMENTED
+standalone OS runtime    NOT IMPLEMENTED
+repository state         STABLE BASELINE / OPEN / REVIEW-WANTED
 ```
 
-`0.250.1`はPresentation 0／Function 250／SemanticKernel 1の三層座標です。右端は意味、同一性、OAE、
-時間、因果の定規を表し、一般的なSemVer patchではありません。既存の`0.25.1`はSource Eventと配布互換を
-壊さないlegacy aliasとして保持します。旧SphereOSサービスの再稼働や完成済みOSバイナリーを意味しません。
-Manifest、workspace、Boot Schema、VS Code、異種coding agentを使い、Atlantisを鍛造できる
-公開開発環境を再構成する設計系列です。
+ここでいう「native dedicated runnerなし」は、実行面が存在しないという意味ではありません。CLI、workspace、local development shell、devcontainerは利用できますが、SphereOS専用の独立Native Runnerをstableとして配布している状態ではありません。
 
-`v0.25.1-alpha.1`は、CORN、Note／persona／Experience入口、Help、三層版数validator、
-Forge／Quest Mapを束ねるlegacy配布名の候補tagです。
-現時点ではtagを作成していません。正式releaseへの昇格は、Manifest側契約、draft PR review、clean環境、
-read-only doctor、公開境界fixture、community testの未確認範囲を確認してから判断します。
+Sphere-DOSの導入は、用途と拘束強度に応じて次の4 Surfaceを使い分けます。
+
+1. Sphere-DOS workspace / fork展開
+2. `.vendor` submodule埋め込み
+3. PLI Context Alias
+4. Fork-on-Live / Dev Container
+
+各Surfaceの責務、Manifest discovery、Context / Flavor / Role注入、機械拘束の境界、検証済み範囲は **[Sphere-DOS quick start / 4つの導入Surface](SPHERE-DOS.ja.md)** を参照してください。
+
+`0.250.1`はPresentation 0／Function 250／SemanticKernel 1の三層座標です。右端は意味、同一性、OAE、時間、因果の定規を表し、一般的なSemVer patchではありません。既存の`0.25.1`はSource Eventと配布互換を壊さないlegacy aliasとして保持します。
 
 状態の詳細と「原案／討論中／実装中／検証済み／配信済み」の違いは
-[Forge Map／Quest Map](docs/status/forge-and-quest-map.ja.md)、変更点と既知の制約は
-[0.25.1-alpha.1候補ノート](docs/releases/0.25.1-alpha.1.ja.md)を参照してください。
+[Forge Map／Quest Map](docs/status/forge-and-quest-map.ja.md)を参照してください。
 
-## 6xx次世代開発の入口
+## 0.6xx.1 次世代IDE Runner開発線
 
-`main`は現行`0.250.1` Prompt Engineering Editionの再構築可能な基準線として維持します。
-Sphere Reincarnation Framework、Lean Kernel、SphereDOS Server／Code、FAM Access Mapperを束ねる
-`m.6xx.1`候補の鍛造は、次世代Devブランチへ移動して進めています。
+`0.6xx.1`系列は、0.2xx.1のPLI / CLI / Manifest / workspace / 4つの導入Surfaceを捨てる系列ではなく、**IDEレベルの開発環境Runnerからそれらを自動化・機械拘束する次世代開発線**です。
+
+構想上は、何らかの既存IDEまたはOSS IDEをfork / 拡張したSphere向けIDE Surfaceを持ち、次の処理を人間の手順書だけに依存せず発動できるようにします。
+
+- Manifest discoveryとworkspace選択
+- Context / Flavor / Role注入
+- submodule / workspace / Context Alias等の導入Surface管理
+- CLI、MAGI、validator、testによる監査
+- Git差分・receipt・Provenanceの観測
+- Git push等のrepository eventを入口にした機械拘束
+- server-side常駐Runnerを必須とせず、IDE / local development environment側から実行できる拘束経路
+
+つまり0.2xx.1が「PLI / CLIと開発足場を利用者が選んで組むstable基準線」なら、0.6xx.1は「IDEがその組み立て・監査・実行境界を扱う」方向です。
+
+現時点の`0.6xx.1`は**Dev grade**です。IDE fork / Runnerの正本、Git push eventからの拘束経路、配布・upgrade契約、clean-roomでの大規模自動開発などはstableとして確定していません。したがってstable release、LTS、完成済みNative Runnerを意味しません。
 
 - 開発ブランチ: [`dev/m6xx.1-reincarnation-sdk`](https://github.com/saitoomituru/SphereOS-Atlantis/tree/dev/m6xx.1-reincarnation-sdk)
 - 公開Roadmap: [Issue #16](https://github.com/saitoomituru/SphereOS-Atlantis/issues/16)
 - 公開Milestone: [`m.6xx.1 — Sphere Reincarnation SDK Next Generation`](https://github.com/saitoomituru/SphereOS-Atlantis/milestone/1)
 - 運用Project: [プロジェクトスフィア：サルベージエッジスフィア #2](https://github.com/users/saitoomituru/projects/2)（private運用盤）
 
-`m.6xx.1`はRoadmap上の候補座標であり、release済み、standalone runtime実装済み、LTS制定済みを
-意味しません。公開Issueを議論と受入条件の正本、Projectを棚・優先順位・進捗のprojectionとして扱います。
-現行利用者は引き続き`main`を参照し、6xxの実装・fixture・移行作業へ参加する場合だけDevブランチを使用してください。
+現行利用者は`main`の0.2xx.1 stable基準線を使用し、0.6xx.1のIDE Runner、fixture、移行、自動拘束の開発・検証へ参加する場合だけDevブランチを使用してください。
 
 ## このリポジトリの責務
 
@@ -175,13 +192,10 @@ distribution_role: development-environment-supply
 
 ## Worldと存在論
 
-Atlantis Coreは、神、霊、魔王NPC、自然法則、物理観測、ゲーム内Entityの実在を独自に裁定しません。
-World authorityが制定したRegistry、fact scope、Causality Profileを記録し、その定規どおりに返します。
+Atlantis Coreは、いくつものWorldを同時に扱います。Worldは互いに異なるontology、truth condition、authority、physics、myth、faith、narrativeを持てます。
 
-別Worldは、混ぜる命令が来るまで隔離します。接続時もsourceを上書きせず、Access Map、Transformer、
-実行receipt、OAEを分離して記録します。
+AtlantisはWorld間を翻訳し、橋を架けますが、片方をもう片方の定規へ強制変換しません。
 
-接続判定は表示版数の近さでは決めません。同じSemanticKernelでWorld Configも一致し、共通capabilityと
-World Visaを確認できた場合だけ陸続き候補です。Kernelが同じでもWorld Configが違えばPortal／Gate、
-Kernelが違えば物理法則というより意味・同一性・因果定規の異なる次元として隔離projection付き因果Gateを
-要求します。Gateが不明なら`BOTTOM`で停止します。
+## License
+
+詳細は[LICENSE-POLICY.ja.md](LICENSE-POLICY.ja.md)を参照してください。
