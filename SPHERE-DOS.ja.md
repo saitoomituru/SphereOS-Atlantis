@@ -24,6 +24,38 @@ Prompt／Contextだけを借りる軽量利用から、Git／CLI／containerま�
 `MAGI`、GitHub Actions、CLI監査、filesystemやtestを伴う機械拘束を利用する場合は、原則としてSurface 1 / 2 / 4のNative Engineering Surfaceを使用します。
 Surface 3はPrompt Line Interface上のcontext aliasであり、CLIを実行したこと、GitHub Actionsを走らせたこと、MAGI resolverを実行したことの代替証拠にはなりません。
 
+## Manifest-first policy
+
+Sphere-DOSの導入Surfaceを選ぶ前に、利用側repositoryまたはworkspaceから明示されたManifestがある場合は、それを最優先の正本として扱います。
+明示Manifestが無い場合は、現在のGit user / repository owner配下にある`ZeroRoomLab-manifest`を探索し、利用可能なら既定Manifest候補として参照します。
+
+Manifestは単なるcomponent一覧ではありません。workspaceへ注入するContext、Flavor、Role、責務境界、固定revision、利用可能な機械拘束の起点です。
+
+既定探索の概念順序:
+
+```text
+1. repository / workspaceで明示されたManifest
+2. Git user / repository owner配下のZeroRoomLab-manifest
+3. 見つからない場合はManifestなしとして縮退し、勝手な外部workspaceや組織Manifestを推定しない
+```
+
+別の組織、project、研究室、チーム、Worldごとにworkspaceを切りたい場合は、`ZeroRoomLab-manifest`をそのworkspace用にforkし、名称・版・scopeをincrementして独立したManifestとして管理します。
+
+概念例:
+
+```text
+ZeroRoomLab-manifest
+  ├─ fork -> ExampleOrg-manifest
+  ├─ fork -> ProjectFoo-manifest
+  └─ fork -> ShrineWorld-manifest
+```
+
+fork後のManifestは、そのworkspace固有のContext、Flavor、Role、component revision、policyを保持します。
+親Manifestの名前やRoleをそのまま権威として流用せず、どこからforkし、何を変更したかをProvenanceとして残します。
+
+したがって、submodule追加コマンドや更新policyもManifestと利用側repositoryのbranch policyを合わせて決めます。
+Sphere-DOSはManifestを読んで足場を構成できますが、利用側repositoryのbranch protection、release policy、merge authorityを上書きしません。
+
 ## 1. Sphere-DOS workspace / fork展開
 
 SphereOS Atlantis 0.25.1-alpha.1の再現可能な作業机を、固定revisionのcomponent群から組み立てます。
@@ -40,6 +72,7 @@ python3 scripts/bootstrap_venv.py
 `workspace init`だけがnetworkを明示使用します。既存checkoutはpull、reset、clean、rebaseしません。
 
 このSurfaceではSphere-DOS側がcomponentの固定revisionとworkspaceを所有し、各component repositoryのGit履歴と`AGENTS.md`を保持したまま展開します。
+Manifestが指定されている場合は、そのManifestに記録されたcomponent、Context、Flavor、Role、revisionをworkspace構成の入力として扱います。
 
 ## 2. `.vendor` submodule埋め込み
 
@@ -59,7 +92,9 @@ YourProject/
 一方で、依存repository同士が互いをsubmoduleとして所有する循環参照は避けます。
 実行時・Context上の相互参照が必要でも、Git所有グラフはDAGとして保ちます。
 
-具体的なsubmodule追加コマンドや更新policyは、利用側repositoryの責務・branch policyに合わせて管理してください。
+具体的なsubmodule追加コマンド、配置先、追従revision、更新policyは、選択されたManifestと利用側repositoryの責務・branch policyに合わせて管理します。
+明示Manifestが無い場合は、Git user / repository owner配下の`ZeroRoomLab-manifest`を既定候補として探索します。
+workspaceを組織・project単位で分離する場合は、対応するManifestをfork / incrementし、そのManifestからContext、Flavor、Role、component revisionを注入します。
 
 ## 3. PLI Context Alias
 
@@ -82,6 +117,9 @@ YourProject/
 - FQuery等、repository間でcontext参照が循環しうる機能にGitの循環所有を持ち込まない
 - agentの探索範囲を明示された境界内に限定する
 - GitHub CLIやActionsを必要としない軽量なPrompt Engineering利用
+
+Manifestがある場合、Context AliasはそのManifestで許可されたContext、Flavor、Roleを入口へ注入できます。
+これによりGit依存を増やさず、workspace固有の意味境界だけをAIへ渡せます。
 
 このSurfaceでは、Markdownを読めることと、CLI・MAGI・GitHub Actionsが実行可能であることを混同しません。
 機械拘束が必要になった時点でSurface 1 / 2 / 4へ昇格します。
