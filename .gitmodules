@@ -1,0 +1,6 @@
+[submodule "vendor/IBD"]
+	path = vendor/IBD
+	url = https://github.com/saitoomituru/IBD.git
+[submodule "vendor/FQuery"]
+	path = vendor/FQuery
+	url = https://github.com/saitoomituru/FQuery.git
