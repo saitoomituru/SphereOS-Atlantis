@@ -1,5 +1,12 @@
 # SphereOS Atlantis
 
+## Portable Civilization Programとの接続
+
+SphereOS Atlantisは、ZeroRoomLabのPortable Civilization Programにおける**World / Meaning側のOS architecture**として接続する。Worldを特定game engine、XR device、LLM provider、network、あるいは一つの宗教・科学・物語へ所有させず、replaceableなVessel / Bridgeへ投影できることを狙う。
+
+Game / Real / Villageは直列stageではなく並行workstreamである。この接続はAtlantisの既存statusを上書きせず、standalone runtimeや未実装surfaceを完成済みとは扱わない。上位Program: [Fork the Lab. Deploy a World. #47](https://github.com/saitoomituru/ZeroRoomLab-manifest/issues/47)
+
+
 ![SphereOS Atlantis — いくつもの世界を生やし、隔離し、橋を架けるためのOS](docs/img/hero.png)
 
 **世界を一つに塗り潰さず、いくつもの世界を生やし、隔離し、橋を架けるためのOS。**
