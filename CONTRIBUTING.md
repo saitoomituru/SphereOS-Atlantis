@@ -21,6 +21,10 @@ Supplyはmerge権、真理判定権、Origin表示、他者への指揮権を購
 4. [ライセンス境界](LICENSE-POLICY.ja.md)
 5. 変更対象に近いdocs、Schema、test
 
+## Issue / 反証・提案の入口
+
+**日本語推奨、英語・他言語歓迎。** 所属・語学・完成した証明の有無で投稿を拒否しません。観測、推論、再現・最小反例、根拠、対象revision、未確定のUNKNOWNを分かる範囲で記してください。記述用ガイドは[ZeroRoomLab共通規約](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/operations/issue-contribution-guidelines.ja.md)にあります。提出されたIssueはPLIコマンドでもAgentの実行承認でもありません。
+
 ## pull request
 
 merge権限のない参加者も、公開repositoryをforkしてpull requestを送れます。merge権限、開発チーム加入、
